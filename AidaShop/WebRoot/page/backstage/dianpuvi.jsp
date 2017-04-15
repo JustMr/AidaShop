@@ -14,50 +14,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <span class="frameH3">成员信息查看、修改</span>
+    <span class="frameH3">店铺信息查看、修改</span>
     <div>
-    	<s:form action="updateStoreAction" method="POST">  
+    	<s:form action="editStoreAction" method="POST">  
  			<s:hidden name="store.stId" />  
 	  		<table id="upBrtable">
 	  			<tr>
-	  				<td width="15%" align="right"><label>店铺名称:</label></td>
+	  				<td width="20%" align="right"><label>店铺名称:</label></td>
 	  				<td class="upBrFont" align="left"><s:textfield readonly="true" style= "background:transparent;border-style:none;width:100%; "  name="store.stName" label="店铺名称" /></td>
 	  			</tr> 
 	  			<tr>
-	  				<td width="15%" align="right"><label>店铺标签:</label></td>
+	  				<td width="20%" align="right"><label>店铺标签:</label></td>
 			   		<td class="upBrFont" align="left"><s:textfield readonly="true" style= "background:transparent;border-style:none;width:100%; "  name="store.stTag" label="店铺标签" /></td>
 			   	</tr>  
 			   	<tr>
-			   		<td width="15%" align="right"><label>好评率:</label></td>
+			   		<td width="20%" align="right"><label>好评率:</label></td>
 			   		<td class="upBrFont" align="left"><s:textfield readonly="true" style= "background:transparent;border-style:none;width:100%; "  name="store.stFavorablerate" label="好评率" /></td>
 			   	</tr> 
 			   	<tr>
-			   		<td width="15%" align="right"><label>服务态度:</label></td>
+			   		<td width="20%" align="right"><label>服务态度:</label></td>
 			   		<td class="upBrFont" align="left"><s:textfield readonly="true" style= "background:transparent;border-style:none;width:100%; " name="store.stServiceManner" label="服务态度" /></td>
 			   	</tr> 
 			   	<tr>
-			   		<td width="15%" align="right"><label>服务质量:</label></td>
+			   		<td width="20%" align="right"><label>服务质量:</label></td>
 			   		<td class="upBrFont" align="left"><s:textfield readonly="true" style= "background:transparent;border-style:none;width:100%; " name="store.stServiceQuality" label="服务质量" /></td>
 			   	</tr> 
 			   	<tr>
-			   		<td width="15%" align="right"><label>发货速度:</label></td>
+			   		<td width="20%" align="right"><label>发货速度:</label></td>
 			   		<td class="upBrFont" align="left"><s:textfield readonly="true" style= "background:transparent;border-style:none;width:100%; " name="store.stSpeed" label="发货速度" /></td>
 			   	</tr> 
 			   	<tr>
-			   		<td width="15%" align="right"><label>开通时间:</label></td>
+			   		<td width="20%" align="right"><label>开通时间:</label></td>
 			   		<td class="upBrFont" align="left"><s:date name="store.stCreateTime" format="yyyy-MM-dd" nice="false" /><s:hidden name="store.stCreateTime"></s:hidden> </td>
 			   	</tr> 
 			   	<tr>
-			   		<td width="15%" align="right"><label>到期时间:</label></td>
+			   		<td width="20%" align="right"><label>到期时间:</label></td>
 			   		<td class="upBrFont" align="left"><s:date name="store.stEndTime" format="yyyy-MM-dd" nice="false" /><s:hidden name="store.stEndTime"></s:hidden> </td>
 			   	</tr> 
 			   	<tr><td><label>星级:</label></td></tr>
 			   	<tr>
-			   		<td class="upBrFont_1" colspan="2"><s:radio name="store.UAdmin" list="#{'0星':0,'1星':1,'2星':2,'3星':3,'4星':4,'5星':5}" label="权限" listKey="value" listValue="key"></s:radio></td>
+			   		<td class="upBrFont_1" colspan="2"><s:radio name="store.stLevel" list="#{'0星':0,'1星':1,'2星':2,'3星':3,'4星':4,'5星':5}" label="权限" listKey="value" listValue="key"></s:radio></td>
 			   	</tr>  
 			   	<tr><td><label>状态:</label></td></tr>
 			   	<tr>
-			   		<td class="upBrFont_1" colspan="2"><s:radio name="store.UState" list="#{'正常':0,'禁用':1,'开通中':2,'推广中':3}" label="状态VIP" listKey="value" listValue="key"></s:radio></td>
+			   		<td class="upBrFont_1" colspan="2"><s:radio name="store.stState" list="#{'正常':0,'禁用':1,'开通中':2,'推广中':3,'问题店铺':4}" label="状态VIP" listKey="value" listValue="key"></s:radio></td>
 			   	</tr>  
 			   	<tr>
 			   		<td align="center" colspan="2">

@@ -31,8 +31,7 @@ public class StoreAction extends BaseAction {
 	 * @return
 	 */
 	public String edit() {
-		//是否能得到无getter函数的值
-		System.out.println("stServiceQuality:"+store.getStServiceManner()+","+store.getStServiceQuality());
+		//当定义了Object对象有了getter和setter方法时，以对象传过来，其元素不需要再定义getter和setter方法
 		this.mgr.saveOrUpdateStore(store);
 		return SUCCESS;
 	}

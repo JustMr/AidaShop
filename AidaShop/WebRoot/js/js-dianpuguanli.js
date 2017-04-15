@@ -8,6 +8,6 @@ function postCust() {
 	var stId= tr.find("#stId").attr("value");
 	var stLevel = tr.find("#stLevel").val();
 	var stState = tr.find("#stState").val();
-	console.log("postCust:"+uid+","+styleDes+","+uadmin+","+ustate);
+	console.log("postCust:"+stId+","+stLevel+","+stState);
 	window.location.href="updateStoreAction?stId="+stId+"&stLevel="+stLevel+"&stState="+stState;
 }

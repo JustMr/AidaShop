@@ -18,9 +18,11 @@ public interface ActionManager {
 	public Map<String, Object> validLogin(String username,String password);
 	public AdUserDAO getAdUserDAO();
 	public void setAdUserDAO(AdUserDAO adUserDAO);
-	public List<AdCustomer> finAllCustomer();
+	public List<AdCustomer> finAllCustomer(Integer uid);
 	public AdCustomer findCustById(Integer id);
-	public List<AdCustomer> findVIPCust();
+	public List<AdCustomer> findVIPCust(Integer uid);
+	public List<AdCustomer> findStyleCust(Integer uid);
+	public List<AdCustomer> findAuthenCust(Integer uid);
 	
 	//店铺管理
 	public void saveOrUpdateStore(AdStore store);
@@ -47,6 +49,6 @@ public interface ActionManager {
 	public void addLog(AdLog adLog);
 	public AdLog findMaxLogByUId(Integer uid);
 	public List<AdLog> findSevenLog();
-	public List<AdCustomer> findStyleCust();
+	
 	
 }

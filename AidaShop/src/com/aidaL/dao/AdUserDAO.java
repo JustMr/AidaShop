@@ -44,11 +44,12 @@ public interface AdUserDAO {
     /**
 
      * 查询全部用户
+     * @param uid 
 
      * @return 获得全部用户
 
      */
-    List<AdCustomer> findAll();
+    List<AdCustomer> findAll(Integer uid);
 
     /**
 
@@ -73,13 +74,22 @@ public interface AdUserDAO {
 
 	/**
 	 * 查询vip用户
+	 * @param uid 
 	 * @return
 	 */
-	List<AdCustomer> finVIPCust();
+	List<AdCustomer> finVIPCust(Integer uid);
 
 	/**
 	 * 查询已认证和认证中的造型师
+	 * @param uid 
 	 * @return
 	 */
-	List<AdCustomer> findStyleCust();
+	List<AdCustomer> findStyleCust(Integer uid);
+
+	/**
+	 * 查询验证中的造型师
+	 * @param uid 
+	 * @return
+	 */
+	List<AdCustomer> findAuthenCust(Integer uid);
 }

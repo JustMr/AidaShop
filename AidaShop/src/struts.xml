@@ -79,6 +79,7 @@
 		<action name="*CustomerAction" class="customerBean" method="{1}">
 			<result name="list">/page/backstage/huiyuanliebiao.jsp</result>
 			<result name="vi">/page/backstage/huiyuanvi.jsp</result>
+			<result name="auth" type="redirect">authCustomerAction.action</result>
 			<result name="allist" type="redirect">listCustomerAction.action</result>
 			<result name="viplist" type="redirect">vipCustomerAction.action</result>
 			<result name="stylelist" type="redirect">styleCustomerAction.action</result>

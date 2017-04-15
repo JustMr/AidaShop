@@ -94,6 +94,9 @@ function frameShow() {
 	} else if(name=="店铺列表") {
 		$("#backHFrame").attr("src","listStoreAction");
 		$("#backHFrame").css("height","550px");
+	} else if(name=="认定审核") {
+		$("#backHFrame").attr("src","authCustomerAction");
+		$("#backHFrame").css("height","550px");
 	}
 	document.getElementById("backHFrame").onload=dyniframesize;
 }

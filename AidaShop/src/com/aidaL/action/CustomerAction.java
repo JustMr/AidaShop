@@ -34,34 +34,49 @@ public class CustomerAction extends BaseAction {
 	private String UEmail;
 	private String UMobile;
 	private Integer stId;
+
+	/**
+	 * 显示造型师认定中的列表，剔除已登录用户
+	 * @return
+	 */
+	public String auth() {
+		Integer uid =  (Integer) session.getAttribute("cusId");
+		listCuses = usermgr.findAuthenCust(uid);
+		session.setAttribute("page", "auth");
+		
+		return "list";
+	}
 	
 	/**
-	 * 显示造型师列表
+	 * 显示造型师列表，剔除已登录用户
 	 * @return
 	 */
 	public String style() {
-		listCuses = usermgr.findStyleCust();
+		Integer uid =  (Integer) session.getAttribute("cusId");
+		listCuses = usermgr.findStyleCust(uid);
 		session.setAttribute("page", "style");
 		
 		return "list";
 	}
 	
 	/**
-	 * 查询VIP用户
+	 * 查询VIP用户，剔除已登录用户
 	 * @return
 	 */
 	public String vip() {
-		listCuses = usermgr.findVIPCust();
+		Integer uid =  (Integer) session.getAttribute("cusId");
+		listCuses = usermgr.findVIPCust(uid);
 		session.setAttribute("page", "vip");
 		return "list";
 	}
 	
 	/**
-	 * 显示所有用户信息
+	 * 显示所有用户信息，剔除已登录用户
 	 * @return
 	 */
 	public String list() {
-		listCuses = usermgr.finAllCustomer();
+		Integer uid =  (Integer) session.getAttribute("cusId");
+		listCuses = usermgr.finAllCustomer(uid);
 		session.setAttribute("page", "all");
 		return "list";
 	}
@@ -90,6 +105,8 @@ public class CustomerAction extends BaseAction {
 			return "allist";
 		}else if (page.equals("style")) {
 			return "stylelist";
+		}else if (page.equals("auth")) {
+			return "auth";
 		}
 		return "viplist";
 	}
@@ -124,6 +141,8 @@ public class CustomerAction extends BaseAction {
 			return "allist";
 		}else if (page.equals("style")) {
 			return "stylelist";
+		}else if (page.equals("auth")) {
+			return "auth";
 		}
 		return "viplist";
 	}

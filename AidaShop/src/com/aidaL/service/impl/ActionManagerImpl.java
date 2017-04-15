@@ -63,9 +63,9 @@ public class ActionManagerImpl implements ActionManager {
 	}
 
 	@Override
-	public List<AdCustomer> finAllCustomer() {
+	public List<AdCustomer> finAllCustomer(Integer uid) {
 		// TODO Auto-generated method stub
-		return this.adUserDAO.findAll();
+		return this.adUserDAO.findAll(uid);
 	}
 	
 	@Override
@@ -84,17 +84,23 @@ public class ActionManagerImpl implements ActionManager {
 	}
 	
 	@Override
-	public List<AdCustomer> findVIPCust() {
+	public List<AdCustomer> findVIPCust(Integer uid) {
 		// TODO Auto-generated method stub
-		return this.adUserDAO.finVIPCust();
+		return this.adUserDAO.finVIPCust(uid);
 	}
 
 	@Override
-	public List<AdCustomer> findStyleCust() {
+	public List<AdCustomer> findStyleCust(Integer uid) {
 		// TODO Auto-generated method stub
-		return this.adUserDAO.findStyleCust();
+		return this.adUserDAO.findStyleCust(uid);
 	}
 
+	@Override
+	public List<AdCustomer> findAuthenCust(Integer uid) {
+		// TODO Auto-generated method stub
+		return this.adUserDAO.findAuthenCust(uid);
+	}
+	
 	
 	//店铺管理***********************************************
 	@Override
@@ -257,6 +263,7 @@ public class ActionManagerImpl implements ActionManager {
 		}
 		return null;
 	}
+
 
 
 }

@@ -41,9 +41,9 @@ public class AdUserDAOImpl extends HibernateDaoSupport implements AdUserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdCustomer> findAll() {
+	public List<AdCustomer> findAll(Integer uid) {
 		// TODO Auto-generated method stub
-		return getHibernateTemplate().find("from AdCustomer");
+		return getHibernateTemplate().find("from AdCustomer adcus where adcus.UId <>"+uid);
 	}
 
 	@Override
@@ -74,10 +74,10 @@ public class AdUserDAOImpl extends HibernateDaoSupport implements AdUserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdCustomer> finVIPCust() {
+	public List<AdCustomer> finVIPCust(Integer uid) {
 		// TODO Auto-generated method stub
 		List<AdCustomer> list = null;
-		list = getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UState > "+1);
+		list = getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UState > "+1+" and adcus.UId <>"+uid);
 		if (list!=null) {
 			return list;
 		}
@@ -86,9 +86,20 @@ public class AdUserDAOImpl extends HibernateDaoSupport implements AdUserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AdCustomer> findStyleCust() {
+	public List<AdCustomer> findStyleCust(Integer uid) {
 		List<AdCustomer> list = null;
-		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UStylingDesigner > "+0);
+		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UStylingDesigner > "+0+" and adcus.UId <>"+uid);
+		if (list!=null) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdCustomer> findAuthenCust(Integer uid) {
+		List<AdCustomer> list = null;
+		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UStylingDesigner > "+2+" and adcus.UId <>"+uid);
 		if (list!=null) {
 			return list;
 		}
