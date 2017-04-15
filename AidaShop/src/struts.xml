@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.objectFactory.spring.autoWire" value="type"/>
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+	
+	<package name="AidaShop" namespace="/" extends="struts-default,json-default">
+		<!-- login/logout action -->
+		<action name="login" class="adAppLoginAction" method="vaildLoginAd"></action>
+		<action name="loginInfo" class="adLoginInfo" method="LoginInfo">
+			<result type="json">
+				<param name="root">cusInfoMap</param>
+			</result>
+		</action>
+		<action name="loginout" class="adLoginout" method="loginout">
+			<result name="success">/login.html</result>
+		</action>
+		
+		<!-- store manage -->
+		<action name="selectStore" class="adAppStoreAction" method="selectStore">
+			<result type="json"><param name="root">dataMap</param></result>
+		</action>	
+		<action name="editStore" class="editStoreBean" method="editStore"></action>
+		<action name="listStoreAction" class="adAppStoreAction" method="list">
+			<result name="success">/page/backstage/dianpuliebiao.jsp</result>
+		</action>
+		<action name="viStoreAction" class="adAppStoreAction" method="vi">
+			<result name="success">/page/backstage/dianpuvi.jsp</result>
+		</action>
+		<action name="updateStoreAction" class="adAppStoreAction" method="update">
+			<result name="success" type="redirect">listStoreAction.action</result>
+		</action>
+		<action name="editStoreAction" class="adAppStoreAction" method="edit">
+			<result name="success" type="redirect">listStoreAction.action</result>
+		</action>
+		
+		
+		<!-- brand manager -->
+		<action name="listBrand" class="listBrandBean" method="listBrand">
+			<result name="SUCCESS">/page/backstage/pinpailiebiao.jsp</result>  
+	        <result name="INPUT">/page/backstage/pinpaitianjia.jsp</result>
+		</action>
+		<action name="addBrand" class="addBrandBean" method="addBrand">
+			<result name="SUCCESS" type="redirect">listBrand.action</result>   
+	        <result name="INPUT">/page/backstage/pinpaitianjia.jsp</result> 
+		</action>
+		<action name="deleteBrand" class="deleteBrandBean" method="deleteBrand">
+			<result name="SUCCESS" type="redirect">listBrand.action</result>  
+	        <result name="INPUT">/page/backstage/pinpaitianjia.jsp</result>  
+		</action>
+		<action name="updateBrand" class="updateBrandBean" method="updateBrand">
+			<result name="SUCCESS" type="redirect">listBrand.action</result>  
+	        <result name="INPUT">/page/backstage/updateBrand.jsp</result>  
+	        <result name="ERROR">/index.jsp</result> 
+		</action>
+		<action name="editBrand" class="editBrandBean" method="editBrand">
+			<result name="SUCCESS">/page/backstage/updateBrand.jsp</result>  
+		</action>
+		
+		<!-- 文件上传下载 -->
+		<action name="*FileAction" class="com.aidaL.action.FileAction" method="{1}">
+			<result name="success">/test.jsp</result>
+			<param name="inputPath">/WEB-INF/upload</param>
+			<result name="download" type="stream">
+		 		<param name="contentType">application/octet-stream;charset=UTF-8</param>
+	           	<param name="inputName">inputStream</param>
+	           	<param name="contentDisposition">attachment;filename="${fileName}"</param>
+	           	<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		
+		<!-- 日志管理 -->
+		<action name="*LogAction" class="logBean" method="{1}"></action>
+		
+		<!-- 用户管理 -->
+		<action name="*CustomerAction" class="customerBean" method="{1}">
+			<result name="list">/page/backstage/huiyuanliebiao.jsp</result>
+			<result name="vi">/page/backstage/huiyuanvi.jsp</result>
+			<result name="allist" type="redirect">listCustomerAction.action</result>
+			<result name="viplist" type="redirect">vipCustomerAction.action</result>
+			<result name="stylelist" type="redirect">styleCustomerAction.action</result>
+		</action>
+	</package>
+</struts>    

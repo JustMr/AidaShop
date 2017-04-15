@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.microsoft.sqlserver.jdbc.SQLServerDriver">
+		</property>
+		<property name="url" value="jdbc:sqlserver://localhost:1433;"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value="171213"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.SQLServerDialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/aidaL/bean/AdminAD.hbm.xml</value>
+				<value>com/aidaL/bean/AdminCategoryAD.hbm.xml</value>
+				<value>com/aidaL/bean/AdConsult.hbm.xml</value>
+				<value>com/aidaL/bean/AdConsulttheme.hbm.xml</value>
+				<value>com/aidaL/bean/AdCustomer.hbm.xml</value>
+				<value>com/aidaL/bean/AdOrder.hbm.xml</value>
+				<value>com/aidaL/bean/AdOrderitem.hbm.xml</value>
+				<value>com/aidaL/bean/AdProductInfo.hbm.xml</value>
+				<value>com/aidaL/bean/AdProductcategory.hbm.xml</value>
+				<value>com/aidaL/bean/AdReply.hbm.xml</value>
+				<value>com/aidaL/bean/AdUploadfile.hbm.xml</value>
+				<value>com/aidaL/bean/AdWishlist.hbm.xml</value>
+				<value>com/aidaL/bean/AdComment.hbm.xml</value>
+				<value>com/aidaL/bean/AdStore.hbm.xml</value>
+				<value>com/aidaL/bean/AdLog.hbm.xml</value>
+				<value>com/aidaL/bean/BrandAD.hbm.xml</value></list>
+		</property>
+	</bean>
+	
+	<!-- CustomerAction用户 -->
+	<bean id="customerBean" class="com.aidaL.action.CustomerAction" scope="prototype">
+		<property name="usermgr" ref="adAppMgr"></property>
+	</bean>
+	
+	<!-- LogAction日志 -->
+	<bean id="logBean" class="com.aidaL.action.LogAction" scope="prototype">
+		<property name="logmgr" ref="adAppMgrLog"></property>
+	</bean>
+	<bean id="adAppMgrLog" class="com.aidaL.service.impl.ActionManagerImpl">
+		<property name="adLogDAO" ref="adAppLog"></property>
+	</bean>
+	<bean id="adAppLog" class="com.aidaL.dao.impl.AdLogDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- BrandAction品牌 -->
+	<bean id="editBrandBean" class="com.aidaL.action.BrandAction" scope="prototype">
+		<property name="brandmgr" ref="adAppMgrBrand"></property>
+	</bean>
+	<bean id="updateBrandBean" class="com.aidaL.action.BrandAction" scope="prototype">
+		<property name="brandmgr" ref="adAppMgrBrand"></property>
+	</bean>
+	<bean id="deleteBrandBean" class="com.aidaL.action.BrandAction" scope="prototype">
+		<property name="brandmgr" ref="adAppMgrBrand"></property>
+	</bean>
+	<bean id="addBrandBean" class="com.aidaL.action.BrandAction" scope="prototype">
+		<property name="brandmgr" ref="adAppMgrBrand"></property>
+	</bean>
+	<bean id="listBrandBean" class="com.aidaL.action.BrandAction" scope="prototype">
+		<property name="brandmgr" ref="adAppMgrBrand"></property>
+	</bean>
+	
+	<bean id="adAppMgrBrand" class="com.aidaL.service.impl.ActionManagerImpl">
+		<property name="adBrandDAO" ref="adAppBrand"></property>
+	</bean>
+	<bean id="adAppBrand" class="com.aidaL.dao.impl.AdBrandDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- StoreAction店铺 -->
+	<bean id="editStoreBean" class="com.aidaL.action.StoreAction" scope="prototype">
+		<property name="mgr" ref="adAppMgrStore"></property>
+	</bean>
+	<bean id="adAppStoreAction" class="com.aidaL.action.StoreAction" scope="prototype">
+		<property name="mgr" ref="adAppMgrStore"></property>
+	</bean>
+	<bean id="adAppMgrStore" class="com.aidaL.service.impl.ActionManagerImpl">
+		<property name="adStoreDAO" ref="adAppStore"></property>
+	</bean>
+	<bean id="adAppStore" class="com.aidaL.dao.impl.AdStoreDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 获取用户基本信息 -->
+	<bean id="adLoginInfo" class="com.aidaL.action.LoginAction" scope="prototype">
+		<property name="logmgr" ref="adAppMgr"></property>
+	</bean>
+	<!-- 登出 -->
+	<bean id="adLoginout" class="com.aidaL.action.LoginAction" scope="prototype">
+		<property name="logmgr" ref="adAppMgr"></property>
+	</bean>
+	<!-- 登录 -->
+	<bean id="adAppLoginAction" class="com.aidaL.action.LoginAction" scope="prototype">
+		<property name="logmgr" ref="adAppMgr"></property>
+	</bean>
+	<bean id="adAppMgr" class="com.aidaL.service.impl.ActionManagerImpl">
+		<property name="adUserDAO" ref="adAppCustomer"></property>
+	</bean>
+	<bean id="adAppCustomer" class="com.aidaL.dao.impl.AdUserDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>
