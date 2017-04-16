@@ -106,4 +106,37 @@ public class AdUserDAOImpl extends HibernateDaoSupport implements AdUserDAO {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdCustomer> findAdminCust(Integer uid) {
+		List<AdCustomer> list = null;
+		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UAdmin > "+0+" and adcus.UId <>"+uid);
+		if (list!=null) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdCustomer> findSupCust(Integer uid) {
+		List<AdCustomer> list = null;
+		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UAdmin = "+2+" and adcus.UId <>"+uid);
+		if (list!=null) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdCustomer> findStoreCust() {
+		List<AdCustomer> list = null;
+		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UAdmin = "+1);
+		if (list!=null) {
+			return list;
+		}
+		return null;
+	}
+
 }

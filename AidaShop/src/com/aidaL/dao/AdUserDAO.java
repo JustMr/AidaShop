@@ -44,7 +44,7 @@ public interface AdUserDAO {
     /**
 
      * 查询全部用户
-     * @param uid 
+     * @param uid 需要提出的当前的会员ID 
 
      * @return 获得全部用户
 
@@ -74,22 +74,42 @@ public interface AdUserDAO {
 
 	/**
 	 * 查询vip用户
-	 * @param uid 
+	 * @param uid 需要提出的当前的会员ID 
 	 * @return
 	 */
 	List<AdCustomer> finVIPCust(Integer uid);
 
 	/**
 	 * 查询已认证和认证中的造型师
-	 * @param uid 
+	 * @param uid 需要提出的当前的会员ID 
 	 * @return
 	 */
 	List<AdCustomer> findStyleCust(Integer uid);
 
 	/**
 	 * 查询验证中的造型师
-	 * @param uid 
+	 * @param uid 需要提出的当前的会员ID 
 	 * @return
 	 */
 	List<AdCustomer> findAuthenCust(Integer uid);
+
+	/**
+	 * 出啊讯所有的管理员
+	 * @param uid 需要提出的当前的会员ID
+	 * @return
+	 */
+	List<AdCustomer> findAdminCust(Integer uid);
+
+	/**
+	 * 查询所有的超级管理员
+	 * @param uid 需要提出的当前的会员ID
+	 * @return
+	 */
+	List<AdCustomer> findSupCust(Integer uid);
+
+	/**
+	 * 查询所有的店铺管理员
+	 * @return
+	 */
+	List<AdCustomer> findStoreCust();
 }

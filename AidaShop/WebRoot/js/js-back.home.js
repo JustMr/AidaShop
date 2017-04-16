@@ -91,11 +91,20 @@ function frameShow() {
 	} else if(name=="造型师列表") {
 		$("#backHFrame").attr("src","styleCustomerAction");
 		$("#backHFrame").css("height","550px");
-	} else if(name=="店铺列表") {
-		$("#backHFrame").attr("src","listStoreAction");
-		$("#backHFrame").css("height","550px");
 	} else if(name=="认定审核") {
 		$("#backHFrame").attr("src","authCustomerAction");
+		$("#backHFrame").css("height","550px");
+	} else if(name=="管理员列表") {
+		$("#backHFrame").attr("src","adminCustomerAction");
+		$("#backHFrame").css("height","550px");
+	} else if(name=="店铺管理员") {
+		$("#backHFrame").attr("src","storeCustomerAction");
+		$("#backHFrame").css("height","550px");
+	} else if(name="超级管理员") {
+		$("#backHFrame").attr("src","supStoreAction");
+		$("#backHFrame").css("height","550px");
+	} else if(name=="店铺列表") {
+		$("#backHFrame").attr("src","listStoreAction");
 		$("#backHFrame").css("height","550px");
 	}
 	document.getElementById("backHFrame").onload=dyniframesize;

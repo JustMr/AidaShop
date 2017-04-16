@@ -23,6 +23,9 @@ public interface ActionManager {
 	public List<AdCustomer> findVIPCust(Integer uid);
 	public List<AdCustomer> findStyleCust(Integer uid);
 	public List<AdCustomer> findAuthenCust(Integer uid);
+	public List<AdCustomer> findAdminCust(Integer uid);
+	public List<AdCustomer> findSupCust(Integer uid);
+	public List<AdCustomer> findStoreCust();
 	
 	//店铺管理
 	public void saveOrUpdateStore(AdStore store);

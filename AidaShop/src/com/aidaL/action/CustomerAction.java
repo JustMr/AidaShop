@@ -35,6 +35,39 @@ public class CustomerAction extends BaseAction {
 	private String UMobile;
 	private Integer stId;
 
+	
+	/**
+	 * 查询所有的管理员，剔除已登录用户
+	 * @return
+	 */
+	public String admin() {
+		Integer uid =  (Integer) session.getAttribute("cusId");
+		listCuses = this.usermgr.findAdminCust(uid);
+		session.setAttribute("page", "admin");
+		return "list";
+	}
+	
+	/**
+	 * 查询所有的超级管理员，剔除已登录用户
+	 * @return
+	 */
+	public String sup() {
+		Integer uid =  (Integer) session.getAttribute("cusId");
+		listCuses = this.usermgr.findSupCust(uid);
+		session.setAttribute("page", "sup");
+		return "list";
+	}
+	
+	/**
+	 * 查询全部的店铺管理员
+	 * @return
+	 */
+	public String store() {
+		listCuses = this.usermgr.findStoreCust();
+		session.setAttribute("page", "store");
+		return "list";
+	}
+	
 	/**
 	 * 显示造型师认定中的列表，剔除已登录用户
 	 * @return
@@ -107,6 +140,12 @@ public class CustomerAction extends BaseAction {
 			return "stylelist";
 		}else if (page.equals("auth")) {
 			return "auth";
+		} else if (page.equals("admin")) {
+			return "admin";
+		} else if (page.equals("sup")) {
+			return "sup";
+		} else if (page.equals("store")) {
+			return "store";
 		}
 		return "viplist";
 	}
@@ -143,6 +182,12 @@ public class CustomerAction extends BaseAction {
 			return "stylelist";
 		}else if (page.equals("auth")) {
 			return "auth";
+		} else if (page.equals("admin")) {
+			return "admin";
+		} else if (page.equals("sup")) {
+			return "sup";
+		} else if (page.equals("store")) {
+			return "store";
 		}
 		return "viplist";
 	}

@@ -101,6 +101,24 @@ public class ActionManagerImpl implements ActionManager {
 		return this.adUserDAO.findAuthenCust(uid);
 	}
 	
+	@Override
+	public List<AdCustomer> findAdminCust(Integer uid) {
+		// TODO Auto-generated method stub
+		return this.adUserDAO.findAdminCust(uid);
+	}
+
+	@Override
+	public List<AdCustomer> findSupCust(Integer uid) {
+		// TODO Auto-generated method stub
+		return this.adUserDAO.findSupCust(uid);
+	}
+
+	@Override
+	public List<AdCustomer> findStoreCust() {
+		// TODO Auto-generated method stub
+		return this.adUserDAO.findStoreCust();
+	}
+
 	
 	//店铺管理***********************************************
 	@Override
@@ -263,7 +281,6 @@ public class ActionManagerImpl implements ActionManager {
 		}
 		return null;
 	}
-
 
 
 }

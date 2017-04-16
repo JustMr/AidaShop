@@ -176,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				</div>
 	    				<ul>
 	    					<li>管理员列表</li>
-	    					<li>网站管理员</li>
+	    					<li>超级管理员</li>
 	    					<li>店铺管理员</li>
 	    				</ul>
 	    			</li>
@@ -188,6 +188,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				</div>
 	    				<ul>
 	    					<li>退换货管理</li>
+	    				</ul>
+	    			</li>
+	    			<li class="bh_leftli">
+	    				<div>
+		    				<i class="iconDian"></i>
+		    				<span>个人中心</span>
+		    				<i class="iconArrow"></i>
+	    				</div>
+	    				<ul>
+	    					<li>个人中心</li>
 	    				</ul>
 	    			</li>
 	    		</ul>

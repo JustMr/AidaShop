@@ -83,6 +83,9 @@
 			<result name="allist" type="redirect">listCustomerAction.action</result>
 			<result name="viplist" type="redirect">vipCustomerAction.action</result>
 			<result name="stylelist" type="redirect">styleCustomerAction.action</result>
+			<result name="admin" type="redirect">adminCustomerAction.action</result>
+			<result name="sup" type="redirect">supCustomerAction.action</result>
+			<result name="store" type="redirect">storeCustomerAction.action</result>
 		</action>
 	</package>
 </struts>    
