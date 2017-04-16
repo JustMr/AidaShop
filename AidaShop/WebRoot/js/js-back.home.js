@@ -100,8 +100,11 @@ function frameShow() {
 	} else if(name=="店铺管理员") {
 		$("#backHFrame").attr("src","storeCustomerAction");
 		$("#backHFrame").css("height","550px");
-	} else if(name="超级管理员") {
-		$("#backHFrame").attr("src","supStoreAction");
+	} else if(name=="超级管理员") {
+		$("#backHFrame").attr("src","supCustomerAction");
+		$("#backHFrame").css("height","550px");
+	} else if(name=="个人中心") {
+		$("#backHFrame").attr("src","personalCustomerAction");
 		$("#backHFrame").css("height","550px");
 	} else if(name=="店铺列表") {
 		$("#backHFrame").attr("src","listStoreAction");

@@ -99,12 +99,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	<div class="nochage">
 			  		<s:if test="stState==0">正常</s:if>
 				  	<s:elseif test="stState==1">禁用</s:elseif>
-				  	<s:elseif test="stState==2">开通中</s:elseif>
-				  	<s:elseif test="stState==3">推广中</s:elseif>
-				  	<s:else>问题店铺</s:else>
+				  	<s:elseif test="stState==2">推广中</s:elseif>
+				  	<s:elseif test="stState==3">问题店铺</s:elseif>
+				  	<s:else>开通中</s:else>
 			  	</div>
 			  	<div class="chage">
-			  		<s:select id="stState" name="stState" list="#{'正常':0,'禁用':1,'开通中':2,'推广中':3,'问题店铺':4}"  listKey="value" listValue="key" value="stState" ></s:select>
+			  		<s:select id="stState" name="stState" list="#{'正常':0,'禁用':1,'推广中':2,'问题店铺':3}"  listKey="value" listValue="key" value="stState" ></s:select>
 			  	</div>
 			  </td> 
 			  <td>  

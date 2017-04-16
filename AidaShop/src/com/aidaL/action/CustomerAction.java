@@ -35,6 +35,18 @@ public class CustomerAction extends BaseAction {
 	private String UMobile;
 	private Integer stId;
 
+
+	/**
+	 * 个人中心
+	 * @return
+	 */
+	public String personal() {
+		Integer uid =  (Integer) session.getAttribute("cusId");
+		viCust = this.usermgr.findCustById(uid);
+		session.setAttribute("page", "personal");
+		session.setAttribute("messageCenter", "");
+		return "personal";
+	}
 	
 	/**
 	 * 查询所有的管理员，剔除已登录用户
@@ -131,7 +143,10 @@ public class CustomerAction extends BaseAction {
 	public String update() {
 //		AdCustomer customer = new AdCustomer();
 //		customer = this.usermgr.findCustById(viCust.getUId());
+		
+		System.out.println("getUBirthday:"+viCust.getUBirthday());
 		this.usermgr.saveOrUpdateCust(viCust);
+		session.setAttribute("messageCenter", "修改成功!");
 		
 		String page = (String) session.getAttribute("page");
 		if (page.endsWith("all")) {
@@ -146,6 +161,8 @@ public class CustomerAction extends BaseAction {
 			return "sup";
 		} else if (page.equals("store")) {
 			return "store";
+		} else if (page.equals("personal")) {
+			return "personalist";
 		}
 		return "viplist";
 	}
@@ -157,18 +174,7 @@ public class CustomerAction extends BaseAction {
 	public String edit() {
 		AdCustomer adCust = new AdCustomer();
 		adCust = usermgr.findCustById(UId);
-//		adCust.setUName(UName);
-//		adCust.setUAddress(UAddress);
-//		adCust.setUBirthday(UBirthday);
-//		adCust.setUCardId(UCardId);
-//		adCust.setUEmail(UEmail);
-//		adCust.setUMobile(UMobile);
-//		adCust.setURelaname(URelaname);
-//		adCust.setUPassword(UPassword);
-//		adCust.setStId(stId);
-//		adCust.setUNickName(UNickName);
-//		adCust.setUSex(USex);
-//		adCust.setUId(UId);
+		
 		adCust.setUStylingDesigner(UStylingDesigner);
 		adCust.setUState(UState);
 		adCust.setUAdmin(UAdmin);
