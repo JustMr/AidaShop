@@ -37,11 +37,10 @@ public class UserFilter implements Filter {
 			//已登录，允许所有路径访问
 			chain.doFilter(request, response);
 		} else {
-			if (paths.contains(path)||path.indexOf("/css/")!=-1||path.indexOf("/js/")!=-1||path.indexOf("/iconfont/")!=-1
-					||path.indexOf("/images/")!=-1) {
-				chain.doFilter(request, response);
-			}else {
+			if (paths.contains(path)||path.indexOf("/backstage/")!=-1) {
 				response.sendRedirect("/AidaShop/login.html");
+			}else {
+				chain.doFilter(request, response);
 			}
 		}
 		
@@ -49,13 +48,7 @@ public class UserFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		paths.add("/login.html");
-		paths.add("/home.jsp");
-		paths.add("/login");
-		paths.add("/detail.jsp");
-		paths.add("/register.jsp");
-		paths.add("/shoplaw.jsp");
-		paths.add("/page/detail/detail.jsp");
+//		paths.add("/login.html");
 	}
 
 }

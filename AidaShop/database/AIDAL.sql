@@ -257,3 +257,14 @@ CREATE TABLE ad_log (
 )
 ALTER TABLE ad_log ALTER COLUMN st_id INT NULL
 ALTER TABLE ad_log ALTER COLUMN log_time DATETIME
+
+--添加店铺申请表
+CREATE TABLE ad_storeAuth (
+	sa_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--申请表ID
+	u_id INT NOT NULL,								--关联用户ID
+	sa_IDCard_front VARCHAR(50) NOT NULL,			--身份证正面路径
+	sa_IDCard_back VARCHAR(50) NOT NULL,			--身份证反面路径	
+	sa_name VARCHAR(100),							--对应店铺信息名称
+	sa_tag VARCHAR(200),							--对应店铺信息标签
+	sa_statu INT NOT NULL DEFAULT(1),				--申请表状态
+)

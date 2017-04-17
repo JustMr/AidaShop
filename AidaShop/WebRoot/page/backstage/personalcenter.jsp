@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <span class="frameH3">个人中心</span>
-    <div class="messageCenter">${messageCenter}</div>
+    <div class="messageCenter">${messageCenter }</div>
     <div>
     	<s:form action="updateCustomerAction" method="POST">  
  			<s:hidden name="viCust.UId" />  
@@ -44,7 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   	<tr>
 			   		<td width="15%" align="right"><label>生日:</label></td>
 			   		<td class="upBrFont" align="left">
-			   			<%-- <s:date name="viCust.UBirthday" format="yyyy-MM-dd" nice="false" /><s:hidden name="viCust.UBirthday"></s:hidden>  --%>
 			   			<sx:datetimepicker name="viCust.UBirthday" displayFormat="yyyy-MM-dd"></sx:datetimepicker>
 			   		</td>
 			   	</tr> 

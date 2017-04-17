@@ -52,6 +52,7 @@ public interface ActionManager {
 	public void addLog(AdLog adLog);
 	public AdLog findMaxLogByUId(Integer uid);
 	public List<AdLog> findSevenLog();
+	public Integer findCustByName(String uName);
 	
 	
 }

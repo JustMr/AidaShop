@@ -104,7 +104,7 @@ function frameShow() {
 		$("#backHFrame").attr("src","supCustomerAction");
 		$("#backHFrame").css("height","550px");
 	} else if(name=="个人中心") {
-		$("#backHFrame").attr("src","personalCustomerAction");
+		$("#backHFrame").attr("src","personalCustomerAction?messageCenter="+"");
 		$("#backHFrame").css("height","550px");
 	} else if(name=="店铺列表") {
 		$("#backHFrame").attr("src","listStoreAction");

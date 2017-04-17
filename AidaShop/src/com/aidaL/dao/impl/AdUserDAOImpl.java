@@ -139,4 +139,19 @@ public class AdUserDAOImpl extends HibernateDaoSupport implements AdUserDAO {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Integer finCustByName(String uName) {
+		// TODO Auto-generated method stub
+		Integer res = 0;
+		List<AdCustomer> list = null;
+		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UName = '"+uName+"'");
+		System.out.println(list);
+		if (list.size()>0) {
+			res = 1;
+			return res;
+		}
+		return res;
+	}
+
 }

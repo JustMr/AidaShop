@@ -112,4 +112,11 @@ public interface AdUserDAO {
 	 * @return
 	 */
 	List<AdCustomer> findStoreCust();
+
+	/**
+	 * 验证用户名是否存在
+	 * @param uName
+	 * @return
+	 */
+	Integer finCustByName(String uName);
 }

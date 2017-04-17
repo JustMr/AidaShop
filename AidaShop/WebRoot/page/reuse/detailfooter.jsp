@@ -29,48 +29,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	<div class="ft_help_list">
 	  		<dl>
 	  			<dt>新手入门</dt>
-	  			<dd><a href="***">购买流程</a></dd>
-	  			<dd><a href="***">会员制度</a></dd>
-	  			<dd><a href="***">订单查询</a></dd>
-	  			<dd><a href="***">发票制度</a></dd>
-	  			<dd><a href="***">常见问题</a></dd>
+	  			<dd><a href="#">购买流程</a></dd>
+	  			<dd><a href="#">会员制度</a></dd>
+	  			<dd><a href="#">订单查询</a></dd>
+	  			<dd><a href="#">发票制度</a></dd>
+	  			<dd><a href="#">常见问题</a></dd>
 	  		</dl>
 	  		<dl>
 	  			<dt>支付方式</dt>
-	  			<dd><a href="***">货到付款</a></dd>
-	  			<dd><a href="***">网上支付</a></dd>
-	  			<dd><a href="***">银行付款</a></dd>
-	  			<dd><a href="***">礼品卡支付</a></dd>
-	  			<dd><a href="***">其他支付</a></dd>
+	  			<dd><a href="#">货到付款</a></dd>
+	  			<dd><a href="#">网上支付</a></dd>
+	  			<dd><a href="#">银行付款</a></dd>
+	  			<dd><a href="#">礼品卡支付</a></dd>
+	  			<dd><a href="#">其他支付</a></dd>
 	  		</dl>
 	  		<dl>
 	  			<dt>配送服务</dt>
-	  			<dd><a href="***">配送范围及运费</a></dd>
-	  			<dd><a href="***">配送进度查询</a></dd>
-	  			<dd><a href="***">自提服务</a></dd>
-	  			<dd><a href="***">商品验货与签收</a></dd>
+	  			<dd><a href="#">配送范围及运费</a></dd>
+	  			<dd><a href="#">配送进度查询</a></dd>
+	  			<dd><a href="#">自提服务</a></dd>
+	  			<dd><a href="#">商品验货与签收</a></dd>
 	  		</dl>
 	  		<dl>
 	  			<dt>售后保障</dt>
-	  			<dd><a href="***">退换货政策</a></dd>
-	  			<dd><a href="***">退换货流程</a></dd>
-	  			<dd><a href="***">退款说明</a></dd>
-	  			<dd><a href="***">延保说明页面</a></dd>
-	  			<dd><a href="***">联系客服</a></dd>
+	  			<dd><a href="#">退换货政策</a></dd>
+	  			<dd><a href="#">退换货流程</a></dd>
+	  			<dd><a href="#">退款说明</a></dd>
+	  			<dd><a href="#">延保说明页面</a></dd>
+	  			<dd><a href="#">联系客服</a></dd>
 	  		</dl>
 	  		<dl>
 	  			<dt>商家合作</dt>
-	  			<dd><a href="***">商家入驻</a></dd>
-	  			<dd><a href="***">商必赢</a></dd>
-	  			<dd><a href="***">平台规则</a></dd>
-	  			<dd><a href="***">企业采购</a></dd>
+	  			<dd><a href="./page/home/shangjiaruzhu.jsp">商家入驻</a></dd>
+	  			<dd><a href="#">商必赢</a></dd>
+	  			<dd><a href="#">平台规则</a></dd>
+	  			<dd><a href="#">企业采购</a></dd>
 	  		</dl>
 	  		<dl>
 	  			<dt>造型师合作</dt>
-	  			<dd><a href="***">造型师入驻</a></dd>
-	  			<dd><a href="***">造型师认证</a></dd>
-	  			<dd><a href="***">造型师认证规则</a></dd>
-	  			<dd><a href="***">造型师平台评级规则</a></dd>
+	  			<dd><a href="#">造型师入驻</a></dd>
+	  			<dd><a href="#">造型师认证</a></dd>
+	  			<dd><a href="#">造型师认证规则</a></dd>
+	  			<dd><a href="#">造型师平台评级规则</a></dd>
 	  		</dl>
 	  	</div>
 	  	<div class="ft_mobile_code">

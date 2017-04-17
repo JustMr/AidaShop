@@ -1,5 +1,7 @@
 package com.aidaL.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +37,46 @@ public class CustomerAction extends BaseAction {
 	private String UMobile;
 	private Integer stId;
 
+	/**
+	 * 创建新用户
+	 * @return
+	 * @throws IOException 
+	 */
+	public String add() throws IOException {
+		response.setContentType("text/text");
+        response.setCharacterEncoding("UTF-8");
+		Integer res = 0;
+		PrintWriter out = response.getWriter();
+		
+		System.out.println("getUName:"+UName);
+		
+		out.print(res);
+		return null;
+	}
+	
+	/**
+	 * 验证是否含有相同的用户名
+	 * @return
+	 * @throws IOException 
+	 */
+	public String isSaveName() {
+		response.setContentType("text/text");
+        response.setCharacterEncoding("UTF-8");
+		Integer res = 0;
+		PrintWriter out;
+		
+		res =  this.usermgr.findCustByName(UName);
+		
+		try {
+			out = response.getWriter();
+			out.print(res);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
 	/**
 	 * 个人中心
@@ -44,7 +86,10 @@ public class CustomerAction extends BaseAction {
 		Integer uid =  (Integer) session.getAttribute("cusId");
 		viCust = this.usermgr.findCustById(uid);
 		session.setAttribute("page", "personal");
-		session.setAttribute("messageCenter", "");
+		String messageCenter = request.getParameter("messageCenter");
+		if (messageCenter!=null) {
+			session.setAttribute("messageCenter", messageCenter);
+		}
 		return "personal";
 	}
 	
@@ -145,8 +190,13 @@ public class CustomerAction extends BaseAction {
 //		customer = this.usermgr.findCustById(viCust.getUId());
 		
 		System.out.println("getUBirthday:"+viCust.getUBirthday());
-		this.usermgr.saveOrUpdateCust(viCust);
-		session.setAttribute("messageCenter", "修改成功!");
+		try {
+			this.usermgr.saveOrUpdateCust(viCust);
+		} catch (Exception e) {
+			session.setAttribute("messageCenter", "修改失败!");
+			e.printStackTrace();
+		}
+		
 		
 		String page = (String) session.getAttribute("page");
 		if (page.endsWith("all")) {
@@ -162,6 +212,7 @@ public class CustomerAction extends BaseAction {
 		} else if (page.equals("store")) {
 			return "store";
 		} else if (page.equals("personal")) {
+			session.setAttribute("messageCenter", "修改成功!");
 			return "personalist";
 		}
 		return "viplist";

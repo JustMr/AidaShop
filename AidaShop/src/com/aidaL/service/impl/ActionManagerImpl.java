@@ -119,6 +119,12 @@ public class ActionManagerImpl implements ActionManager {
 		return this.adUserDAO.findStoreCust();
 	}
 
+	@Override
+	public Integer findCustByName(String uName) {
+		// TODO Auto-generated method stub
+		return this.adUserDAO.finCustByName(uName);
+	}
+	
 	
 	//店铺管理***********************************************
 	@Override
@@ -281,6 +287,7 @@ public class ActionManagerImpl implements ActionManager {
 		}
 		return null;
 	}
+
 
 
 }
