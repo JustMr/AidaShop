@@ -107,9 +107,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  	<s:elseif test="UState==1">禁用</s:elseif>
 				  	<s:elseif test="UState==3">VIP2</s:elseif>
 				  	<s:elseif test="UState==4">VIP3</s:elseif>
+				  	<s:else>激活中</s:else>
 			  	</div>
 			  	<div class="chage">
-			  		<s:select id="UState" name="UStateSelect" list="#{'正常':0,'禁用':1,'VIP1':2,'VIP2':3,'VIP3':4}"  listKey="value" listValue="key" value="UState" ></s:select>
+			  		<s:select id="UState" name="UStateSelect" list="#{'正常':0,'禁用':1,'VIP1':2,'VIP2':3,'VIP3':4,'激活中':5}"  listKey="value" listValue="key" value="UState" ></s:select>
 			  	</div>
 			  </td> 
 			  <td>  

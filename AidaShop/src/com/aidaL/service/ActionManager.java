@@ -26,6 +26,9 @@ public interface ActionManager {
 	public List<AdCustomer> findAdminCust(Integer uid);
 	public List<AdCustomer> findSupCust(Integer uid);
 	public List<AdCustomer> findStoreCust();
+	public Integer findCustByName(String uName);
+	public void addCust(AdCustomer viCust);
+	public Integer addCustRetID(AdCustomer viCust);
 	
 	//店铺管理
 	public void saveOrUpdateStore(AdStore store);
@@ -52,7 +55,6 @@ public interface ActionManager {
 	public void addLog(AdLog adLog);
 	public AdLog findMaxLogByUId(Integer uid);
 	public List<AdLog> findSevenLog();
-	public Integer findCustByName(String uName);
 	
 	
 }

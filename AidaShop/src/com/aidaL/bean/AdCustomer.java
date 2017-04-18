@@ -8,14 +8,11 @@ import java.util.Set;
  * AdCustomer entity. @author MyEclipse Persistence Tools
  */
 
+@SuppressWarnings("serial")
 public class AdCustomer implements java.io.Serializable {
 
 	// Fields
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2250930823488454917L;
 	private Integer UId;
 	private String UName;
 	private String UNickName;
@@ -31,6 +28,7 @@ public class AdCustomer implements java.io.Serializable {
 	private Integer UState;
 	private Integer UAdmin;
 	private Integer stId;
+	private String UActivecode;
 	private Set<?> adWishlists = new HashSet<Object>(0);
 	private Set<?> adComments = new HashSet<Object>(0);
 	private Set<?> adConsults = new HashSet<Object>(0);
@@ -43,12 +41,11 @@ public class AdCustomer implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public AdCustomer(Integer UId, String UName, String UPassword, String USex,
+	public AdCustomer(Integer UId, String UName, String UPassword,
 			Integer UState) {
 		this.UId = UId;
 		this.UName = UName;
 		this.UPassword = UPassword;
-		this.USex = USex;
 		this.UState = UState;
 	}
 
@@ -57,8 +54,8 @@ public class AdCustomer implements java.io.Serializable {
 			String UPassword, String URelaname, String USex, Date UBirthday,
 			String UAddress, String UCardId, String UEmail, String UMobile,
 			Integer UStylingDesigner, Integer UState, Integer UAdmin,
-			Integer stId, Set<?> adWishlists, Set<?> adComments, Set<?> adConsults,
-			Set<?> adOrders) {
+			Integer stId, String UActivecode, Set<?> adWishlists, Set<?> adComments,
+			Set<?> adConsults, Set<?> adOrders) {
 		this.UId = UId;
 		this.UName = UName;
 		this.UNickName = UNickName;
@@ -74,6 +71,7 @@ public class AdCustomer implements java.io.Serializable {
 		this.UState = UState;
 		this.UAdmin = UAdmin;
 		this.stId = stId;
+		this.UActivecode = UActivecode;
 		this.adWishlists = adWishlists;
 		this.adComments = adComments;
 		this.adConsults = adConsults;
@@ -200,6 +198,14 @@ public class AdCustomer implements java.io.Serializable {
 
 	public void setStId(Integer stId) {
 		this.stId = stId;
+	}
+
+	public String getUActivecode() {
+		return this.UActivecode;
+	}
+
+	public void setUActivecode(String UActivecode) {
+		this.UActivecode = UActivecode;
 	}
 
 	public Set<?> getAdWishlists() {

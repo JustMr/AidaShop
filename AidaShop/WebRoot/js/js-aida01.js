@@ -3,6 +3,7 @@
  */
 var regidinp = document.getElementById("regidinp");
 var pwdInput1 = document.getElementById("pwd_input1");
+var count = 0;
 
 window.onload = logcheck;
 regidinp.onpropertychange = regidinp.oninput = regidinp.onchange = logcheck;
@@ -16,44 +17,51 @@ function register() {
 		alert("两次密码不相同");
 		return false;
 	}else{
-		//input输入满足要求，提交添加申请
-		var value = regidinp1.value;
-		var nameInput = document.getElementById("name_input").value;
-		var xhr;
-		if (window.ActiveXObject) {
-			//测试ActiveX是否存在
-			try {
-				xhr = new ActiveXObject("Microsoft.XMLHTTP");//低版本IE
-			} catch (e) {
-				xhr = new ActiveXObiect("Msxml2.XMLHTTP");//高版本IE
-			}
-			
-		} 
-		else if (window.XMLHttpRequest) {
-			//测试XHR是否已经被定义
-			xhr = new XMLHttpRequest();
-		}
-		else {
-			//如果不支持AJAX则抛出错误
-			throw new Error("Ajax is not supported by this browser");
-		}
-		xhr.open("GET", "addCustomerAction?UName=" + value+"&UNickName="+nameInput+"&UPassword="+pwdInput,true);
-		xhr.send(null);
-		//就绪状态处理器
-		xhr.onreadystatechange = function() {
-			if(this.readyState == 4) {			//忽略除DONE状态之外的所有状态
-				if (this.status >= 200 && this.status <300) {
-					//成功
-					console.log("data:"+xhr.responseText);
-					var data = xhr.responseText;
-					alert(data);
+		if(count==0){
+			//input输入满足要求，提交添加申请
+			count = count + 1;
+			var value = regidinp1.value;
+			var nameInput = document.getElementById("name_input").value;
+			var xhr;
+			if (window.ActiveXObject) {
+				//测试ActiveX是否存在
+				try {
+					xhr = new ActiveXObject("Microsoft.XMLHTTP");//低版本IE
+				} catch (e) {
+					xhr = new ActiveXObiect("Msxml2.XMLHTTP");//高版本IE
 				}
-				else {
-					//出错
-					location.href="test.jsp";
-				}
+				
+			} 
+			else if (window.XMLHttpRequest) {
+				//测试XHR是否已经被定义
+				xhr = new XMLHttpRequest();
 			}
-		};
+			else {
+				//如果不支持AJAX则抛出错误
+				throw new Error("Ajax is not supported by this browser");
+			}
+			xhr.open("GET", "addCustomerAction?UName=" + value+"&UNickName="+encodeURI(encodeURI(nameInput))+"&UPassword="+encodeURI(encodeURI(pwdInput)),true);
+			xhr.send(null);
+			//就绪状态处理器
+			xhr.onreadystatechange = function() {
+				if(this.readyState == 4) {			//忽略除DONE状态之外的所有状态
+					if (this.status >= 200 && this.status <300) {
+						//成功
+						console.log("data:"+xhr.responseText);
+						var regbox = document.getElementById("reg_box");
+						var data = xhr.responseText;
+						location.href="page/register/registeresult.jsp?data="+data;
+					}
+					else {
+						//出错
+						location.href="test.jsp";
+					}
+				}
+			};
+		}else {
+			console.log("count:"+count);
+			return false;
+		}
 	}
 }
 /* register.jsp 相同密码判断*/

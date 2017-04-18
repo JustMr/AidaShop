@@ -23,7 +23,7 @@
             <column name="u_relaname" length="50" />
         </property>
         <property name="USex" type="java.lang.String">
-            <column name="u_sex" length="10" not-null="true" />
+            <column name="u_sex" length="10" />
         </property>
         <property name="UBirthday" type="java.util.Date">
             <column name="u_birthday" length="10" />
@@ -51,6 +51,9 @@
         </property>
         <property name="stId" type="java.lang.Integer">
             <column name="st_id" />
+        </property>
+        <property name="UActivecode" type="java.lang.String">
+            <column name="u_activecode" length="20" />
         </property>
         <set name="adWishlists" inverse="true">
             <key>

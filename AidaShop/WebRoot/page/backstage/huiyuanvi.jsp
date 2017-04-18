@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   	</tr>  
 			   	<tr><td><label>状态VIP:</label></td></tr>
 			   	<tr>
-			   		<td class="upBrFont_1" colspan="2"><s:radio name="viCust.UState" list="#{'正常':0,'禁用':1,'VIP1':2,'VIP2':3,'VIP3':4}" label="状态VIP" listKey="value" listValue="key"></s:radio></td>
+			   		<td class="upBrFont_1" colspan="2"><s:radio name="viCust.UState" list="#{'正常':0,'禁用':1,'VIP1':2,'VIP2':3,'VIP3':4,'激活中':5}" label="状态VIP" listKey="value" listValue="key"></s:radio></td>
 			   	</tr>  
 			   	<tr>
 			   		<td align="center" colspan="2">

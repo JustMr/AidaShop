@@ -88,6 +88,7 @@
 			<result name="store" type="redirect">storeCustomerAction.action</result>
 			<result name="personal">/page/backstage/personalcenter.jsp</result>
 			<result name="personalist" type="redirect">personalCustomerAction.action</result>
+			<result name="active">/page/register/registeresult.jsp</result>
 		</action>
 	</package>
 </struts>    

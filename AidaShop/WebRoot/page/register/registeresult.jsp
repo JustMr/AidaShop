@@ -23,8 +23,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<h1>创建成功</h1>
+  	<% 
+  		String data = request.getParameter("data");
+  		System.out.println("registeresult.jsp data:"+data);
+  		if(data.equals("0")) {
+  			%>
+  			<h1>邮箱尚未激活，现在去激活</h1>
+  			<%
+  		}else if(data.equals("1")) {
+  			%>
+  			<h1>邮箱已激活，现在去<a href="login.html">登录</a></h1>
+  			<%
+  		}else {
+  			%>
+  			<h1>激活失败，重新去激活</h1>
+  			<%
+  		}
+  	 %>
     <a href="#">完善个人信息</a>
     <a href="home.jsp">进入主页</a>
+    <input type="hidden" value="${data}">
   </body>
 </html>

@@ -119,4 +119,11 @@ public interface AdUserDAO {
 	 * @return
 	 */
 	Integer finCustByName(String uName);
+
+	/**
+	 * 添加用户并返回ID
+	 * @param viCust
+	 * @return
+	 */
+	Integer addCustRetID(AdCustomer viCust);
 }

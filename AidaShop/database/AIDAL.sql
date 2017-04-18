@@ -18,6 +18,8 @@ CREATE TABLE ad_customer(								--会员表
 --添加管理员类别,所属店铺
 ALTER TABLE ad_customer ADD u_admin INT;
 ALTER TABLE ad_customer ADD st_id INT;
+ALTER TABLE ad_customer ADD u_activecode varchar(20);
+ALTER TABLE ad_customer ALTER COLUMN u_sex VARCHAR(10) NULL;
 
 CREATE TABLE ad_order(									--订单信息表	
 	co_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,		--订单ID

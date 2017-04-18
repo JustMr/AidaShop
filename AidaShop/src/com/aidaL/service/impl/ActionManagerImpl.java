@@ -124,7 +124,20 @@ public class ActionManagerImpl implements ActionManager {
 		// TODO Auto-generated method stub
 		return this.adUserDAO.finCustByName(uName);
 	}
-	
+
+	@Override
+	public void addCust(AdCustomer viCust) {
+		// TODO Auto-generated method stub
+		this.adUserDAO.save(viCust);
+	}
+
+	@Override
+	public Integer addCustRetID(AdCustomer viCust) {
+		// TODO Auto-generated method stub
+		return this.adUserDAO.addCustRetID(viCust);
+	}
+
+
 	
 	//店铺管理***********************************************
 	@Override
@@ -287,7 +300,5 @@ public class ActionManagerImpl implements ActionManager {
 		}
 		return null;
 	}
-
-
 
 }

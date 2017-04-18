@@ -146,12 +146,21 @@ public class AdUserDAOImpl extends HibernateDaoSupport implements AdUserDAO {
 		Integer res = 0;
 		List<AdCustomer> list = null;
 		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdCustomer adcus where adcus.UName = '"+uName+"'");
-		System.out.println(list);
+		
 		if (list.size()>0) {
 			res = 1;
 			return res;
 		}
 		return res;
+	}
+
+	@Override
+	public Integer addCustRetID(AdCustomer viCust) {
+		// TODO Auto-generated method stub
+		this.getHibernateTemplate().save(viCust);
+		Integer uid = viCust.getUId();
+		
+		return uid;
 	}
 
 }
