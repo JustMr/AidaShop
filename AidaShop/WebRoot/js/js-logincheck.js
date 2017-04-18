@@ -30,28 +30,32 @@ function logincheck() {
 	} else {
 		$.post("login",{username:username.val(),password:pwd.val()},function(data){
 			var role = data;
-			if(role=="success" || role=="superAdmin" || role=="storeAdmin") {
-				//获取最近登录时间,写入session,添加本次日志
-				$.post("setnearLogAction",function() {
-					if(role=="success"){
+			console.log(role);
+			if(role=="error"){
+				console.log(role);
+				var text2 = $("<li></li>").text("账号或密码错误");
+				meserrorul.empty();
+				meserrorul.append(text2);
+				meserrorul.attr("display","block");
+				console.log("ajax error");
+				return false;
+			} else if(role=="unactive") {
+				alert("该邮箱未激活，请先去邮箱激活！");
+				return false;
+			} else{
+				if(role=="success" || role=="superAdmin" || role=="storeAdmin") {
+					//获取最近登录时间,写入session,添加本次日志
+					$.post("setnearLogAction",function() {
 						console.log(role);
-						window.location=("home.jsp");
-					}else if(role=="superAdmin") {
-						console.log(role);
-						window.location=("page/backstage/backHome.jsp");
-					}else if(role=="storeAdmin"){
-						console.log(role);
-						window.location=("page/backstage/backMerchant.jsp");
-					}else{
-						console.log(role);
-						var text2 = $("<li></li>").text("账号或密码错误");
-						meserrorul.empty();
-						meserrorul.append(text2);
-						meserrorul.attr("display","block");
-						console.log("ajax error");
-						return false;
-					}
-				});
+						if(role=="success"){
+							window.location=("home.jsp");
+						}else if(role=="superAdmin") {
+							window.location=("page/backstage/backHome.jsp");
+						}else if(role=="storeAdmin"){
+							window.location=("page/backstage/backMerchant.jsp");
+						}
+					});
+				}
 			}
 		});
 	}

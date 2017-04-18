@@ -127,7 +127,7 @@
 	text-align: center;border-collapse: collapse;width:100%;table-layout: fixed;clear:both;border-top:1px solid #fff;
 }
 #brandListTAb tr td {
-	border-top:1px solid #fff;height:28px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;padding-right:10px;font-size: 14px;
+	border-top:1px solid #fff;height:28px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;padding:10px;font-size: 14px;
 }
 #brandListTAb tbody tr {
 	background: #e5f1f4;

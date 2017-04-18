@@ -80,6 +80,7 @@ public class LoginAction extends ActionSupport {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
 		PrintWriter writer = response.getWriter();
+		response.setContentType("text/text");
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(true);
@@ -89,25 +90,32 @@ public class LoginAction extends ActionSupport {
 		}
 		
 		Map<String, Object> map = logmgr.validLogin(username, password);
+		
 		//判断用户是否存在
 		if (map!=null) {
-			session.setAttribute("cusId", map.get("uId"));
-			session.setAttribute("cusNickName", map.get("uNickName"));
-			session.setAttribute("cusAdmin", map.get("uAdmin"));
-			session.setAttribute("cusStore", map.get("uStore"));
-//			System.out.println(map.get("uId"));
-//			System.out.println(map.get("uNickName"));
-//			System.out.println(map.get("uAdmin"));
-//			System.out.println(map.get("uStore"));
-			Integer cusAdmin =  (Integer) map.get("uAdmin");
-//			System.out.println("cusAdmin:"+cusAdmin);
-			System.out.println("0");
-			if (cusAdmin == 2) {
-				writer.print("superAdmin");
-			}else if (cusAdmin == 1) {
-				writer.print("storeAdmin");
+			Integer statu = (Integer) map.get("uStatu");
+			System.out.println("statu:"+statu);
+			if (statu==5) {
+				writer.print("unactive");
 			}else {
-				writer.print("success");
+				session.setAttribute("cusId", map.get("uId"));
+				session.setAttribute("cusNickName", map.get("uNickName"));
+				session.setAttribute("cusAdmin", map.get("uAdmin"));
+				session.setAttribute("cusStore", map.get("uStore"));
+//					System.out.println(map.get("uId"));
+//					System.out.println(map.get("uNickName"));
+//					System.out.println(map.get("uAdmin"));
+//					System.out.println(map.get("uStore"));
+				Integer cusAdmin =  (Integer) map.get("uAdmin");
+//					System.out.println("cusAdmin:"+cusAdmin);
+				System.out.println("0");
+				if (cusAdmin == 2) {
+					writer.print("superAdmin");
+				}else if (cusAdmin == 1) {
+					writer.print("storeAdmin");
+				}else {
+					writer.print("success");
+				}
 			}
 		}
 		else{

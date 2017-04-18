@@ -42,6 +42,7 @@ public class SendMail {
 	
 	public boolean send(String receiver,String content){
 		Session session = getSession();
+		String msgText = "请点击下面的连接激活用户，如果不能点击请手动复制到地址栏中执行\n" + content;
 		boolean result = false;
 		try{
 			System.out.println("---------开始发送---------");
@@ -51,12 +52,21 @@ public class SendMail {
 			msg.setFrom(new InternetAddress(FROM));
 			InternetAddress[] addrs = {new InternetAddress(receiver)};
 			msg.setRecipients(Message.RecipientType.TO, addrs);
-			msg.setSubject("AidaShop-用户激活");
+			//设置主题
+			msg.setSubject("AidaShop-用户激活");	
+			//设置发送时间
 			msg.setSentDate(new Date());
-			msg.setContent(content, "text/html;charset=utf-8");
+//			msg.setContent(content, "text/html;charset=gb2312");
+			msg.setText(msgText);
 			
 			//开始发送
-			Transport.send(msg);
+//			Transport.send(msg);
+			//协议
+			Transport transport = session.getTransport("smtp");
+			//发信人地址，用户名，密码
+			transport.connect(HOST,FROM,PWD);
+			transport.sendMessage(msg, msg.getAllRecipients());
+			transport.close();
 			
 			System.out.println("---------发送完成---------");
 			result = true;

@@ -1,5 +1,5 @@
 //table分页        
-var pageSize = 14; // 每页显示的记录条数
+var pageSize = 8; // 每页显示的记录条数
 var curPage = 0; // 显示第curPage页
 var len; // 总行数
 var page; // 总页数

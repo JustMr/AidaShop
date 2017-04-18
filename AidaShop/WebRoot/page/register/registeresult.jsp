@@ -23,12 +23,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  	<jsp:include page="/page/reuse/header.jsp"></jsp:include>
+	
   	<% 
-  		String data = request.getParameter("data");
+  		request.setCharacterEncoding("utf-8");
+  		String data = (String) request.getAttribute("data");
   		System.out.println("registeresult.jsp data:"+data);
   		if(data.equals("0")) {
   			%>
-  			<h1>邮箱尚未激活，现在去激活</h1>
+  			<h1>邮箱尚未激活，请去邮箱激活</h1>
   			<%
   		}else if(data.equals("1")) {
   			%>
@@ -36,12 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<%
   		}else {
   			%>
-  			<h1>激活失败，重新去激活</h1>
+  			<h1>激活失败，请重新去邮箱激活</h1>
   			<%
   		}
   	 %>
-    <a href="#">完善个人信息</a>
-    <a href="home.jsp">进入主页</a>
     <input type="hidden" value="${data}">
+   	<jsp:include page="/page/reuse/footer.jsp"></jsp:include>
   </body>
 </html>

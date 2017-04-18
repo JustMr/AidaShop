@@ -10,7 +10,6 @@ import java.util.List;
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.service.ActionManager;
 import com.aidaL.util.SendMail;
-import com.opensymphony.xwork2.ActionContext;
 
 public class CustomerAction extends BaseAction {
 
@@ -53,12 +52,12 @@ public class CustomerAction extends BaseAction {
 		String cusActive = customer.getUActivecode();
 		
 		if (customer.getUState()!=5) {
-			ActionContext.getContext().put("msg", "已验证，请直接登录");
+//			ActionContext.getContext().put("msg", "已验证，请直接登录");
 			request.setAttribute("data", "1");
 			System.out.println("已验证，请直接登录");
 		}else {
 			if (cusActive.equals(UActivecode)) {
-				ActionContext.getContext().put("msg", "验证成功，请登录");
+//				ActionContext.getContext().put("msg", "验证成功，请登录");
 				request.setAttribute("data", "1");
 				customer.setUState(0);
 				this.usermgr.saveOrUpdateCust(customer);
@@ -80,8 +79,10 @@ public class CustomerAction extends BaseAction {
 	 * @throws IOException 
 	 */
 	public String add() throws IOException {
+		//解决Firefox XML解析错误:语法错误 的问题
 		response.setContentType("text/text");
         response.setCharacterEncoding("UTF-8");
+        
 		Integer res = 0; //0未激活，1已激活,2激活失败
 		Integer uidInteger = null;
 		PrintWriter out = response.getWriter();
@@ -112,30 +113,25 @@ public class CustomerAction extends BaseAction {
 		String receiver = UName;
 		Long activateTime = System.currentTimeMillis();
 		String token = activateTime+"";
-		AdCustomer customer2 = this.usermgr.findCustById(uidInteger);
 		String path = request.getContextPath();
 		String URL = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 		System.out.println(URL);
 		
-		String content = "<p>AidaShop爱搭商城激活<br>" +
-				"<br>账户需要激活才可以正常使用<br>" +
-				"<a target='_blank' href='"+URL+"activeCustomerAction?token="+token+"&UId="+uidInteger+"&UActivecode="+UActivecode+"'>" +
-						""+URL+"activeCustomerAction?token="+token+"&UId="+uidInteger+"&UActivecode="+UActivecode+"</a></p>";
+//		String content = "<p>AidaShop爱搭商城激活<br>" +
+//				"<br>账户需要激活才可以正常使用，请点击下面链接激活<br>" +
+//				"<a target='_blank' href='"+URL+"activeCustomerAction?token="+token+"&UId="+uidInteger+"&UActivecode="+UActivecode+"'>" +
+//						""+URL+"activeCustomerAction?token="+token+"&UId="+uidInteger+"&UActivecode="+UActivecode+"</a></p>";
+		String content = URL+"activeCustomerAction?token="+token+"&UId="+uidInteger+"&UActivecode="+UActivecode;
 		System.out.println(content);
 		
-		//判断是否已经激活
-		if (customer2.getUState()==5) {
-			try {
-				SendMail sendMail = new SendMail();
-	            sendMail.send(receiver, content);
-	            System.out.println("2");
-			} catch (Exception e) {
-				res = 2;
-			}
-		}else {
-			res=1;
+
+		try {
+			SendMail sendMail = new SendMail();
+            sendMail.send(receiver, content);
+		} catch (Exception e) {
+			res = 2;
 		}
-		
+//		
 		out.print(res);
 		return null;
 	}

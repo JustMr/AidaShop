@@ -34,6 +34,7 @@ public class ActionManagerImpl implements ActionManager {
 				map.put("uNickName", adCustomer.getUNickName());
 				map.put("uAdmin", adCustomer.getUAdmin());
 				map.put("uStore", adCustomer.getStId());
+				map.put("uStatu", adCustomer.getUState());
 				return map;
 			}
 		} catch (Exception e) {

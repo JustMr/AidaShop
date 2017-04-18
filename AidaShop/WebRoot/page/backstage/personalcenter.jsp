@@ -39,7 +39,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   	</tr> 
 			   	<tr>
 			   		<td width="15%" align="right"><label>性别:</label></td>
-			   		<td class="upBrFont" align="left"><s:textfield name="viCust.USex" label="性别" /></td>
+			   		<td class="upBrFont" align="left">
+			   			<s:radio list="#{'男':'男','女':'女'}" listKey="key" listValue="value" name="viCust.USex"></s:radio>
+			   		</td>
 			   	</tr> 
 			   	<tr>
 			   		<td width="15%" align="right"><label>生日:</label></td>
