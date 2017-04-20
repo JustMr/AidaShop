@@ -89,6 +89,8 @@
 			<result name="personal">/page/backstage/personalcenter.jsp</result>
 			<result name="personalist" type="redirect">personalCustomerAction.action</result>
 			<result name="active">/page/register/registeresult.jsp</result>
+			<result name="ordinary">/page/home/setgeren.jsp</result>
+			<result name="pu" type="redirect">ordinaryCustomerAction.action</result>
 		</action>
 	</package>
 </struts>    

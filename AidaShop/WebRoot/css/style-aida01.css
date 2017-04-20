@@ -351,6 +351,7 @@
 *detailfooter.jsp 
 *底部复用文件
 */
+
 .ft_service_link {
 	width: 1120px;
 	height:192px;
@@ -413,6 +414,20 @@
 /*
 *detailheader.jsp
 */
+#miniCarLog {
+	display: none;overflow: hidden;
+	position: absolute;
+	top: 43px;
+	right: 0;
+	width: 358px;
+	height: 160px;
+	padding:10px 0;
+	border: 1px solid #dedede;
+	background-color: #FFF;
+	-moz-box-shadow: 0 2px 2px #eaeaea;
+	-webkit-box-shadow: 0 2px 2px #eaeaea;
+	box-shadow: 0 2px 2px #eaeaea;
+	z-index: -1;}
 a:HOVER {
 	color:red;
 }

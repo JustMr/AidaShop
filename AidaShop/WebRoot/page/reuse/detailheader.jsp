@@ -21,8 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<link rel="stylesheet" type="text/css" href="css/style-aida01.css">
     <link rel="stylesheet" type="text/css" href="css/style-clear.css">
-    
-
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
   </head>
   
   <body>
@@ -34,9 +33,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<div id="unlogin_top" class="login_wrap">
 		    			<div class="ad_login">
 			    			<span>Hi,请</span>
-			    			<a href="login.html"> 登录 </a>
-			    			/
-			    			<a href="page/register/register.jsp">&nbsp;注册 </a>
+			    			<a target="_blank" href="login.html"> 登录 </a>
+			    			<i>/</i>
+			    			<a target="_blank" href="page/register/register.jsp">&nbsp;注册 </a>
 			    		</div>
 			    		<div class="ad_user_center">
 			    			<div class="login">
@@ -45,13 +44,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    				</div>
 			    				<div class="ad_growth_box">
 			    					<p>
-			    						<a href="***">欢迎进入我的AidaShop</a>
+			    						<a target="_blank" href="login.html">欢迎进入我的AidaShop</a>
 			    					</p>
 			    				</div>
 			    			</div>
 			    			<div class="ad_message">
-			    				<a href="###">积分</a>
-			    				<a href="###">勋章</a>
+			    				<a target="_blank" href="login.html">积分</a>
+			    				<a target="_blank" href="login.html">勋章</a>
 			    			</div>
 			    		</div>
 			    		<em class="login_arrow"></em>
@@ -59,7 +58,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<div id="login_top" class="login_wrap">
 		    			<div class="ad_login">
 			    			<span>Hi,</span>
-			    			<a href="###"> *** </a>
+			    			<a target="_blank" id="login_name" href="page/home/gerenzhongxin.jsp"></a>
+			    			<i>/</i>
+			    			<a href="loginout">&nbsp;注销 </a>
+			    			<input id="userCheck" type="hidden" value="">
 			    		</div>
 			    		<div class="ad_user_center">
 			    			<div class="login">
@@ -68,13 +70,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    				</div>
 			    				<div class="ad_growth_box">
 			    					<p>
-			    						<a href="###">欢迎进入我的AidaShop</a>
+			    						<a target="_blank" href="page/home/gerenzhongxin.jsp">欢迎进入我的AidaShop</a>
 			    					</p>
 			    				</div>
 			    			</div>
 			    			<div class="ad_message">
-			    				<a href="###">积分</a>
-			    				<a href="###">勋章</a>
+			    				<a href="#">积分</a>
+			    				<a href="#">勋章</a>
 			    			</div>
 			    			
 			    		</div>
@@ -289,13 +291,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				</a>
     				<div id="showMiniCartDetail" class="cart_show none">
     					<p>登录才能看到购物车里的商品哦~</p>
-    					<a id="miniCartLogin" href="login.html">登录</a>
+    					<a target="_blank" id="miniCartLogin" href="login.html">登录</a>
+    				</div>
+    				<div id="miniCarLog">
+    					<div ></div>
     				</div>
     			</div>
     		</div>
     		<div class="clear"></div>
     	</div>
     </div>
+    
     <script type="text/javascript" src="js/js-aida02.js"></script>
   </body>
 </html>

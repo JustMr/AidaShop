@@ -1,21 +1,37 @@
 /**
  *create by Liu Shuangbo,2016/12/1
  */
+var count=0;
+$(function() {
+	$.post("loginInfo",function(data) {
+		if (data.cusId!=null) {
+			$("#login_top").show();
+			$("#unlogin_top").hide();
+			$("#userCheck").val(data.cusId);
+			$("#login_name").text(data.cusNickName);
+			console.log("已登录");
+			count=1;
+		}else {
+			count=0;
+			console.log("未登录");
+		}
+	});
+});
 //头部信息栏，显示，隐藏
 var loginWrap = document.getElementsByClassName("login_wrap");
 var adUserCenter = document.getElementsByClassName("ad_user_center");
 var loginArrow = document.getElementsByClassName("login_arrow");
-
-for(var i=0;i< loginWrap.length;i++) {
+var i;
+for(i=0;i< loginWrap.length;i++) {
 	loginWrap[i].onmouseover = function() {
 		this.className += " " + "login_wrap_hover";
-		adUserCenter[0].style.display = "block";
-		loginArrow[0].style.display = "none";
+		adUserCenter[count].style.display = "block";
+		loginArrow[count].style.display = "none";
 	};
 	loginWrap[i].onmouseout = function() {
 		this.className = this.className.replace("login_wrap login_wrap_hover","login_wrap");
-		adUserCenter[0].style.display = "none";
-		loginArrow[0].style.display = "block";
+		adUserCenter[count].style.display = "none";
+		loginArrow[count].style.display = "block";
 	};
 }
 
@@ -98,11 +114,20 @@ function changeTab() {
 //首部购物车
 var miniCart = document.getElementById("miniCart");
 var showMiniCartDetail = document.getElementById("showMiniCartDetail");
+var carLog = document.getElementById("miniCarLog");
 miniCart.onmouseover = function() {
 	this.className += " " + "mini_cart_hover";
-	showMiniCartDetail.style.display = "block";
+	if(count==0) {
+		showMiniCartDetail.style.display = "block";
+	}else {
+		carLog.style.display = "block";
+	}
 };
 miniCart.onmouseout = function() {
 	this.className = this.className.replace("mini_cart mini_cart_hover", "mini_cart");
-	showMiniCartDetail.style.display = "none";
+	if(count==0){
+		showMiniCartDetail.style.display = "none";
+	}else {
+		carLog.style.display = "none";
+	}
 };

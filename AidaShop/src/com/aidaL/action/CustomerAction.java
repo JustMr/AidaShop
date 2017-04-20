@@ -40,6 +40,42 @@ public class CustomerAction extends BaseAction {
 	private Integer stId;
 	private String UActivecode;
 
+	/**
+	 * 修改仅提交部分信息的用户信息
+	 * @return
+	 */
+	public String pu() {
+		AdCustomer customer = this.usermgr.findCustById(viCust.getUId());
+		
+		customer.setUName(viCust.getUName());
+		customer.setUNickName(viCust.getUNickName());
+		customer.setURelaname(viCust.getURelaname());
+		customer.setUSex(viCust.getUSex());
+		customer.setUBirthday(viCust.getUBirthday());
+		customer.setUAddress(viCust.getUAddress());
+		customer.setUCardId(viCust.getUCardId());
+		customer.setUEmail(viCust.getUEmail());
+		customer.setUMobile(viCust.getUMobile());
+		
+		this.usermgr.saveOrUpdateCust(customer);
+		//设置返回页面信息
+		String messageCenter = request.getParameter("messageCenter");
+		if (messageCenter!=null) {
+			session.setAttribute("messageCenter", messageCenter);
+		}
+		
+		return "pu";
+	}
+	
+	/**
+	 * 查看普通用户的个人信息
+	 * @return
+	 */
+	public String ordinary() {
+		Integer uid = (Integer) session.getAttribute("cusId");
+		viCust = this.usermgr.findCustById(uid);
+		return "ordinary";
+	}
 	
 	/**
 	 * 邮箱激活成功

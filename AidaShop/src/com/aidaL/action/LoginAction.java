@@ -160,8 +160,8 @@ public class LoginAction extends ActionSupport {
 	public String loginout() throws IOException {
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpSession session1 = request.getSession();
-		session1.invalidate(); //让SESSION失效
+		HttpSession session = request.getSession(true);
+		session.invalidate(); //让SESSION失效
 		System.out.println("session清空");
 		
 		return SUCCESS;

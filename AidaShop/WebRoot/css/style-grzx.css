@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+.grzx_mainA {color: #fff;}
+.grzx_mainA:hover {text-decoration: none;color: #fff;}
+.grzx_mainA {display: inline-block;margin: 0 20px;}
+.grzx_tit {min-width: 1100px;height: 36px;line-height: 36px;background: #e45050;}
+#grzx_tit_main {margin: 0 auto;color: #ffffff;width: 800px;font-size: 16px;}
+.grzx_warp {width: 1100px;margin: 20 auto;}
+.grzxLeft {float: left;width: 128px;}
+.grzxLeft dl {padding-bottom: 15px;}
+.grzxLeft dl dt {font-weight: 700;height: 28px;line-height: 28px;color: #333;clear: both;}
+.grzxLeft dl dd {display: block;line-height: 24px;clear: both;}
+.grzxLeft dl dd a {color: #666;}
+.grzxRight {float: left;}
+.lastDd {margin-bottom: 15px;}
