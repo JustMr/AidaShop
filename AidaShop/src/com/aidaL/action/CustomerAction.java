@@ -40,11 +40,36 @@ public class CustomerAction extends BaseAction {
 	private Integer stId;
 	private String UActivecode;
 
+	
 	/**
-	 * 修改仅提交部分信息的用户信息
+	 * 修改密码
+	 * @return
+	 * @throws IOException 
+	 */
+	public String chagePwd() throws IOException {
+		
+		AdCustomer customer = this.usermgr.findCustById(UId);
+		String oldPwd = customer.getUPassword();
+		String newPwd = request.getParameter("newPwd");
+		PrintWriter out = response.getWriter();
+		
+		if (!oldPwd.equals(UPassword)) {
+			out.write("1");
+			
+		}else {
+			customer.setUPassword(newPwd);
+			this.usermgr.saveOrUpdateCust(customer);
+			out.write("0");
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * 修改仅提交部分信息的用户信息，普通用户个人中心
 	 * @return
 	 */
-	public String pu() {
+	public String up() {
 		AdCustomer customer = this.usermgr.findCustById(viCust.getUId());
 		
 		customer.setUName(viCust.getUName());
@@ -59,12 +84,9 @@ public class CustomerAction extends BaseAction {
 		
 		this.usermgr.saveOrUpdateCust(customer);
 		//设置返回页面信息
-		String messageCenter = request.getParameter("messageCenter");
-		if (messageCenter!=null) {
-			session.setAttribute("messageCenter", messageCenter);
-		}
+		session.setAttribute("messageCenter", "修改成功");
 		
-		return "pu";
+		return "up";
 	}
 	
 	/**
@@ -74,6 +96,12 @@ public class CustomerAction extends BaseAction {
 	public String ordinary() {
 		Integer uid = (Integer) session.getAttribute("cusId");
 		viCust = this.usermgr.findCustById(uid);
+		//返回页面信息
+		String messageCenter = request.getParameter("messageCenter");
+		if (messageCenter!=null) {
+			session.setAttribute("messageCenter", messageCenter);
+		}
+		
 		return "ordinary";
 	}
 	

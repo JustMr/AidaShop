@@ -38,7 +38,10 @@ public class UserFilter implements Filter {
 			chain.doFilter(request, response);
 		} else {
 			if (paths.contains(path)||path.indexOf("/backstage/")!=-1) {
-				response.sendRedirect("/AidaShop/login.html");
+				response.sendRedirect(request.getContextPath()+"/login.html");
+				//没有return出现以下错误
+				//java.lang.IllegalStateException: Cannot call sendError() after the response has been committed
+				return;
 			}else {
 				chain.doFilter(request, response);
 			}
@@ -49,6 +52,7 @@ public class UserFilter implements Filter {
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 //		paths.add("/login.html");
+		paths.add("/page/home/shangjiaruzhu.jsp");
 	}
 
 }

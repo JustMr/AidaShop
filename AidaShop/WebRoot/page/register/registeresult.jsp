@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   	<jsp:include page="/page/reuse/header.jsp"></jsp:include>
 	
-  <%-- 	<% 
+		<% 
   		request.setCharacterEncoding("utf-8");
   		String data = (String) request.getAttribute("data");
   		System.out.println("registeresult.jsp data:"+data);
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			<div class="resURL"></div>
 	  			<%
 	  		}else if(data.equals("1")) {
-	  			%> --%>
+	  			%>
 	  			<h1 class="resH1">邮箱已激活，现在去<a class="resA" href="login.html">登录</a></h1>
 	  			<div class="resURL">
 	  				<h2><span>去</span><a class="resA" href="page/home/gerenzhongxin.jsp">个人中心</a><span>完善个人信息</span></h2>	
@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  					<a id="shopA" class="iconShowA" title="购物" href="home.jsp"></a>
 	  				</div>
 	  			</div>
-	<%--   			<%
+		<%
 	  		}else {
 	  			%>
 	  			<h1 class="resH1">激活失败，请重新去邮箱激活</h1>
@@ -96,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="resURL"></div>
 			<%
   		}
-  	 %> --%>
+  	 %>
     <input type="hidden" value="${data}">
    	<jsp:include page="/page/reuse/footer.jsp"></jsp:include>
   </body>

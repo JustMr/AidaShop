@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<div id="unlogin_top" class="login_wrap">
 		    			<div class="ad_login">
 			    			<span>Hi,请</span>
-			    			<a target="_blank" href="login.html"> 登录 </a>
+			    			<a href="login.html"> 登录 </a>
 			    			<i>/</i>
 			    			<a target="_blank" href="page/register/register.jsp">&nbsp;注册 </a>
 			    		</div>
@@ -44,13 +44,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    				</div>
 			    				<div class="ad_growth_box">
 			    					<p>
-			    						<a target="_blank" href="login.html">欢迎进入我的AidaShop</a>
+			    						<a href="login.html">欢迎进入我的AidaShop</a>
 			    					</p>
 			    				</div>
 			    			</div>
 			    			<div class="ad_message">
-			    				<a target="_blank" href="login.html">积分</a>
-			    				<a target="_blank" href="login.html">勋章</a>
+			    				<a href="login.html">积分</a>
+			    				<a href="login.html">勋章</a>
 			    			</div>
 			    		</div>
 			    		<em class="login_arrow"></em>
