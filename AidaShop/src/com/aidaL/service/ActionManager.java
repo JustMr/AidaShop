@@ -6,6 +6,7 @@ import java.util.Map;
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.bean.AdLog;
 import com.aidaL.bean.AdStore;
+import com.aidaL.bean.AdStoreAuth;
 import com.aidaL.bean.BrandAD;
 import com.aidaL.dao.AdBrandDAO;
 import com.aidaL.dao.AdStoreDAO;
@@ -56,5 +57,11 @@ public interface ActionManager {
 	public AdLog findMaxLogByUId(Integer uid);
 	public List<AdLog> findSevenLog();
 	
+	//店铺申请表
+	public void saveOrUpdateStoreAuth(AdStoreAuth storeAuth);
+	public void deleteStoreAuth(Integer id);
+	public void addStoreAuth(AdStoreAuth storeAuth);
+	public List<AdStoreAuth> findAllStoreAuths();
+	public AdStoreAuth findStoreAuthById(Integer id);
 	
 }

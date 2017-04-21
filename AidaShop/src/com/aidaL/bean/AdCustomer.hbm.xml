@@ -55,25 +55,25 @@
         <property name="UActivecode" type="java.lang.String">
             <column name="u_activecode" length="20" />
         </property>
-        <set name="adWishlists" inverse="true">
+        <set name="adWishlists" inverse="true" lazy="false" >
             <key>
                 <column name="u_id" not-null="true" />
             </key>
             <one-to-many class="com.aidaL.bean.AdWishlist" />
         </set>
-        <set name="adComments" inverse="true">
+        <set name="adComments" inverse="true" lazy="false" >
             <key>
                 <column name="u_id" not-null="true" />
             </key>
             <one-to-many class="com.aidaL.bean.AdComment" />
         </set>
-        <set name="adConsults" inverse="true">
+        <set name="adConsults" inverse="true" lazy="false">
             <key>
                 <column name="u_id" not-null="true" />
             </key>
             <one-to-many class="com.aidaL.bean.AdConsult" />
         </set>
-        <set name="adOrders" inverse="true">
+        <set name="adOrders" inverse="true" lazy="false">
             <key>
                 <column name="u_id" />
             </key>

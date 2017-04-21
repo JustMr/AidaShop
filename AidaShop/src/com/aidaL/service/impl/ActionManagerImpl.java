@@ -7,9 +7,11 @@ import java.util.Map;
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.bean.AdLog;
 import com.aidaL.bean.AdStore;
+import com.aidaL.bean.AdStoreAuth;
 import com.aidaL.bean.BrandAD;
 import com.aidaL.dao.AdBrandDAO;
 import com.aidaL.dao.AdLogDAO;
+import com.aidaL.dao.AdStoreAuthDAO;
 import com.aidaL.dao.AdStoreDAO;
 import com.aidaL.dao.AdUserDAO;
 import com.aidaL.service.ActionManager;
@@ -20,6 +22,7 @@ public class ActionManagerImpl implements ActionManager {
 	private AdStoreDAO adStoreDAO;
 	private AdBrandDAO adBrandDAO;
 	private AdLogDAO adLogDAO;
+	private AdStoreAuthDAO storeAuthDAO;
 	
 	//用户管理,获取用户基本信息*********************************
 	@Override
@@ -300,6 +303,45 @@ public class ActionManagerImpl implements ActionManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	//店铺申请表管理********************************************
+	@Override
+	public void saveOrUpdateStoreAuth(AdStoreAuth storeAuth) {
+		this.storeAuthDAO.update(storeAuth);
+	}
+
+	@Override
+	public void deleteStoreAuth(Integer id) {
+		this.storeAuthDAO.delete(id);
+	}
+
+	@Override
+	public void addStoreAuth(AdStoreAuth storeAuth) {
+		this.storeAuthDAO.save(storeAuth);
+	}
+
+	@Override
+	public List<AdStoreAuth> findAllStoreAuths() {
+		List<AdStoreAuth> list = this.storeAuthDAO.findAll();
+		return list;
+	}
+
+	@Override
+	public AdStoreAuth findStoreAuthById(Integer id) {
+		AdStoreAuth storeAuth = this.storeAuthDAO.findStoreAuthById(id);
+		if (storeAuth!=null) {
+			return storeAuth;
+		}
+		return null;
+	}
+
+	public AdStoreAuthDAO getStoreAuthDAO() {
+		return storeAuthDAO;
+	}
+
+	public void setStoreAuthDAO(AdStoreAuthDAO storeAuthDAO) {
+		this.storeAuthDAO = storeAuthDAO;
 	}
 
 }

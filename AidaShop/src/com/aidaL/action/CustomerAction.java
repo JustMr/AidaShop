@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.service.ActionManager;
+import com.aidaL.util.Json;
 import com.aidaL.util.SendMail;
 
 public class CustomerAction extends BaseAction {
@@ -40,6 +41,58 @@ public class CustomerAction extends BaseAction {
 	private Integer stId;
 	private String UActivecode;
 
+
+	public String upSA() {
+		Integer uid = (Integer) session.getAttribute("cusId");
+		AdCustomer customer = this.usermgr.findCustById(uid);
+		
+		customer.setUName(UName);
+		customer.setUNickName(UNickName);
+		customer.setURelaname(URelaname);
+		customer.setUSex(USex);
+		customer.setUBirthday(UBirthday);
+		customer.setUAddress(UAddress);
+		customer.setUCardId(UCardId);
+		customer.setUEmail(UEmail);
+		customer.setUMobile(UMobile);
+		
+		this.usermgr.saveOrUpdateCust(customer);
+		
+		return null;
+	}
+	
+	/**
+	 * 店铺申请时，查找并验证是否信息齐全
+	 * @return
+	 */
+	public String fc() {
+		Json json = new Json();
+		Integer uid = (Integer) session.getAttribute("cusId");
+		AdCustomer customer = this.usermgr.findCustById(uid);
+		
+		String name = customer.getUName();
+		String nickname = customer.getUNickName();
+		String realname = customer.getURelaname();
+		String sex = customer.getUSex();
+		Date birthday = customer.getUBirthday();
+		String address = customer.getUAddress();
+		String cardId = customer.getUCardId();
+		String email = customer.getUEmail();
+		String mobile = customer.getUMobile();
+		
+		if (name==null||nickname==null||realname==null||sex==null||birthday==null||address==null||cardId==null||email==null||mobile==null
+				||name.equals("")||nickname.equals("")||realname.equals("")||sex.equals("")||birthday.equals("")||address.equals("")||cardId.equals("")||email.equals("")||mobile.equals("")) {
+			json.setMsg("no");
+		} else {
+			json.setMsg("yes");
+		}
+		json.setObj(customer);
+		json.setSuccess(true);
+
+		writeJson(json);
+		
+		return null;
+	}
 	
 	/**
 	 * 修改密码
