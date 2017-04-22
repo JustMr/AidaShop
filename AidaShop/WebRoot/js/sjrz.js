@@ -6,7 +6,23 @@ $(function() {
 	$(".back").on("click",formHide);
 	$(".closeIcon").on("click",formHide);
 	$("#checkBtn").on("click",infoPost);
+	$("#existCheck").on("click",existCheck);
 });
+//检查是否已经信息完整和是否申请过一个店铺
+function existCheck() {
+	var res = $("#baseCompRes").val();
+	if(res=="no") {
+		alert("请先去补全个人信息或查看个人信息确认！");
+		return false;
+	}else {
+		$.post("isExistStoreAuthAction",function(data){
+			if(data.msg=="0") {
+				alert("您的账户已经申请过店铺，请不要再次申请！");
+				return false;
+			}
+		},"json");
+	}
+}
 function tabOne() {
 	$("#cs_1").hide();
 	$("#cs_2").show();

@@ -59,4 +59,12 @@ public interface AdStoreAuthDAO {
 
      */
     AdStoreAuth findStoreAuthById(Integer id);
+
+    /**
+     * 通过用户ID查询店铺申请表
+     * @param uid 用户ID
+     * @return	返回该列信息
+     */
+	AdStoreAuth findStoreAuthByUId(Integer uid);
+
 }

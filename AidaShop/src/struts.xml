@@ -92,5 +92,10 @@
 			<result name="ordinary">/page/home/setgeren.jsp</result>
 			<result name="up" type="redirect">ordinaryCustomerAction.action</result>
 		</action>
+		
+		<!-- 店铺申请表管理 -->
+		<action name="*StoreAuthAction" class="storeAuthBean" method="{1}">
+			<result name="add">/page/home/sjrzresult.jsp</result>
+		</action>
 	</package>
 </struts>    

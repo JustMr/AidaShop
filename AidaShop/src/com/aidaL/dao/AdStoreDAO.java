@@ -57,4 +57,11 @@ public interface AdStoreDAO {
 
      */
     AdStore findStoreById(Integer id);
+
+    /**
+     * 保存并返回ID
+     * @param store
+     * @return
+     */
+	Integer saveResID(AdStore store);
 }

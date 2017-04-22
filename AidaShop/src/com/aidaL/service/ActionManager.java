@@ -39,6 +39,7 @@ public interface ActionManager {
 	public List<AdStore> findAllStores();
 	public AdStoreDAO getAdStoreDAO();
 	public void setAdStoreDAO(AdStoreDAO adStoreDAO);
+	public Integer addStoreResID(AdStore store);
 	
 	//品牌管理
 	public void saveOrUpdateBrand(BrandAD brand);
@@ -63,5 +64,6 @@ public interface ActionManager {
 	public void addStoreAuth(AdStoreAuth storeAuth);
 	public List<AdStoreAuth> findAllStoreAuths();
 	public AdStoreAuth findStoreAuthById(Integer id);
+	public AdStoreAuth findStoreAuthByUId(Integer uid);
 	
 }

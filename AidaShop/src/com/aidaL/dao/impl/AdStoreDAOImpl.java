@@ -60,4 +60,12 @@ public class AdStoreDAOImpl extends HibernateDaoSupport implements AdStoreDAO {
 		return null;
 	}
 
+	@Override
+	public Integer saveResID(AdStore store) {
+		// TODO Auto-generated method stub
+		this.getHibernateTemplate().save(store);
+		Integer sId = store.getStId();
+		return sId;
+	}
+
 }

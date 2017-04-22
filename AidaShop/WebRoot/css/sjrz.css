@@ -132,3 +132,10 @@
 .radioSex {margin-left:10px;vertical-align: middle;}
 .labSex {margin-left: 5px;}
 #viewBtn p {font-size: 12px;color: red;text-align: center;}
+.formTab tr td:FIRST-CHILD {
+	padding: 5px 0;
+	width: 20px;
+}
+.formTab tr td:last-child {
+	padding: 5px 10px;
+}

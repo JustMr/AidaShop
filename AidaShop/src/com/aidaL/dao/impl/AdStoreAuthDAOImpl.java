@@ -58,4 +58,16 @@ public class AdStoreAuthDAOImpl extends HibernateDaoSupport implements AdStoreAu
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public AdStoreAuth findStoreAuthByUId(Integer uid) {
+		// TODO Auto-generated method stub
+		List<AdStoreAuth> list = null;
+		list = this.getHibernateTemplate().find("from com.aidaL.bean.AdStoreAuth adsa where adsa.UId ="+uid);
+		if (list!=null) {
+			return (AdStoreAuth) list.get(0);
+		}
+		return null;
+	}
+
 }

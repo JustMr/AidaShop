@@ -37,83 +37,8 @@ public class FileAction extends BaseAction {
 	private InputStream inputStream;
     //下载文件的类型
     private String conetntType;
-	
-	public String getInputPath() {
-		return inputPath;
-	}
 
-
-	public void setInputPath(String inputPath) {
-		this.inputPath = inputPath;
-	}
-
-
-	public String getFileName() {
-		return fileName;
-	}
-
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-
-	public String getConetntType() {
-		return conetntType;
-	}
-
-
-	public void setConetntType(String conetntType) {
-		this.conetntType = conetntType;
-	}
-
-
-	public void setInputStream(InputStream inputStream) {
-		this.inputStream = inputStream;
-	}
-
-
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
-	public File getFile() {
-		return file;
-	}
-
-
-	public void setFile(File file) {
-		this.file = file;
-	}
-
-
-	public String getFileContentType() {
-		return fileContentType;
-	}
-
-
-	public void setFileContentType(String fileContentType) {
-		this.fileContentType = fileContentType;
-	}
-
-
-	public String getFileFileName() {
-		return fileFileName;
-	}
-
-
-	public void setFileFileName(String fileFileName) {
-		this.fileFileName = fileFileName;
-	}
-
-
-	public String upload() throws IOException {
+    public String upload() throws IOException {
 		String message = "";
 		//处理获取到的上传文件的文件名的路径部分，只保留文件名部分
 		fileFileName = fileFileName.substring(fileFileName.lastIndexOf("\\")+1);
@@ -226,4 +151,80 @@ public class FileAction extends BaseAction {
     	
     	return dir;
 	}
+    
+	public String getInputPath() {
+		return inputPath;
+	}
+
+
+	public void setInputPath(String inputPath) {
+		this.inputPath = inputPath;
+	}
+
+
+	public String getFileName() {
+		return fileName;
+	}
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
+	public String getConetntType() {
+		return conetntType;
+	}
+
+
+	public void setConetntType(String conetntType) {
+		this.conetntType = conetntType;
+	}
+
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public File getFile() {
+		return file;
+	}
+
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+
+	public String getFileContentType() {
+		return fileContentType;
+	}
+
+
+	public void setFileContentType(String fileContentType) {
+		this.fileContentType = fileContentType;
+	}
+
+
+	public String getFileFileName() {
+		return fileFileName;
+	}
+
+
+	public void setFileFileName(String fileFileName) {
+		this.fileFileName = fileFileName;
+	}
+
+
 }

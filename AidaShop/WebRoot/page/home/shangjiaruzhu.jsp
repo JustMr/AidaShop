@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 							<div id="viewBtn">
 								<p></p>
-								<input id="checkBtn" type="button" class="upBrBtn" value="提交">
+								<input id="checkBtn" type="button" class="upBrBtn" value="确认">
 							</div>
 							<script type="text/javascript">
 							!function(){
@@ -178,14 +178,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<!-- 身份证件上传 -->
 					<div id="cs_32">
 						<form action="${pageContext.request.contextPath }/addStoreAuthAction" enctype="multipart/form-data" method="post">
-							<table>
+							<table id="formTab" width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
 								<tr>
 									<td>店铺名称：</td>
-									<td><input type="file" name="cardFront"></td>
+									<td><input type="text" name="saName"></td>
 								</tr>
 								<tr>
 									<td>店铺标签：</td>
-									<td><input type="file" name="saTag"><span>请以“**/**/**”的形式书写，如“上衣/衬衫/裤子”</span> </td>
+									<td><input type="text" name="saTag"><span>请以“**/**/**”的形式书写，如“上衣/衬衫/裤子”</span> </td>
 								</tr>
 								<tr>
 									<td>身份证正面上传：</td>
@@ -196,7 +196,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td><input type="file" name="cardBack"></td>
 								</tr>
 								<tr>
-									<td colspan="2"><input type="submit" value="提交"></td>
+									<td colspan="2"><input id="existCheck" class="upBrBtn" type="submit" value="提交"></td>
 								</tr>
 							</table>
 					    </form>

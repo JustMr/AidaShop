@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Map;
@@ -47,6 +48,20 @@ public class TimeIPDB {
 		
 		return date;
 	}
+	
+	/** 
+	* 得到指定月后（前）的日期 参数传负数即可 
+	*/  
+	public String  getAfterMonth(int month) {  
+        Calendar c = Calendar.getInstance();//获得一个日历的实例     
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");     
+        Date date = new Date(); //获取当前时间   
+        c.setTime(date);//设置日历时间     
+        c.add(Calendar.MONTH,month);//在日历的月份上增加month个月     
+        String strDate = sdf.format(c.getTime());//的到你想要得month个月后的日期     
+        System.out.println("after time:"+strDate);
+        return strDate;  
+	} 
 	
 	//判断是否为windows平台
 	public boolean isWindowsOS(){

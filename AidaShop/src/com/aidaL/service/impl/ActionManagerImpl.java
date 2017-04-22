@@ -161,7 +161,13 @@ public class ActionManagerImpl implements ActionManager {
 		// TODO Auto-generated method stub
 		this.adStoreDAO.save(store);
 	}
-
+	
+	@Override
+	public Integer addStoreResID(AdStore store) {
+		// TODO Auto-generated method stub
+		return this.adStoreDAO.saveResID(store);
+	}
+	
 	@Override
 	public AdStore findStoreById(Integer id) {
 		// TODO Auto-generated method stub
@@ -185,6 +191,7 @@ public class ActionManagerImpl implements ActionManager {
 		// TODO Auto-generated method stub
 		this.adStoreDAO = adStoreDAO;
 	}
+
 
 	//品牌管理***************************************************
 	@Override
@@ -343,5 +350,16 @@ public class ActionManagerImpl implements ActionManager {
 	public void setStoreAuthDAO(AdStoreAuthDAO storeAuthDAO) {
 		this.storeAuthDAO = storeAuthDAO;
 	}
+
+	@Override
+	public AdStoreAuth findStoreAuthByUId(Integer uid) {
+		AdStoreAuth storeAuth = this.storeAuthDAO.findStoreAuthByUId(uid);
+		if (storeAuth!=null) {
+			return storeAuth;
+		}
+		return null;
+	}
+
+
 
 }

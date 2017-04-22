@@ -49,6 +49,19 @@
 		</property>
 	</bean>
 	
+	<!-- StoreAuth店铺申请 -->
+	<bean id="storeAuthBean" class="com.aidaL.action.StoreAuthAction" scope="prototype">
+		<property name="samgr" ref="adAppMgrStoreAuth"></property>
+		<property name="stormgr" ref="adAppMgrStore"></property>
+		<property name="custmgr" ref="adAppMgr"></property>
+	</bean>
+	<bean id="adAppMgrStoreAuth" class="com.aidaL.service.impl.ActionManagerImpl">
+		<property name="storeAuthDAO" ref="adAppStoreAuth"></property>
+	</bean>
+	<bean id="adAppStoreAuth" class="com.aidaL.dao.impl.AdStoreAuthDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
 	<!-- CustomerAction用户 -->
 	<bean id="customerBean" class="com.aidaL.action.CustomerAction" scope="prototype">
 		<property name="usermgr" ref="adAppMgr"></property>
