@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div id="geren" class="typePic"></div>
 							<div class="typeName">个人店铺</div>
 							<p class="typeDescri">通过个人实名认证的商家创建的店铺, 就是个人店铺。</p>
-							<a id="creatStore" class="butA" href="javascrpit:void(0);">创建个人店铺</a>
+							<a id="creatStore" class="butA" href="javascript:void(0);">创建个人店铺</a>
 						</div>
 					</div>
 					<div class="cs1_border">
@@ -178,22 +178,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<!-- 身份证件上传 -->
 					<div id="cs_32">
 						<form action="${pageContext.request.contextPath }/addStoreAuthAction" enctype="multipart/form-data" method="post">
-							<table id="formTab" width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+							<table id="formTab" width="100%" border="0" cellpadding="0" cellspacing="0">
 								<tr>
 									<td>店铺名称：</td>
 									<td><input type="text" name="saName"></td>
 								</tr>
 								<tr>
 									<td>店铺标签：</td>
-									<td><input type="text" name="saTag"><span>请以“**/**/**”的形式书写，如“上衣/衬衫/裤子”</span> </td>
+									<td><input type="text" name="saTag"><span id="tipTr2">请以“**/**/**”的形式书写，如“上衣/衬衫/裤子”</span> </td>
 								</tr>
 								<tr>
 									<td>身份证正面上传：</td>
-									<td><input type="file" name="cardFront"></td>
+									<td><input type="file" name="file"></td>
 								</tr>
 								<tr>
 									<td>身份证背面上传：</td>
-									<td><input type="file" name="cardBack"></td>
+									<td><input type="file" name="file"></td>
 								</tr>
 								<tr>
 									<td colspan="2"><input id="existCheck" class="upBrBtn" type="submit" value="提交"></td>

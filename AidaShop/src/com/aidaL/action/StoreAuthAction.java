@@ -1,12 +1,19 @@
 package com.aidaL.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.bean.AdStore;
 import com.aidaL.bean.AdStoreAuth;
+import com.aidaL.db.FileIODB;
 import com.aidaL.db.TimeIPDB;
 import com.aidaL.service.ActionManager;
 import com.aidaL.util.Json;
@@ -28,7 +35,21 @@ public class StoreAuthAction extends BaseAction {
 	private String saName;
 	private String saTag;
 	private Integer saStatu;
+	//多文件上传
+	private	List<File> file;
+	private List<String> fileFileName;
+	private List<String> fileContentType;
+	//限制上传类型
+	private Set<String> allowType = new HashSet<String>();
+
 	
+	private void init() {
+		allowType.add("jpg");
+		allowType.add("jpeg");
+		allowType.add("gif");
+		allowType.add("bmp");
+		allowType.add("png");
+	}
 
 	/**
 	 * 检查该用户是否已经申请过一个商城
@@ -52,21 +73,85 @@ public class StoreAuthAction extends BaseAction {
 	/**
 	 * 店铺申请表生成
 	 * @return
+	 * @throws IOException 
 	 */
-	public String add() {
+	public String add() throws IOException {
 		Integer uid = (Integer) session.getAttribute("cusId");
 		
 		//创建店铺申请表
 		AdStoreAuth aStoreAuth = new AdStoreAuth();
 		aStoreAuth.setSaName(saName);
 		aStoreAuth.setSaTag(saTag);
-		aStoreAuth.setSaIdcardFront(saIdcardFront);
-		aStoreAuth.setSaIdcardBack(saIdcardBack);
 		aStoreAuth.setUId(uid);
 		aStoreAuth.setSaStatu(1);
+		//上传文件
+		String message = "";
+		for (int i = 0; i < file.size(); i++) {
+			//处理获取到的上传文件的文件名的路径部分，只保留文件名部分
+			String filename = fileFileName.get(i).substring(fileFileName.get(i).lastIndexOf("\\")+1);
+			System.out.println("fileFileName:"+filename);
+			
+			if (filename==null || filename.trim().equals("")) {
+				message="文件名为空";
+				request.setAttribute("message", message);
+				return "add";
+			}
+			
+			//得到上传文件的扩展名
+			String fileExtName = fileFileName.get(i).substring(fileFileName.get(i).lastIndexOf(".")+1);
+			//如果需要限制上传的文件类型，那么可以通过文件的扩展名来判断上传的文件类型是否合法
+			System.out.println("上传的文件扩展名为："+fileExtName);
+			init();
+			if (!allowType.contains(fileExtName)) {
+				message="文件不符合要求！";
+				request.setAttribute("message", message);
+				return "add";
+			}
+			
+			byte[] buffer=new byte[1024];
+	        FileIODB fileIODB = new FileIODB();
+	        String savePath = fileIODB.getSavePath("/WEB-INF/upload");
+	        File saveDir = new File(savePath);
+	        //检查文件夹是否存在
+	        if(!saveDir.exists() && !saveDir.isDirectory()) {
+	        	System.out.println(savePath+"目录不存在，需要创建");
+	        	//创建目录
+	        	saveDir.mkdir();
+	        }
+	        
+	        //读取文件
+	        FileInputStream fis=new FileInputStream(file.get(i));
+	        //得到文件保存的名称
+	        String saveFileName = fileIODB.makeFileName(fileFileName.get(i));
+	        System.out.println("saveFileName:"+saveFileName);
+	        //得到文件的保存目录
+	        String realSavePath = fileIODB.makePath(saveFileName, savePath);
+	        System.out.println("realSavePath:"+realSavePath);
+	        //保存文件
+	        FileOutputStream fos=new FileOutputStream(realSavePath +"\\"+saveFileName);
+	        //保存文件地址
+	        if (i==0) {
+				aStoreAuth.setSaIdcardFront(realSavePath +"\\"+saveFileName);
+			}else if (i==1) {
+				aStoreAuth.setSaIdcardBack(realSavePath +"\\"+saveFileName);
+			}
+	        
+	        int length=fis.read(buffer);
+	        
+	        while(length>0){
+	            //每次写入length长度的内容
+	            fos.write(buffer,0,length);
+	            length=fis.read(buffer);
+	        }
+	        
+	        fis.close();
+	        fos.flush();
+	        fos.close();
+		}
 		this.samgr.addStoreAuth(aStoreAuth);
 		
 		//创建相应店铺表，并返回店铺表ID
+		System.out.println("name+tag:"+saName+","+saTag);
 		store.setStName(saName);
 		store.setStTag(saTag);
 		store.setStServiceManner(0.0);
@@ -77,7 +162,8 @@ public class StoreAuthAction extends BaseAction {
 		store.setStState(4);
 		store.setStCreateTime(new Date());
 		TimeIPDB timeIPDB = new TimeIPDB();
-		store.setStEndTime(timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)));
+		store.setStEndTime(timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)));	//设置结束时间为当前时间后5年
+		System.out.println("timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)):"+timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)));
 		Integer sId = this.stormgr.addStoreResID(store);
 		
 		//修改用户表所寻的stID
@@ -196,6 +282,30 @@ public class StoreAuthAction extends BaseAction {
 
 	public void setCust(AdCustomer cust) {
 		this.cust = cust;
+	}
+
+	public List<File> getFile() {
+		return file;
+	}
+
+	public void setFile(List<File> file) {
+		this.file = file;
+	}
+
+	public List<String> getFileFileName() {
+		return fileFileName;
+	}
+
+	public void setFileFileName(List<String> fileFileName) {
+		this.fileFileName = fileFileName;
+	}
+
+	public List<String> getFileContentType() {
+		return fileContentType;
+	}
+
+	public void setFileContentType(List<String> fileContentType) {
+		this.fileContentType = fileContentType;
 	}
 	
 	

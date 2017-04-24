@@ -6,6 +6,10 @@
 	<constant name="struts.objectFactory" value="spring"/>
 	<constant name="struts.ui.theme" value="simple"></constant>
 	<constant name="struts.devMode" value="true"></constant>
+	<!--解决乱码    -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <!-- 设置最大上传值 -->
+    <constant name="struts.multipart.maxSize" value="10701096"/>
 	
 	<package name="AidaShop" namespace="/" extends="struts-default,json-default">
 		<!-- login/logout action -->
