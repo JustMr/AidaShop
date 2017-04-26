@@ -14,10 +14,10 @@
             <column name="u_id" not-null="true" />
         </property>
         <property name="saIdcardFront" type="java.lang.String">
-            <column name="sa_IDCard_front" length="50" not-null="true" />
+            <column name="sa_IDCard_front" length="300" not-null="true" />
         </property>
         <property name="saIdcardBack" type="java.lang.String">
-            <column name="sa_IDCard_back" length="50" not-null="true" />
+            <column name="sa_IDCard_back" length="300" not-null="true" />
         </property>
         <property name="saName" type="java.lang.String">
             <column name="sa_name" length="100" />

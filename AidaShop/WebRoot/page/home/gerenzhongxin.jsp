@@ -58,6 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			<dt>客户服务</dt>
    			<dd><a href="javascript:void(0);">返修退换货</a></dd>
    			<dd><a href="javascript:void(0);">购买咨询</a></dd>
+   			<dd><a href="authCenterStoreAuthAction" target="grzxFrame">申请中心</a></dd>
    			<dd class="lastDd"><a href="javascript:void(0);">举报中心</a></dd>
    		</dl>
    		<dl>
@@ -67,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		</dl>
    	</div>
    	<div class="grzxRight">
-   		<iframe id="grzxFrame" name="grzxFrame" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="iFrameHeight()"></iframe>
+   		<iframe id="grzxFrame" name="grzxFrame" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="dyniframesize()"></iframe>
    	</div>
    	<div class="clear"></div>
    </div>

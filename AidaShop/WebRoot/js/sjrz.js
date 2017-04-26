@@ -2,6 +2,7 @@ $(function() {
 	$("#creatStore").on("click",tabOne);
 	$("#preBtn1").on("click",tabTwo);
 	$("#blueBtn1").on("click",tabTwo1);
+	$("#preBtn2").on("click",tabThree);
 	$("#baseCompNo").on("click",formShow);
 	$(".back").on("click",formHide);
 	$(".closeIcon").on("click",formHide);
@@ -14,15 +15,12 @@ function existCheck() {
 	if(res=="no") {
 		alert("请先去补全个人信息或查看个人信息确认！");
 		return false;
-	}else {
-		$.post("isExistStoreAuthAction",function(data){
-			if(data.msg=="0") {
-				alert("您的账户已经申请过店铺，请不要再次申请！");
-				return false;
-			}
-		},"json");
+	} else if(res=="exist") {
+		alert("您的账户已经申请过店铺，请不要再次申请！");
+		return false;
 	}
 }
+
 function tabOne() {
 	$("#cs_1").hide();
 	$("#cs_2").show();
@@ -44,6 +42,14 @@ function tabTwo1() {
 	$("#cs_tit ul li").removeClass("actived");
 	$("#cs_tit ul li").eq(2).addClass("active");
 	$("#cs_tit ul li").eq(1).addClass("actived");
+	$("#cs_tit ul li").eq(0).addClass("actived");
+}
+function tabThree() {
+	$("#cs_2").show();
+	$("#cs_3").hide();
+	$("#cs_tit ul li").removeClass("active");
+	$("#cs_tit ul li").removeClass("actived");
+	$("#cs_tit ul li").eq(1).addClass("active");
 	$("#cs_tit ul li").eq(0).addClass("actived");
 }
 //String转Date
@@ -71,7 +77,6 @@ function formShow() {
 	$(".shadow").addClass("shadowShow");
 	$(".back").show();
 	$.post("fcCustomerAction",function(data) {
-		console.log(data.msg+data.obj.uName+data);
 		//设置所查看的显示信息
 		$("#infoName").text(data.obj.uName);
 		$("#iptName").val(data.obj.uName);
@@ -91,6 +96,13 @@ function formShow() {
 		$("#infoUMobile").val(data.obj.uMobile);
 		//设置是否满足信息完整的值
 		$("#baseCompRes").val(data.msg);
+		
+		$.post("isExistStoreAuthAction",function(data){
+			if(data.msg=="0") {
+				alert("您的账户已经申请过店铺，请不要再次申请！");
+				$("#baseCompRes").val("exist");
+			}
+		},"json");
 	},"json");
 }
 function formHide() {

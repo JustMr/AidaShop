@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -177,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<!-- 身份证件上传 -->
 					<div id="cs_32">
-						<form action="${pageContext.request.contextPath }/addStoreAuthAction" enctype="multipart/form-data" method="post">
+						<form action="${pageContext.request.contextPath }/addStoreAuthAction" enctype="multipart/form-data" method="post" >
 							<table id="formTab" width="100%" border="0" cellpadding="0" cellspacing="0">
 								<tr>
 									<td>店铺名称：</td>
@@ -196,7 +197,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td><input type="file" name="file"></td>
 								</tr>
 								<tr>
-									<td colspan="2"><input id="existCheck" class="upBrBtn" type="submit" value="提交"></td>
+									<td colspan="2">
+										<a id="preBtn2" class="preBtn" href="javascript:void(0);">上一步</a>
+										<input id="existCheck" class="upBrBtn" type="submit" value="提交">
+									</td>
 								</tr>
 							</table>
 					    </form>

@@ -27,7 +27,7 @@
     width:122px;
     height:49px;
 }
-#title_right {
+#title_right,#title_right_log {
     font-family: "SimSun","Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
     line-height:18px;
     color: #999;
@@ -35,12 +35,12 @@
     margin-top: 20px;
     float: right;
 }
-#title_right a {
+#title_right a,#title_right_log a {
 	text-decoration: none;
 	color: blue;
 	float:right;
 }
-#title_right a:HOVER {
+#title_right a:HOVER,#title_right_log a:hover {
 	color:red;
 }
 .fr {
@@ -347,6 +347,7 @@
 .wrap_header {
 	margin-bottom: 15px;
 }
+#title_right_log {display: none;}
 /*
 *detailfooter.jsp 
 *底部复用文件

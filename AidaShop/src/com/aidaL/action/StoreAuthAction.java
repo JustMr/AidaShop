@@ -18,9 +18,13 @@ import com.aidaL.db.TimeIPDB;
 import com.aidaL.service.ActionManager;
 import com.aidaL.util.Json;
 
-@SuppressWarnings("serial")
 public class StoreAuthAction extends BaseAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6841738230557516038L;
+	
 	private ActionManager samgr;
 	private ActionManager stormgr;
 	private ActionManager custmgr;
@@ -43,6 +47,32 @@ public class StoreAuthAction extends BaseAction {
 	private Set<String> allowType = new HashSet<String>();
 
 	
+	/**
+	 * 个人中心查看申请详情
+	 * @return
+	 */
+	public String sqvi() {
+		System.out.println("sqvi id:"+saId);
+		storeAuth = this.samgr.findStoreAuthById(saId);
+		
+		return "sqvi";
+	}
+
+	/**
+	 * 普通用户个人中心查看申请列表
+	 * @return
+	 */
+	public String authCenter() {
+		Integer uid = (Integer) session.getAttribute("cusId");
+		storeAuth = this.samgr.findStoreAuthByUId(uid);
+		System.out.println("storeAuth:"+storeAuth);
+		
+		return "authCenter";
+	}
+	
+	/**
+	 * 设置限制上传的类型
+	 */
 	private void init() {
 		allowType.add("jpg");
 		allowType.add("jpeg");
@@ -57,12 +87,15 @@ public class StoreAuthAction extends BaseAction {
 	 */
 	public String isExist() {
 		Integer uid = (Integer) session.getAttribute("cusId");
-		AdStoreAuth aStoreAuth = this.samgr.findStoreAuthByUId(uid);
+		AdStoreAuth aStoreAuth = null;
+		aStoreAuth = this.samgr.findStoreAuthByUId(uid);
 		Json json = new Json();
 		if(aStoreAuth!=null) {
 			//已存在，无法创建
+			System.out.println("不可以创建");
 			json.setMsg("0");
 		}else {
+			System.out.println("可以创建");
 			//未存在，可以创建
 			json.setMsg("1");
 		}
@@ -79,6 +112,7 @@ public class StoreAuthAction extends BaseAction {
 		Integer uid = (Integer) session.getAttribute("cusId");
 		
 		//创建店铺申请表
+//		System.out.println("name+tag:"+saName+","+saTag);
 		AdStoreAuth aStoreAuth = new AdStoreAuth();
 		aStoreAuth.setSaName(saName);
 		aStoreAuth.setSaTag(saTag);
@@ -89,7 +123,7 @@ public class StoreAuthAction extends BaseAction {
 		for (int i = 0; i < file.size(); i++) {
 			//处理获取到的上传文件的文件名的路径部分，只保留文件名部分
 			String filename = fileFileName.get(i).substring(fileFileName.get(i).lastIndexOf("\\")+1);
-			System.out.println("fileFileName:"+filename);
+//			System.out.println("fileFileName:"+filename);
 			
 			if (filename==null || filename.trim().equals("")) {
 				message="文件名为空";
@@ -100,7 +134,7 @@ public class StoreAuthAction extends BaseAction {
 			//得到上传文件的扩展名
 			String fileExtName = fileFileName.get(i).substring(fileFileName.get(i).lastIndexOf(".")+1);
 			//如果需要限制上传的文件类型，那么可以通过文件的扩展名来判断上传的文件类型是否合法
-			System.out.println("上传的文件扩展名为："+fileExtName);
+//			System.out.println("上传的文件扩展名为："+fileExtName);
 			init();
 			if (!allowType.contains(fileExtName)) {
 				message="文件不符合要求！";
@@ -110,7 +144,7 @@ public class StoreAuthAction extends BaseAction {
 			
 			byte[] buffer=new byte[1024];
 	        FileIODB fileIODB = new FileIODB();
-	        String savePath = fileIODB.getSavePath("/WEB-INF/upload");
+	        String savePath = fileIODB.getSavePath("/upload");
 	        File saveDir = new File(savePath);
 	        //检查文件夹是否存在
 	        if(!saveDir.exists() && !saveDir.isDirectory()) {
@@ -123,10 +157,10 @@ public class StoreAuthAction extends BaseAction {
 	        FileInputStream fis=new FileInputStream(file.get(i));
 	        //得到文件保存的名称
 	        String saveFileName = fileIODB.makeFileName(fileFileName.get(i));
-	        System.out.println("saveFileName:"+saveFileName);
+//	        System.out.println("saveFileName:"+saveFileName);
 	        //得到文件的保存目录
 	        String realSavePath = fileIODB.makePath(saveFileName, savePath);
-	        System.out.println("realSavePath:"+realSavePath);
+//	        System.out.println("realSavePath:"+realSavePath);
 	        //保存文件
 	        FileOutputStream fos=new FileOutputStream(realSavePath +"\\"+saveFileName);
 	        //保存文件地址
@@ -151,25 +185,28 @@ public class StoreAuthAction extends BaseAction {
 		this.samgr.addStoreAuth(aStoreAuth);
 		
 		//创建相应店铺表，并返回店铺表ID
-		System.out.println("name+tag:"+saName+","+saTag);
-		store.setStName(saName);
-		store.setStTag(saTag);
-		store.setStServiceManner(0.0);
-		store.setStServiceQuality(0.0);
-		store.setStSpeed(0.0);
-		store.setStFavorablerate(0.00);
-		store.setStLevel(0);
-		store.setStState(4);
-		store.setStCreateTime(new Date());
+		AdStore aStore = new AdStore();
+		aStore.setStName(saName);
+		aStore.setStTag(saTag);
+		aStore.setStServiceManner(0.0);
+		aStore.setStServiceQuality(0.0);
+		aStore.setStSpeed(0.0);
+		aStore.setStFavorablerate(0.00);
+		aStore.setStLevel(0);
+		aStore.setStState(4);
+		aStore.setStCreateTime(new Date());
 		TimeIPDB timeIPDB = new TimeIPDB();
-		store.setStEndTime(timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)));	//设置结束时间为当前时间后5年
-		System.out.println("timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)):"+timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)));
-		Integer sId = this.stormgr.addStoreResID(store);
+		aStore.setStEndTime(timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)));	//设置结束时间为当前时间后5年
+//		System.out.println("timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)):"+timeIPDB.stringToDate(timeIPDB.getAfterMonth(60)));
+		Integer sId = this.stormgr.addStoreResID(aStore);
 		
 		//修改用户表所寻的stID
 		cust = this.custmgr.findCustById(uid);
 		cust.setStId(sId);
 		this.custmgr.saveOrUpdateCust(cust);
+		
+		message="申请成功！";
+		request.setAttribute("message", message);
 		
 		return "add";
 	}

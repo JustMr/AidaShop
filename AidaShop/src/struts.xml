@@ -100,6 +100,9 @@
 		<!-- 店铺申请表管理 -->
 		<action name="*StoreAuthAction" class="storeAuthBean" method="{1}">
 			<result name="add">/page/home/sjrzresult.jsp</result>
+			<result name="authCenter">/page/home/shenqingzhongxin.jsp</result>
+			<result name="sqvi">/page/home/grzxsqvi.jsp</result>
+			
 		</action>
 	</package>
 </struts>    

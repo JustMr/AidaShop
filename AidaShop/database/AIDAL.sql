@@ -270,3 +270,5 @@ CREATE TABLE ad_storeAuth (
 	sa_tag VARCHAR(200),							--对应店铺信息标签
 	sa_statu INT NOT NULL DEFAULT(1),				--申请表状态
 )
+ALTER TABLE ad_storeAuth ALTER COLUMN sa_IDCard_front VARCHAR(300) NOT NULL
+ALTER TABLE ad_storeAuth ALTER COLUMN sa_IDCard_back VARCHAR(300) NOT NULL

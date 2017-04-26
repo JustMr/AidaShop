@@ -21,6 +21,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<link rel="stylesheet" type="text/css" href="css/style-aida01.css">
     <link rel="stylesheet" type="text/css" href="css/style-clear.css">
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    
   </head>
   
   <body>
@@ -32,11 +34,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                </a>
            </div>
            <div id="title_right">
-           	<a href="login.html">请登录</a>
+           		<a href="login.html">请登录</a>
+               <span class="fr">您好，欢迎光临AidaShop,</span>
+           </div>
+           <div id="title_right_log">
+           		<a target="_blank" id="login_name" href="page/home/gerenzhongxin.jsp">${cusId}</a>
                <span class="fr">您好，欢迎光临AidaShop,</span>
            </div>
            <div class="clear"></div>
        </div>
    </div>
+   <script type="text/javascript">
+   	var id = $("#login_name").text;
+   	if(id!="") {
+   		$("#title_right_log").show();
+   		$("#title_right").hide();
+   	}
+   </script>
   </body>
 </html>
