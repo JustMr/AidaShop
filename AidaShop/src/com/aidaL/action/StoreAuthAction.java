@@ -47,6 +47,87 @@ public class StoreAuthAction extends BaseAction {
 	private Set<String> allowType = new HashSet<String>();
 
 	
+	public String update() throws IOException {
+		AdStoreAuth aStoreAuth = new AdStoreAuth();
+		aStoreAuth.setSaId(storeAuth.getSaId());
+		aStoreAuth.setSaName(storeAuth.getSaName());
+		aStoreAuth.setSaTag(storeAuth.getSaTag());
+		aStoreAuth.setUId(storeAuth.getUId());
+		aStoreAuth.setSaStatu(storeAuth.getSaStatu());
+		
+		//更新文件
+		//上传文件
+		String message = "";
+		for (int i = 0; i < file.size(); i++) {
+			//处理获取到的上传文件的文件名的路径部分，只保留文件名部分
+			String filename = fileFileName.get(i).substring(fileFileName.get(i).lastIndexOf("\\")+1);
+//					System.out.println("fileFileName:"+filename);
+			
+			if (filename==null || filename.trim().equals("")) {
+				message="文件名为空";
+				request.setAttribute("message", message);
+				return "update";
+			}
+			
+			//得到上传文件的扩展名
+			String fileExtName = fileFileName.get(i).substring(fileFileName.get(i).lastIndexOf(".")+1);
+			//如果需要限制上传的文件类型，那么可以通过文件的扩展名来判断上传的文件类型是否合法
+//					System.out.println("上传的文件扩展名为："+fileExtName);
+			init();
+			if (!allowType.contains(fileExtName)) {
+				message="文件不符合要求！";
+				request.setAttribute("message", message);
+				return "update";
+			}
+			
+			byte[] buffer=new byte[1024];
+	        FileIODB fileIODB = new FileIODB();
+	        String savePath = fileIODB.getSavePath("/upload");
+	        File saveDir = new File(savePath);
+	        //检查文件夹是否存在
+	        if(!saveDir.exists() && !saveDir.isDirectory()) {
+	        	System.out.println(savePath+"目录不存在，需要创建");
+	        	//创建目录
+	        	saveDir.mkdir();
+	        }
+	        
+	        //读取文件
+	        FileInputStream fis=new FileInputStream(file.get(i));
+	        //得到文件保存的名称
+	        String saveFileName = fileIODB.makeFileName(fileFileName.get(i));
+//			        System.out.println("saveFileName:"+saveFileName);
+	        //得到文件的保存目录
+	        String realSavePath = fileIODB.makePath(saveFileName, savePath);
+//			        System.out.println("realSavePath:"+realSavePath);
+	        //保存文件
+	        FileOutputStream fos=new FileOutputStream(realSavePath +"\\"+saveFileName);
+	        //保存文件地址
+	        if (i==0) {
+				aStoreAuth.setSaIdcardFront(realSavePath +"\\"+saveFileName);
+			}else if (i==1) {
+				aStoreAuth.setSaIdcardBack(realSavePath +"\\"+saveFileName);
+			}
+	        
+	        int length=fis.read(buffer);
+	        
+	        while(length>0){
+	            //每次写入length长度的内容
+	            fos.write(buffer,0,length);
+	            length=fis.read(buffer);
+	        }
+	        
+	        fis.close();
+	        fos.flush();
+	        fos.close();
+		}
+		
+		this.samgr.saveOrUpdateStoreAuth(aStoreAuth);
+		
+		storeAuth = this.samgr.findStoreAuthById(storeAuth.getSaId());
+		
+		return "update";
+	}
+	
 	/**
 	 * 个人中心查看申请详情
 	 * @return

@@ -102,7 +102,7 @@
 			<result name="add">/page/home/sjrzresult.jsp</result>
 			<result name="authCenter">/page/home/shenqingzhongxin.jsp</result>
 			<result name="sqvi">/page/home/grzxsqvi.jsp</result>
-			
+			<result name="update">/page/home/grzxsqvi.jsp</result>
 		</action>
 	</package>
 </struts>    

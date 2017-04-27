@@ -8,7 +8,7 @@ body, button, input, select, textarea { /* for ie */
 table {
     *border-collapse: collapse; /* IE7 and lower */
     border-spacing: 0;
-    width: 100%;   
+    width: 99.9%;   
     font: 12px/18px Arial, Verdana, Microsoft YaHei;
     /* font-family: 'trebuchet MS', 'Lucida sans', Arial; */
     color: #444; 

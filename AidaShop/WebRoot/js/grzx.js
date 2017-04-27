@@ -12,6 +12,11 @@ $(function() {
 		}
 	});
 	$("#subPwd").on("click",changePwd);
+	
+	var statuGRZXSQVi = $("#statuGRZXSQVi").val();
+	if(statuGRZXSQVi=="0"){
+		$("#nopass").show();
+	}
 });
 
 function changePwd() {

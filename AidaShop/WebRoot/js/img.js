@@ -1,5 +1,12 @@
 $(function() {
-	sehnqingList();
+	var pageCheck = $("#pageCheck").val();
+	if(pageCheck=="sqzx") {
+		sehnqingList();
+		resizeImageHeight(55);
+	} else if(pageCheck=="sqzxvi") {
+		sehnqingList();
+		resizeImageWidth(200);
+	}
 });
 function sehnqingList() {
 	var srcF = $("#front_hide").val();
@@ -16,16 +23,26 @@ function sehnqingList() {
 	console.log("srcF now:"+srcF);
 	imgF.attr("src",srcF);
 	imgB.attr("src",srcB);
-	resizeImage();
 }
-function resizeImage(){
+function resizeImageHeight(height){
 	$("#brandListTAb img").each(function(){
 	//加载图片至内存，完成后执行
 	//获得原始图片高宽
 	var imgWidth = $(this).width();
 	var imgHeight = $(this).height();
 	//重新设置img的width和height
-	$(this).width((75*imgWidth)/imgHeight);
-	$(this).height(75);
+	$(this).width((height*imgWidth)/imgHeight);
+	$(this).height(height);
+	});
+} 
+function resizeImageWidth(width){
+	$("#brandListTAb img").each(function(){
+	//加载图片至内存，完成后执行
+	//获得原始图片高宽
+	var imgWidth = $(this).width();
+	var imgHeight = $(this).height();
+	//重新设置img的width和height
+	$(this).height((width*imgHeight)/imgWidth);
+	$(this).width(width);
 	});
 } 

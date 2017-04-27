@@ -20,7 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/style-clear.css">
 	<link rel="stylesheet" type="text/css" href="css/style-grzx.css">
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="js/iframe.js"></script>
 	
   </head>
   
@@ -68,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		</dl>
    	</div>
    	<div class="grzxRight">
-   		<iframe id="grzxFrame" name="grzxFrame" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" onLoad="dyniframesize()"></iframe>
+   		<iframe id="grzxFrame" name="grzxFrame" src="" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
    	</div>
    	<div class="clear"></div>
    </div>

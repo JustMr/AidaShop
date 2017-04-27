@@ -46,3 +46,25 @@ function iFrameHeight() {
 	   ifm.width = subWeb.body.scrollWidth;
 	}   
 }  
+function zishiying (){
+   	var iframe = document.getElementById("grzxFrame");
+	if (iframe.attachEvent){
+	iframe.attachEvent("onload", function(){
+		var ifm= document.getElementById("grzxFrame");   
+		var subWeb = document.frames ? document.frames["grzxFrame"].document : ifm.contentDocument;   
+		if(ifm != null && subWeb != null) {
+		   ifm.height = subWeb.body.scrollHeight;
+		   ifm.width = subWeb.body.scrollWidth;
+		} 
+	});
+	} else {
+	iframe.onload = function(){
+		var ifm= document.getElementById("grzxFrame");   
+		var subWeb = document.frames ? document.frames["grzxFrame"].document : ifm.contentDocument;   
+		if(ifm != null && subWeb != null) {
+		   ifm.height = subWeb.body.scrollHeight;
+		   ifm.width = subWeb.body.scrollWidth;
+		} 
+	};
+	} 
+}
