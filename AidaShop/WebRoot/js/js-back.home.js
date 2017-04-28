@@ -109,6 +109,9 @@ function frameShow() {
 	} else if(name=="店铺列表") {
 		$("#backHFrame").attr("src","listStoreAction");
 		$("#backHFrame").css("height","550px");
+	} else if(name=="店铺开通申请") {
+		$("#backHFrame").attr("src","listStoreAuthAction");
+		$("#backHFrame").css("height","550px");
 	}
 	document.getElementById("backHFrame").onload=dyniframesize;
 }

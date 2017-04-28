@@ -47,6 +47,45 @@ public class StoreAuthAction extends BaseAction {
 	private Set<String> allowType = new HashSet<String>();
 
 	
+	/**
+	 * 超管查看申请表详情，包括个人和申请表信息
+	 * @return
+	 */
+	public String viAll() {
+		storeAuth = this.samgr.findStoreAuthById(saId);
+		cust = this.custmgr.findCustById(storeAuth.getUId());
+		
+		return "viall";
+	}
+	
+	/**
+	 * 超管页面更新申请表，只更新状态
+	 * @return
+	 */
+	public String upsa() {
+		AdStoreAuth adStoreAuth = new AdStoreAuth();
+		adStoreAuth = this.samgr.findStoreAuthById(saId);
+		adStoreAuth.setSaStatu(saStatu);
+		this.samgr.saveOrUpdateStoreAuth(adStoreAuth);
+		
+		return "upsa";
+	}
+	
+	/**
+	 * 超管用户店铺申请列表显示
+	 * @return
+	 */
+	public String list() {
+		storeAuths = this.samgr.findAllStoreAuths();
+		
+		return "list";
+	}
+	
+	/**
+	 * 普通用户个人中心修改申请
+	 * @return
+	 * @throws IOException
+	 */
 	public String update() throws IOException {
 		AdStoreAuth aStoreAuth = new AdStoreAuth();
 		aStoreAuth.setSaId(storeAuth.getSaId());

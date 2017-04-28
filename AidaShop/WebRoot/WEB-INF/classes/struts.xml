@@ -103,6 +103,9 @@
 			<result name="authCenter">/page/home/shenqingzhongxin.jsp</result>
 			<result name="sqvi">/page/home/grzxsqvi.jsp</result>
 			<result name="update">/page/home/grzxsqvi.jsp</result>
+			<result name="list">/page/backstage/dianpushenqing.jsp</result>
+			<result name="upsa" type="redirect">listStoreAuthAction.action</result>
+			<result name="viall">/page/backstage/dianpusqvi.jsp</result>
 		</action>
 	</package>
 </struts>    
