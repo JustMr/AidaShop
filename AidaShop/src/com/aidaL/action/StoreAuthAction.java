@@ -46,6 +46,29 @@ public class StoreAuthAction extends BaseAction {
 	//限制上传类型
 	private Set<String> allowType = new HashSet<String>();
 
+
+	/**
+	 * 超管更新申请表状态
+	 * @return
+	 */
+	public String upAll() {
+		AdStoreAuth adStoreAuth = new AdStoreAuth();
+		adStoreAuth = this.samgr.findStoreAuthById(storeAuth.getSaId());
+		adStoreAuth.setSaStatu(storeAuth.getSaStatu());
+		this.samgr.saveOrUpdateStoreAuth(adStoreAuth);
+		
+		AdCustomer adCustomer = new AdCustomer();
+		adCustomer = this.custmgr.findCustById(storeAuth.getUId());
+		if (storeAuth.getSaStatu()==0||storeAuth.getSaStatu()==1) {
+			adCustomer.setUAdmin(0);
+		}else {
+			adCustomer.setUAdmin(1);
+		}
+		
+		this.custmgr.saveOrUpdateCust(adCustomer);
+		
+		return "upAll";
+	}
 	
 	/**
 	 * 超管查看申请表详情，包括个人和申请表信息
@@ -67,6 +90,15 @@ public class StoreAuthAction extends BaseAction {
 		adStoreAuth = this.samgr.findStoreAuthById(saId);
 		adStoreAuth.setSaStatu(saStatu);
 		this.samgr.saveOrUpdateStoreAuth(adStoreAuth);
+		
+		cust = this.custmgr.findCustById(adStoreAuth.getUId());
+		if (saStatu==0||saStatu==1) {
+			cust.setUAdmin(0);
+		}else {
+			cust.setUAdmin(1);
+		}
+		this.custmgr.saveOrUpdateCust(cust);
+		
 		
 		return "upsa";
 	}

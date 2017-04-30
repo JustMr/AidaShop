@@ -106,6 +106,7 @@
 			<result name="list">/page/backstage/dianpushenqing.jsp</result>
 			<result name="upsa" type="redirect">listStoreAuthAction.action</result>
 			<result name="viall">/page/backstage/dianpusqvi.jsp</result>
+			<result name="upAll" type="redirect">listStoreAuthAction.action</result>
 		</action>
 	</package>
 </struts>    
