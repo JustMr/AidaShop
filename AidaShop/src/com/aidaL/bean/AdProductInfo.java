@@ -12,12 +12,7 @@ public class AdProductInfo implements java.io.Serializable {
 
 	// Fields
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private Integer PId;
-	private AdUploadfile adUploadfile;
 	private AdProductcategory adProductcategory;
 	private BrandAD brandAD;
 	private String PName;
@@ -32,13 +27,9 @@ public class AdProductInfo implements java.io.Serializable {
 	private Integer PCommend;
 	private Integer PClickcount;
 	private Integer PSellCount;
-	@SuppressWarnings("rawtypes")
 	private Set adOrderitems = new HashSet(0);
-	@SuppressWarnings("rawtypes")
 	private Set adConsults = new HashSet(0);
-	@SuppressWarnings("rawtypes")
-	private Set commentADs = new HashSet(0);
-	@SuppressWarnings("rawtypes")
+	private Set adComments = new HashSet(0);
 	private Set adWishlists = new HashSet(0);
 
 	// Constructors
@@ -54,16 +45,14 @@ public class AdProductInfo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	@SuppressWarnings("rawtypes")
-	public AdProductInfo(Integer PId, AdUploadfile adUploadfile,
-			AdProductcategory adProductcategory, BrandAD brandAD, String PName,
-			String PDescription, Timestamp PCreateTime, Double PBaseprice,
-			Double PMarketprice, Double PSellprice, String PSexrequest,
-			String PPlace, Integer PCount, Integer PCommend,
-			Integer PClickcount, Integer PSellCount, Set adOrderitems,
-			Set adConsults, Set commentADs, Set adWishlists) {
+	public AdProductInfo(Integer PId, AdProductcategory adProductcategory,
+			BrandAD brandAD, String PName, String PDescription,
+			Timestamp PCreateTime, Double PBaseprice, Double PMarketprice,
+			Double PSellprice, String PSexrequest, String PPlace,
+			Integer PCount, Integer PCommend, Integer PClickcount,
+			Integer PSellCount, Set adOrderitems, Set adConsults,
+			Set adComments, Set adWishlists) {
 		this.PId = PId;
-		this.adUploadfile = adUploadfile;
 		this.adProductcategory = adProductcategory;
 		this.brandAD = brandAD;
 		this.PName = PName;
@@ -80,7 +69,7 @@ public class AdProductInfo implements java.io.Serializable {
 		this.PSellCount = PSellCount;
 		this.adOrderitems = adOrderitems;
 		this.adConsults = adConsults;
-		this.commentADs = commentADs;
+		this.adComments = adComments;
 		this.adWishlists = adWishlists;
 	}
 
@@ -92,14 +81,6 @@ public class AdProductInfo implements java.io.Serializable {
 
 	public void setPId(Integer PId) {
 		this.PId = PId;
-	}
-
-	public AdUploadfile getAdUploadfile() {
-		return this.adUploadfile;
-	}
-
-	public void setAdUploadfile(AdUploadfile adUploadfile) {
-		this.adUploadfile = adUploadfile;
 	}
 
 	public AdProductcategory getAdProductcategory() {
@@ -214,42 +195,34 @@ public class AdProductInfo implements java.io.Serializable {
 		this.PSellCount = PSellCount;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public Set getAdOrderitems() {
 		return this.adOrderitems;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void setAdOrderitems(Set adOrderitems) {
 		this.adOrderitems = adOrderitems;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public Set getAdConsults() {
 		return this.adConsults;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void setAdConsults(Set adConsults) {
 		this.adConsults = adConsults;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Set getCommentADs() {
-		return this.commentADs;
+	public Set getAdComments() {
+		return this.adComments;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setCommentADs(Set commentADs) {
-		this.commentADs = commentADs;
+	public void setAdComments(Set adComments) {
+		this.adComments = adComments;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public Set getAdWishlists() {
 		return this.adWishlists;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public void setAdWishlists(Set adWishlists) {
 		this.adWishlists = adWishlists;
 	}

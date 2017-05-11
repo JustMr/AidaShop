@@ -45,7 +45,8 @@
 				<value>com/aidaL/bean/AdStore.hbm.xml</value>
 				<value>com/aidaL/bean/AdLog.hbm.xml</value>
 				<value>com/aidaL/bean/BrandAD.hbm.xml</value>
-				<value>com/aidaL/bean/AdStoreAuth.hbm.xml</value></list>
+				<value>com/aidaL/bean/AdStoreAuth.hbm.xml</value>
+				<value>com/aidaL/bean/AdImageFile.hbm.xml</value></list>
 		</property>
 	</bean>
 	

@@ -81,7 +81,6 @@ CREATE TABLE ad_productInfo(							--商品信息表
 	p_categoryId INT,									--商品类别ID
 	p_uploadFile INT,									--上传文件ID
 )
-
 ALTER TABLE ad_productInfo
 	ADD CONSTRAINT FK_productInfo_brand FOREIGN KEY (br_id)
 		REFERENCES ad_brand (br_id)
@@ -97,6 +96,9 @@ ALTER TABLE ad_productInfo
 		REFERENCES ad_uploadfile (uf_id)
 			ON UPDATE CASCADE
 				ON DELETE CASCADE;
+--删除上传文件ID
+ALTER TABLE ad_productInfo DROP CONSTRAINT FK_productInfo_uploadfile;
+ALTER TABLE ad_productInfo DROP COLUMN p_uploadFile;
 				
 CREATE TABLE ad_productcategory(						--商品类别信息表
 	cg_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,		--类别编号
@@ -104,6 +106,9 @@ CREATE TABLE ad_productcategory(						--商品类别信息表
 	cg_level INT,										--类别级别
 	cg_pid INT,											--父节点类别ID
 )  
+--添加类别显示位置、显示状态
+ALTER TABLE ad_productcategory ADD cg_position INT;
+ALTER TABLE ad_productcategory ADD cg_state INT DEFAULT(0);
 
 CREATE TABLE ad_brand(									--品牌表
 	br_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,		--品牌ID
@@ -272,3 +277,14 @@ CREATE TABLE ad_storeAuth (
 )
 ALTER TABLE ad_storeAuth ALTER COLUMN sa_IDCard_front VARCHAR(300) NOT NULL
 ALTER TABLE ad_storeAuth ALTER COLUMN sa_IDCard_back VARCHAR(300) NOT NULL
+
+--图片存储表
+CREATE TABLE ad_imageFile (
+	if_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--存储表ID
+	if_position int,								--显示位置
+	if_pid INT,										--商品ID
+	if_cust INT,									--用户ID
+	if_stid INT,									--店铺ID
+	if_filepath VARCHAR(300),						--存储位置
+	if_SN INT,										--显示顺序
+)

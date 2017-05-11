@@ -59,13 +59,17 @@ public class StoreAuthAction extends BaseAction {
 		
 		AdCustomer adCustomer = new AdCustomer();
 		adCustomer = this.custmgr.findCustById(storeAuth.getUId());
+		store = this.stormgr.findStoreById(adCustomer.getStId());
 		if (storeAuth.getSaStatu()==0||storeAuth.getSaStatu()==1) {
 			adCustomer.setUAdmin(0);
+			store.setStState(4);
 		}else {
 			adCustomer.setUAdmin(1);
+			store.setStState(0);
 		}
 		
 		this.custmgr.saveOrUpdateCust(adCustomer);
+		this.stormgr.saveOrUpdateStore(store);
 		
 		return "upAll";
 	}
@@ -92,13 +96,16 @@ public class StoreAuthAction extends BaseAction {
 		this.samgr.saveOrUpdateStoreAuth(adStoreAuth);
 		
 		cust = this.custmgr.findCustById(adStoreAuth.getUId());
+		store = this.stormgr.findStoreById(cust.getStId());
 		if (saStatu==0||saStatu==1) {
 			cust.setUAdmin(0);
+			store.setStState(4);
 		}else {
 			cust.setUAdmin(1);
+			store.setStState(0);
 		}
 		this.custmgr.saveOrUpdateCust(cust);
-		
+		this.stormgr.saveOrUpdateStore(store);
 		
 		return "upsa";
 	}

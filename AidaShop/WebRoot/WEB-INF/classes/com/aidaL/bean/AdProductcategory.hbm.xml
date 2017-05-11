@@ -8,7 +8,7 @@
     <class name="com.aidaL.bean.AdProductcategory" table="ad_productcategory" schema="dbo" catalog="AidaL">
         <id name="cgId" type="java.lang.Integer">
             <column name="cg_id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="cgName" type="java.lang.String">
             <column name="cg_name" length="50" not-null="true" />
@@ -18,6 +18,12 @@
         </property>
         <property name="cgPid" type="java.lang.Integer">
             <column name="cg_pid" />
+        </property>
+        <property name="cgPosition" type="java.lang.Integer">
+            <column name="cg_position" />
+        </property>
+        <property name="cgState" type="java.lang.Integer">
+            <column name="cg_state" />
         </property>
         <set name="adConsultthemes" inverse="true">
             <key>

@@ -8,15 +8,12 @@
     <class name="com.aidaL.bean.AdProductInfo" table="ad_productInfo" schema="dbo" catalog="AidaL">
         <id name="PId" type="java.lang.Integer">
             <column name="p_id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="adUploadfile" class="com.aidaL.bean.AdUploadfile" fetch="select">
-            <column name="p_uploadFile" />
-        </many-to-one>
         <many-to-one name="adProductcategory" class="com.aidaL.bean.AdProductcategory" fetch="select">
             <column name="p_categoryId" />
         </many-to-one>
-        <many-to-one name="brandAD" class="com.aidaL.bean.BrandAD" fetch="select">
+        <many-to-one name="brandAD" class="BrandAD" fetch="select">
             <column name="br_id" />
         </many-to-one>
         <property name="PName" type="java.lang.String">
@@ -67,7 +64,7 @@
             </key>
             <one-to-many class="com.aidaL.bean.AdConsult" />
         </set>
-        <set name="commentADs" inverse="true">
+        <set name="adComments" inverse="true">
             <key>
                 <column name="p_id" not-null="true" />
             </key>

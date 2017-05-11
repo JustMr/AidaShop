@@ -5,7 +5,8 @@ function postCust() {
 	var record = $("#record").attr("value");
 	console.log("record:"+record);
 	var tr = $(".bhover").eq(record);
-	var stId= tr.find("#saId").attr("value");
-	var stState = tr.find("#saStatu").val();
+	var saId= tr.find("#saId").attr("value");
+	var saStatu = tr.find("#saStatu").val();
+	console.log("stId:"+saId+",saState:"+saStatu);
 	window.location.href="upsaStoreAuthAction?saId="+saId+"&saStatu="+saStatu;
 }
