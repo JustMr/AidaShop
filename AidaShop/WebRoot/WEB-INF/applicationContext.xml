@@ -50,6 +50,17 @@
 		</property>
 	</bean>
 	
+	<!-- 商品分类管理，商品导航菜单管理 -->
+	<bean id="PCategoryBean" class="com.aidaL.action.PCategoryAction" scope="prototype">
+		<property name="pcatemgr" ref="adAppMgrPCategory"></property>
+	</bean>
+	<bean id="adAppMgrPCategory" class="com.aidaL.service.impl.ActionManagerImpl">
+		<property name="pcateDao" ref="adAppPCategory"></property>
+	</bean>
+	<bean id="adAppPCategory" class="com.aidaL.dao.impl.ProductcategoryDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
 	<!-- StoreAuth店铺申请 -->
 	<bean id="storeAuthBean" class="com.aidaL.action.StoreAuthAction" scope="prototype">
 		<property name="samgr" ref="adAppMgrStoreAuth"></property>

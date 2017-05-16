@@ -76,7 +76,8 @@ function frameShow() {
 	if(name=="管理主页") {
 		$("#backHFrame").attr("src","page/backstage/guanlizhuye.jsp");
 	} else if(name=="首页导航菜单设置") {
-		
+		$("#backHFrame").attr("src","page/backstage/daohangcaidan.jsp");
+		$("#backHFrame").css("height","550px");
 	} else if(name=="品牌列表") {
 		$("#backHFrame").attr("src","listBrand");
 		$("#backHFrame").css("height","550px");

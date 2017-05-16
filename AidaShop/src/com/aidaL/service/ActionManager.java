@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.bean.AdLog;
+import com.aidaL.bean.AdProductcategory;
 import com.aidaL.bean.AdStore;
 import com.aidaL.bean.AdStoreAuth;
 import com.aidaL.bean.BrandAD;
@@ -65,5 +66,27 @@ public interface ActionManager {
 	public List<AdStoreAuth> findAllStoreAuths();
 	public AdStoreAuth findStoreAuthById(Integer id);
 	public AdStoreAuth findStoreAuthByUId(Integer uid);
+	
+	//商品类别管理，商品菜单导航栏管理
+	public void saveOrUpdatePCategory(AdProductcategory pcate);
+	public void deletePCategory(AdProductcategory pcate);
+	public void deletePCategory(Integer id);
+	public void addPCategory(AdProductcategory pcate);
+	public List<AdProductcategory> findAllPCategory();
+	public AdProductcategory findPCategoryById(Integer id);
+	public AdProductcategory findPCategoryByName(String cgName);
+	public List<AdProductcategory> findLvOne();
+	public List<AdProductcategory> findLvOneOrThree(Integer cgPid);
+	public void UpdateState(Integer cgPosition, Integer cgState);
+	public void UpdatePosition(Integer cgPid, Integer cgPosition);
+	public void deleteMove(Integer cgPid, Integer cgPosition);
+	public void deleteFirstMove(Integer cgPosition, Integer cgState);
+	public void deletePCategoryByPID(Integer cgPid);
+	public boolean judgeFirstLast(Integer cgPosition, Integer cgState);
+	public AdProductcategory judgeFirstLastState(Integer cgPosition, Integer cgState);
+	public AdProductcategory judgeLast(Integer cgPid, Integer cgPosition);
+	public AdProductcategory judgeFirstPre(Integer cgPosition, Integer cgState);
+	public AdProductcategory judgePre(Integer cgPid, Integer cgPosition);
+	public void BackwardPosition(Integer cgPosition);
 	
 }

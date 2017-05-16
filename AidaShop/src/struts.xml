@@ -108,5 +108,9 @@
 			<result name="viall">/page/backstage/dianpusqvi.jsp</result>
 			<result name="upAll" type="redirect">listStoreAuthAction.action</result>
 		</action>
+		
+		<!-- 商品分类管理，商品导航菜单管理 -->
+		<action name="*PCategoryAction" class="PCategoryBean" method="{1}">
+		</action>
 	</package>
 </struts>    

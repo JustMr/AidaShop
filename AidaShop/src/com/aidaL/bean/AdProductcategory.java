@@ -11,6 +11,10 @@ public class AdProductcategory implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer cgId;
 	private String cgName;
 	private Integer cgLevel;

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.bean.AdLog;
+import com.aidaL.bean.AdProductcategory;
 import com.aidaL.bean.AdStore;
 import com.aidaL.bean.AdStoreAuth;
 import com.aidaL.bean.BrandAD;
@@ -14,6 +15,7 @@ import com.aidaL.dao.AdLogDAO;
 import com.aidaL.dao.AdStoreAuthDAO;
 import com.aidaL.dao.AdStoreDAO;
 import com.aidaL.dao.AdUserDAO;
+import com.aidaL.dao.ProductcategoryDAO;
 import com.aidaL.service.ActionManager;
 
 public class ActionManagerImpl implements ActionManager {
@@ -23,6 +25,7 @@ public class ActionManagerImpl implements ActionManager {
 	private AdBrandDAO adBrandDAO;
 	private AdLogDAO adLogDAO;
 	private AdStoreAuthDAO storeAuthDAO;
+	private ProductcategoryDAO pcateDao;
 	
 	//用户管理,获取用户基本信息*********************************
 	@Override
@@ -360,6 +363,128 @@ public class ActionManagerImpl implements ActionManager {
 		return null;
 	}
 
+	//商品类别管理，商品菜单导航栏管理*********************************
+
+	public ProductcategoryDAO getPcateDao() {
+		return pcateDao;
+	}
+
+	public void setPcateDao(ProductcategoryDAO pcateDao) {
+		this.pcateDao = pcateDao;
+	}
+
+	@Override
+	public void saveOrUpdatePCategory(AdProductcategory pcate) {
+		// TODO Auto-generated method stub
+		this.pcateDao.update(pcate);
+	}
+
+	@Override
+	public void deletePCategory(AdProductcategory pcate) {
+		// TODO Auto-generated method stub
+		this.pcateDao.delete(pcate);
+	}
+
+	@Override
+	public void deletePCategory(Integer id) {
+		// TODO Auto-generated method stub
+		this.pcateDao.delete(id);
+	}
+
+	@Override
+	public void addPCategory(AdProductcategory pcate) {
+		// TODO Auto-generated method stub
+		this.pcateDao.save(pcate);
+	}
+
+	@Override
+	public List<AdProductcategory> findAllPCategory() {
+		// TODO Auto-generated method stub
+		List<AdProductcategory> list = this.pcateDao.findAll();
+		return list;
+	}
+
+	@Override
+	public AdProductcategory findPCategoryById(Integer id) {
+		// TODO Auto-generated method stub
+		return this.pcateDao.findcateById(id);
+	}
+
+	@Override
+	public AdProductcategory findPCategoryByName(String cgName) {
+		// TODO Auto-generated method stub
+		return this.pcateDao.findcateByName(cgName);
+	}
+
+	@Override
+	public List<AdProductcategory> findLvOne() {
+		// TODO Auto-generated method stub
+		return this.pcateDao.findLvOne();
+	}
+
+	@Override
+	public List<AdProductcategory> findLvOneOrThree(Integer cgPid) {
+		// TODO Auto-generated method stub
+		return this.pcateDao.findLvTwoOrThree(cgPid);
+	}
+
+	@Override
+	public void UpdateState(Integer cgPosition, Integer cgState) {
+		// TODO Auto-generated method stub
+		this.pcateDao.UpdateState(cgPosition, cgState);
+	}
+
+	@Override
+	public void UpdatePosition(Integer cgPid, Integer cgPosition) {
+		this.pcateDao.UpdatePosition(cgPid, cgPosition);
+	}
+
+	@Override
+	public void deleteMove(Integer cgPid, Integer cgPosition) {
+		// TODO Auto-generated method stub
+		this.pcateDao.deleteMove(cgPid, cgPosition);
+	}
+
+	@Override
+	public void deleteFirstMove(Integer cgPosition, Integer cgState) {
+		// TODO Auto-generated method stub
+		this.pcateDao.deleteFirstMove(cgPosition, cgState);
+	}
+
+	@Override
+	public void deletePCategoryByPID(Integer cgPid) {
+		this.pcateDao.deletePCategoryByPID(cgPid);
+	}
+
+	@Override
+	public boolean judgeFirstLast(Integer cgPosition, Integer cgState) {
+		return this.pcateDao.judgeFirstLast(cgPosition, cgState);
+	}
+
+	@Override
+	public AdProductcategory judgeFirstLastState(Integer cgPosition, Integer cgState) {
+		return this.pcateDao.judgeFirstLastState(cgPosition, cgState);
+	}
+
+	@Override
+	public AdProductcategory judgeLast(Integer cgPid, Integer cgPosition) {
+		return this.pcateDao.judgeLast(cgPid, cgPosition);
+	}
+
+	@Override
+	public AdProductcategory judgeFirstPre(Integer cgPosition, Integer cgState) {
+		return this.pcateDao.judgeFirstPre(cgPosition, cgState);
+	}
+
+	@Override
+	public AdProductcategory judgePre(Integer cgPid, Integer cgPosition) {
+		return this.pcateDao.judgePre(cgPid, cgPosition);
+	}
+
+	@Override
+	public void BackwardPosition(Integer cgPosition) {
+		this.pcateDao.BackwardPosition(cgPosition);
+	}
 
 
 }

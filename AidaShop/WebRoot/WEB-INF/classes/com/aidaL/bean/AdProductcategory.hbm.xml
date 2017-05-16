@@ -25,13 +25,13 @@
         <property name="cgState" type="java.lang.Integer">
             <column name="cg_state" />
         </property>
-        <set name="adConsultthemes" inverse="true">
+        <set name="adConsultthemes" inverse="true" lazy="false">
             <key>
                 <column name="cg_id" />
             </key>
             <one-to-many class="com.aidaL.bean.AdConsulttheme" />
         </set>
-        <set name="adProductInfos" inverse="true">
+        <set name="adProductInfos" inverse="true" lazy="false">
             <key>
                 <column name="p_categoryId" />
             </key>

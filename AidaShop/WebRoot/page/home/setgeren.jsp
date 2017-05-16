@@ -72,8 +72,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   	</tr> 
 			   	<tr>
 			   		<td align="left" colspan="2" style="padding-left: 80px;">
-				   		<s:submit cssClass="upBrBtn" value="提交" />  
-						<s:reset cssClass="upBrBtn" value="重置"/>  
+				   		<s:submit cssClass="upBrBtn" cssStyle="margin-left:5%;" value="提交" />  
+						<s:reset cssClass="upBrBtn" cssStyle="margin-left:5%;" value="重置"/>  
 				    </td>
 				</tr>
 			</table> 
@@ -92,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   		<td class="upBrFont" align="left"><input type="password" name="newPwd1" id="newPwd1" /></td>
 		   	</tr> 
    			<tr><td align="left" colspan="2" style="padding-left: 40px;">
-		   		<input id="subPwd" class="upBrBtn" type="button" value="提交"/>
+		   		<input id="subPwd" class="upBrBtn" type="button" style="margin-left:15%;" value="提交"/>
 			</tr>
    		</table>
     </div>

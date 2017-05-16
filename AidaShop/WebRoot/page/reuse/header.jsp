@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <span class="fr">您好，欢迎光临AidaShop,</span>
            </div>
            <div id="title_right_log">
-           		<a target="_blank" id="login_name" href="page/home/gerenzhongxin.jsp">${cusId}</a>
+           		<a target="_blank" id="login_name" href="page/home/gerenzhongxin.jsp">${cusNickName}</a>
                <span class="fr">您好，欢迎光临AidaShop,</span>
            </div>
            <div class="clear"></div>

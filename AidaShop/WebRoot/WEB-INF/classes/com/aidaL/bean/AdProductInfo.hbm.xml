@@ -13,7 +13,7 @@
         <many-to-one name="adProductcategory" class="com.aidaL.bean.AdProductcategory" fetch="select">
             <column name="p_categoryId" />
         </many-to-one>
-        <many-to-one name="brandAD" class="BrandAD" fetch="select">
+        <many-to-one name="brandAD" class="com.aidaL.bean.BrandAD" fetch="select">
             <column name="br_id" />
         </many-to-one>
         <property name="PName" type="java.lang.String">

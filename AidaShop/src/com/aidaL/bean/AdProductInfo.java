@@ -10,6 +10,10 @@ import java.util.Set;
 
 public class AdProductInfo implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Fields
 
 	private Integer PId;
