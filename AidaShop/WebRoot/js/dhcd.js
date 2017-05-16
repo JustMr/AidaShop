@@ -39,10 +39,10 @@ function GetFirstMenu() {
 }
 function ShowSecond() {
 	//显示二级商品分类内容
-	var cgname = $(".firstRowItem:focus").text();
+	var cgId = $(".firstRowItem:focus").attr("id");
 	$(".firstRowItem").removeClass("firstRowItemFocus");
 	$(".firstRowItem:focus").addClass("firstRowItemFocus");
-	$.post("listLvTowOrThreePCategoryAction",{cgName:cgname},function(data){
+	$.post("listLvTowOrThreePCategoryAction",{cgId:cgId},function(data){
 		if(data.success==true){
 			var length = data.obj.length;
 			$("#menuSecond").empty();
@@ -60,10 +60,10 @@ function ShowSecond() {
 }
 function ShowThird() {
 	//显示三级分类内容
-	var cgname = $(".secondRowItem:focus").text();
+	var cgId = $(".secondRowItem:focus").attr("id");
 	$(".secondRowItem").removeClass("secondRowItemFocus");
 	$(".secondRowItem:focus").addClass("secondRowItemFocus");
-	$.post("listLvTowOrThreePCategoryAction",{cgName:cgname},function(data){
+	$.post("listLvTowOrThreePCategoryAction",{cgId:cgId},function(data){
 		if(data.success==true){
 			var length = data.obj.length;
 			$("#menuThird").empty();
@@ -77,7 +77,6 @@ function ShowThird() {
 	},"json");
 }
 function actThird() {
-	var cgname = $(".thirdRowItem:focus").text();
 	$(".thirdRowItem").removeClass("thirdRowItemFocus");
 	$(".thirdRowItem:focus").addClass("thirdRowItemFocus");
 }

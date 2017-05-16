@@ -237,9 +237,7 @@ public class PCategoryAction extends BaseAction {
 	 */
 	public void listLvTowOrThree() {
 		Json json = new Json();
-		pcate = this.pcatemgr.findPCategoryByName(cgName);
-//		System.out.println("getCgPid:"+pcate.getCgId());
-		pcates = this.pcatemgr.findLvOneOrThree(pcate.getCgId());
+		pcates = this.pcatemgr.findLvOneOrThree(cgId);
 //		System.out.println("pcates:"+pcates);
 		if (pcates != null) {
 			json.setMsg("查询成功");
