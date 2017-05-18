@@ -51,6 +51,9 @@ public interface ActionManager {
 	public List<BrandAD> findAllBrand();
 	public AdBrandDAO getAdBrandDAO();
 	public void setAdBrandDAO(AdBrandDAO adBrandDAO);
+	public List<BrandAD> findBrandByStId(Integer stId);
+	public List<BrandAD> findBrandAuth();
+	public List<BrandAD> findBrandAuthByName(String brName, String brEngName);
 	
 	//日志管理
 	public void saveOrUpdateLog(AdLog adLog);
@@ -88,5 +91,6 @@ public interface ActionManager {
 	public AdProductcategory judgeFirstPre(Integer cgPosition, Integer cgState);
 	public AdProductcategory judgePre(Integer cgPid, Integer cgPosition);
 	public void BackwardPosition(Integer cgPosition);
+
 	
 }

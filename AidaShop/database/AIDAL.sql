@@ -99,6 +99,8 @@ ALTER TABLE ad_productInfo
 --删除上传文件ID
 ALTER TABLE ad_productInfo DROP CONSTRAINT FK_productInfo_uploadfile;
 ALTER TABLE ad_productInfo DROP COLUMN p_uploadFile;
+--添加申请店铺ID
+ALTER TABLE ad_productInfo ADD st_id INT;
 				
 CREATE TABLE ad_productcategory(						--商品类别信息表
 	cg_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,		--类别编号
@@ -123,6 +125,8 @@ ALTER TABLE ad_brand ADD br_applyTime DATETIME;
 ALTER TABLE ad_brand ADD br_enterTime DATETIME;
 --添加品牌评级分数
 ALTER TABLE ad_brand ADD br_levelGrand INT DEFAULT(0);
+--添加申请店铺ID
+ALTER TABLE ad_brand ADD st_id INT;
 
 CREATE TABLE ad_admin(									--管理员信息表
 	a_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,		--管理员ID

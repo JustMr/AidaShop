@@ -67,4 +67,25 @@ public interface AdBrandDAO {
 
      */
     BrandAD findBrandByName(String brName);
+
+    /**
+     * 通过店铺ID查询申请的品牌列表
+     * @param stId 店铺ID
+     * @return 该店铺请的品牌列表
+     */
+	List<BrandAD> findBrandByStId(Integer stId);
+
+	/**
+	 * 获得申请中的品牌列表
+	 * @return 申请中的品牌列表
+	 */
+	List<BrandAD> findBrandAuth();
+
+	/**
+	 * 显示中文名称和英文名称已通过审核的相同的品牌
+	 * @param brName 中文名称
+	 * @param brEngName 英文名称
+	 * @return 已通过审核的相同的品牌
+	 */
+	List<BrandAD> findBrandAuthByName(String brName, String brEngName);
 }

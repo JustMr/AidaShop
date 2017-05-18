@@ -233,7 +233,7 @@ public class PCategoryAction extends BaseAction {
 	}
 	
 	/**
-	 * 显示第二或第三级菜单通过父标签名称
+	 * 显示第二或第三级菜单通过父标签ID
 	 */
 	public void listLvTowOrThree() {
 		Json json = new Json();
@@ -245,12 +245,16 @@ public class PCategoryAction extends BaseAction {
 			json.setSuccess(true);
 		}else {
 			json.setMsg("查询失败");
+			json.setObj(pcates);
 			json.setSuccess(false);
 		}
 		
 		writeJson(json);
 	}
 	
+	/**
+	 * 显示第二或第三级菜单通过当前标签的父标签ID
+	 */
 	public void listLvTowOrThreeByPID() {
 		Json json = new Json();
 		pcates = this.pcatemgr.findLvOneOrThree(cgPid);
@@ -261,6 +265,7 @@ public class PCategoryAction extends BaseAction {
 			json.setSuccess(true);
 		}else {
 			json.setMsg("查询失败");
+			json.setObj(pcates);
 			json.setSuccess(false);
 		}
 		

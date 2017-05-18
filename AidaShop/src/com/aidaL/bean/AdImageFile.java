@@ -6,6 +6,10 @@ package com.aidaL.bean;
 
 public class AdImageFile implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6243984834198577637L;
 	// Fields
 
 	private Integer ifId;

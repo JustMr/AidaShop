@@ -83,6 +83,9 @@ function frameShow() {
 		$("#backHFrame").css("height","550px");
 	} else if(name=="品牌添加") {
 		$("#backHFrame").attr("src","page/backstage/pinpaitianjia.jsp");
+	} else if(name=="品牌开通申请") {
+		$("#backHFrame").attr("src","listBrandAuth");
+		$("#backHFrame").css("height","550px");
 	} else if(name=="会员列表") {
 		$("#backHFrame").attr("src","listCustomerAction");
 		$("#backHFrame").css("height","550px");

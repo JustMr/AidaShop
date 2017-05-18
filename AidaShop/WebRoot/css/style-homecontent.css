@@ -68,7 +68,7 @@ em {
 	padding-top:1px;
 	background:#b01d1d;
 	width:210px;
-	height:398px;
+	min-height:398px;
 }
 .firstMenuItem h3 {
 	text-align:left;
@@ -110,7 +110,7 @@ em {
 	position:absolute;
 	left:210px;
 	top:0;
-	height:398px;
+	min-height:398px;
 	width:990px;
 	background:#ffffff;
 	font-family: "Microsoft YaHei";
@@ -118,45 +118,28 @@ em {
 	overflow:hidden;
 	z-index: 100;
 }
-.secondMenuItem dt {
-	padding: 6px 0 2px 6px;
-	font-weight:bold;
-	line-height:18px;
-	text-align: left;
-}
-.secondMenuItem dt a {
-	display:inline-block;
-	color:#333;
-}
-.secondMenuItem dt a:hover {
-	color:#e60012;
-}
-.secondMenuItem dt em {
-	margin:0 5px;
-	font-size:14px;
-	color:#333;
-}
 .secondMenuItem {
-	width:232px;
+	width:100%;
 	overflow: hidden;
-	margin: 0 0 19px 0;
-	float:left;
+	padding: 3px 5px;
+	border-bottom: 1px solid #ff4500;
 }
-.secondMenuItem dd {
+.secondMenuItem i {
+	position: relative;
+	right: -10px;
+    font-style: normal;
+}
+.secondMenuItem a {
 	float: left;
-	margin: 10px 6px 0 -1px;
-	padding: 0 0 0 6px;
-	border-left: 1px solid #ddd;
-	border-right: 0;
-	line-height: 14px;
-	white-space: nowrap;
+	margin: 0 10px;
 }
-.secondMenuItem dd a {
-	color:#333;
-	font-weight: normal;
+.secondItemATit {
+	position: relative;
+	color: #ff4500;
+	margin-right: 20px;
 }
-.secondMenuItem dd a:hover {
-	color:#e60012;
+.secondItemATit:HOVER {
+	text-decoration: none;
 }
 /*一级菜单iconfont*/
 @font-face {

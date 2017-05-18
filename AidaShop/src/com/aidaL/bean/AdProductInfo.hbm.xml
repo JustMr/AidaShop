@@ -52,25 +52,28 @@
         <property name="PSellCount" type="java.lang.Integer">
             <column name="p_sellCount" />
         </property>
-        <set name="adOrderitems" inverse="true">
+        <property name="stId" type="java.lang.Integer">
+            <column name="st_id" />
+        </property>
+        <set name="adOrderitems" inverse="true" lazy="false">
             <key>
                 <column name="o_productId" not-null="true" />
             </key>
             <one-to-many class="com.aidaL.bean.AdOrderitem" />
         </set>
-        <set name="adConsults" inverse="true">
+        <set name="adConsults" inverse="true" lazy="false">
             <key>
                 <column name="p_id" not-null="true" />
             </key>
             <one-to-many class="com.aidaL.bean.AdConsult" />
         </set>
-        <set name="adComments" inverse="true">
+        <set name="adComments" inverse="true" lazy="false">
             <key>
                 <column name="p_id" not-null="true" />
             </key>
             <one-to-many class="com.aidaL.bean.AdComment" />
         </set>
-        <set name="adWishlists" inverse="true">
+        <set name="adWishlists" inverse="true" lazy="false">
             <key>
                 <column name="p_id" not-null="true" />
             </key>

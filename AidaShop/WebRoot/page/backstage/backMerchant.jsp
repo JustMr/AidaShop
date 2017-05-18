@@ -3,7 +3,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -11,17 +10,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     
     <title>商户中心_AidaShop</title>
-    <s:head/>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<link rel="shortcut icon" href="images/icon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="css/style-back-merchant.css"> 
 	<link rel="stylesheet" type="text/css" href="css/style-clear.css">
+	<link rel="stylesheet" type="text/css" href="css/input/input.css">
+	<link rel="stylesheet" type="text/css" href="css/style-table.css">
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/js-back.merchant.js"></script>
   </head> 
@@ -46,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<ul class="list_item_wrap">
     					<li id="list_home" class="list_item mer_list_selected"><em></em><span>店铺首页</span></li>
     					<li id="list_good" class="list_item"><em></em><span>商品管理</span></li>
-    					<li id="list_brand" class="list_item"><em></em><span>品牌管理</span></li>
+    					<li id="list_brand" class="list_item"><em></em><span>品牌申请</span></li>
     					<li id="list_order" class="list_item"><em></em><span>订单管理</span></li>
     					<li id="list_comment" class="list_item"><em></em><span>评价管理</span></li>
     					<li id="list_ad" class="list_item"><em></em><span>广告管理</span></li>
@@ -176,14 +175,92 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<div class="manger_bar_tit">
 		    			<span class="mer_left_wrap_name">商品管理</span>
 		    			<div id="good_add" class="add_bar"><i></i><span>添加</span></div>
-		    			
+		    		</div>
+		    		<div id="goodNavWarp">
+		    			<a class="goodNavA" href="javascript:void(0);">所有商品</a>
+		    			<a class="goodNavA" href="javascript:void(0);">上架申请</a>
+		    			<a class="goodNavA" href="javascript:void(0);">销售统计</a>
+		    			<a class="goodNavA" href="javascript:void(0);">上架商品</a>
+		    		</div>
+		    		<div>
+		    			<div id="allGood" class="goodNavContain"></div>
+		    			<div id="goodAuth" class="goodNavContain"></div>
 		    		</div>
 		    	</div>
 		    	<div class="manage_brand mer_left_wrap">
 		    		<div class="manger_bar_tit">
-		    			<span class="mer_left_wrap_name">品牌管理</span>
+		    			<span class="mer_left_wrap_name">品牌申请</span>
 		    			<div id="brand_add" class="add_bar"><i></i><span>添加</span></div>
 		    		</div>
+		    		<div id="ppsqlb">
+		    			<table class="bordered">  
+							<thead>  
+							 <tr>  
+							  <th>中文名称</th>  
+							  <th>英文名称</th>  
+							  <th>简介</th>  
+							  <th>申请时间</th>
+							  <th>状态</th>
+							  <th>编辑</th>
+							 </tr>  
+							</thead>  
+							<tbody id="brandAuthWrap">  
+						 	</tbody>  
+						</table>
+		    		</div>
+		    		<!-- 编辑品牌 start -->
+		    		<div id="ppsqbj" class="topFrame">
+		    			<i class="closeIcon"></i>
+						<table class="upBrtable">
+							<tr>
+								<td>
+									<h1>品牌申请修改</h1><input type="hidden" id="brIdXG" name="brId" />
+								</td>
+							</tr>
+				  			<tr><td><label>中文名称:</label><input type="text" id="brNameXG" class="upBrtextfield" name="brName" /></td>
+				  			</tr> 
+				  			<tr><td><label>英文名称:</label><input type="text" id="brEngNameXG" class="upBrtextfield" name="brEngName" /></td>
+						   	</tr>  
+						   	<tr><td><label>简介:</label></td></tr>
+						   	<tr>
+						   		<td class="upBrFont"><textarea id="upBrTextXG" name="brDiscription"></textarea> </td>
+						   	</tr> 
+						   	<tr>
+						   		<td align="center" colspan="2">
+							   		<input id="ppsqBtnXG" type="button" class="upBrBtn" value="提交" />  
+									<input type="button" class="upBrBtn ppsqCanel" value="取消"/>  
+							    </td>
+							</tr>
+						</table>   
+		    		</div>
+		    		<!-- 编辑品牌 end -->
+		    		<!-- 添加品牌 start -->
+		    		<div class="shadow"></div>
+		    		<div id="ppsqtj" class="topFrame">
+		    			<i class="closeIcon"></i>
+						<table class="upBrtable">
+							<tr>
+								<td>
+									<h1>品牌添加申请</h1>
+								</td>
+							</tr>
+				  			<tr><td><label>中文名称:</label><input type="text" id="brNameTJ" class="upBrtextfield" name="brName" /></td>
+				  			</tr> 
+				  			<tr><td><label>英文名称:</label><input type="text" id="brEngNameTJ" class="upBrtextfield" name="brEngName" /></td>
+						   	</tr>  
+						   	<tr><td><label>简介:</label></td></tr>
+						   	<tr>
+						   		<td class="upBrFont"><textarea id="upBrText" name="brDiscription"></textarea> </td>
+						   	</tr> 
+						   	<tr>
+						   		<td align="center" colspan="2">
+							   		<input id="ppsqBtn" type="button" class="upBrBtn" value="提交" />  
+									<input type="button" class="upBrBtn ppsqCanel" value="取消"/>  
+							    </td>
+							</tr>
+						</table>   
+		    		</div>
+		    		<!-- 添加品牌 end -->
 		    	</div>
 		    	<div class="manage_order mer_left_wrap">
 		    		<div class="manger_bar_tit">

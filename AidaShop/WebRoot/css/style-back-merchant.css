@@ -440,3 +440,19 @@
 	top:-2px;
 	right:3px;
 }
+/* 店铺申请-start */
+.shadow {display: none;position: fixed;height: 100%;width: 100%;top: 0; left: 0;z-index:500;
+	background: #3B3B3B;filter:alpha(opacity=50);  
+    -moz-opacity:0.5;  
+    -khtml-opacity: 0.5;  
+    opacity: 0.5;}
+.topFrame {display: none;position: fixed;height: 60%;width: 60%;min-height: 500px;min-width:682px;border-radius: 5%;background: #fff;
+	z-index: 501;left: 20%;top: 20%;}
+.upBrtextfield {margin-left: 10px;}
+.upBrtable {margin: 0 auto;margin-top: 2%;width: 680px;}
+.upBrtable td {padding: 5px;}
+#upBrText,#upBrTextXG { width:668px;height:256px;padding:5px 15px;border-radius:5px;outline: none;}
+.upBrBtn { width:66px;height:32px;background: #fd6d37;color:#fff;border-radius:5px;border:none;outline: none;cursor: pointer;margin: 20px;}
+.upBrBtn:hover { -webkit-filter:brightness(.9); }
+.closeIcon {display: block;width:18px;height:18px;background: url("../images/guanbi.png");background-size: 18px 18px;position: absolute; top: 5%;right: 5%;cursor: pointer;}
+/* 店铺申请-end */

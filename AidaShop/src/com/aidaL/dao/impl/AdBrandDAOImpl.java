@@ -2,6 +2,8 @@ package com.aidaL.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.aidaL.bean.BrandAD;
@@ -47,7 +49,7 @@ public class AdBrandDAOImpl extends HibernateDaoSupport implements AdBrandDAO {
 	@Override
 	public List<BrandAD> findAll() {
 		// TODO Auto-generated method stub
-		return this.getHibernateTemplate().find("from BrandAD");
+		return this.getHibernateTemplate().find("from BrandAD au where au.brState <>"+3);
 	}
 
 	@Override
@@ -70,6 +72,41 @@ public class AdBrandDAOImpl extends HibernateDaoSupport implements AdBrandDAO {
 		List<BrandAD> list = this.getHibernateTemplate().find("from com.aidaL.bean.BrandAD au where au.brName = '" + brName + "'");
 		if (list.size()==1) {
 			return (BrandAD)list.get(0);
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BrandAD> findBrandByStId(Integer stId) {
+		List<BrandAD> list = this.getHibernateTemplate().find("from com.aidaL.bean.BrandAD au where au.stId = " + stId);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BrandAD> findBrandAuth() {
+		List<BrandAD> list = this.getHibernateTemplate().find("from com.aidaL.bean.BrandAD au where au.brState = "+3);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BrandAD> findBrandAuthByName(String brName, String brEngName) {
+		String sql = "from com.aidaL.bean.BrandAD au where (au.brName='" + brName + "' or au.brEngName = '"+ brEngName +"') and au.brState not in (3,4)";
+		Session session = this.getSession();
+		Query query = session.createQuery(sql);
+		List<BrandAD> list1 = query.list();
+		session.clear();
+		session.close();
+		if (list1.size()>0) {
+			return list1;
 		}
 		return null;
 	}

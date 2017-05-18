@@ -39,13 +39,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			   	<tr>
 			   		<td class="upBrFont"><s:textarea id="upBrText" name="brandAD.brDiscription" label="简介" /></td>
 			   	</tr> 
-			   	<tr><td><label>状态:</label></td></tr> 
-			   	<tr>
-			   		<td class="upBrFont"><s:radio name="brandAD.brState" list="#{'停售':0,'正常':1,'促销':2,'开通中':3}" label="状态" listKey="value" listValue="key"/></td>
+			   	<tr><td><label>状态:</label><s:radio name="brandAD.brState" list="#{'停售':0,'正常':1,'促销':2,'开通中':3,'未通过':4}" label="状态" listKey="value" listValue="key"/></td>
 			   	</tr>  
-			   	<tr><td><label>评级:</label></td></tr>
-			   	<tr>
-			   		<td class="upBrFont"><s:radio name="brandAD.brLevelGrand" list="#{'恶劣':0,'不良':1,'普通':2,'较好':3,'优秀':4}" label="评级" listKey="value" listValue="key"></s:radio></td>
+			   	<tr><td><label>评级:</label><s:radio name="brandAD.brLevelGrand" list="#{'恶劣':0,'不良':1,'普通':2,'较好':3,'优秀':4}" label="评级" listKey="value" listValue="key"></s:radio></td>
+			   	</tr>  
+			   	<tr><td><label>申请时间:</label><s:date name="brandAD.brApplyTime" format="yyyy-MM-dd HH:mm:ss" nice="false" /></td>
+			   	</tr>  
+			   	<tr><td><label>入驻时间:</label><s:date name="brandAD.brEnterTime" format="yyyy-MM-dd HH:mm:ss" nice="false" /></td>
+			   	</tr>  
+			   	<tr><td><label>申请店铺ID:</label>
+			   			<s:if test="brandAD.stId==0">
+			   				自营
+			   			</s:if> 
+			   			<s:else>
+			   				<a href='<s:url action="viStoreAction"><s:param  name="stId" value="brandAD.stId" /></s:url>'><s:property value="brandAD.stId" /></a>
+			   			</s:else>
+			   		</td>
 			   	</tr>  
 			   	<tr>
 			   		<td align="center" colspan="2">

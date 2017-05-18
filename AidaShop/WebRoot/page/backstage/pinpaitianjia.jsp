@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		   	</tr> 
 		   	<tr><td><label>状态:</label></td></tr> 
 		   	<tr>
-		   		<td class="upBrFont"><s:radio name="brandAD.brState" list="#{'停售':0,'正常':1,'促销':2,'开通中':3}" label="状态" listKey="value" listValue="key" value="1"/></td>
+		   		<td class="upBrFont"><s:radio name="brandAD.brState" list="#{'停售':0,'正常':1,'促销':2}" label="状态" listKey="value" listValue="key" value="1"/></td>
 		   	</tr>  
 		   	<tr><td><label>评级:</label></td></tr>
 		   	<tr>

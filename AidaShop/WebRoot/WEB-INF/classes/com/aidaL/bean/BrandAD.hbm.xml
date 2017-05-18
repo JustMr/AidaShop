@@ -31,7 +31,10 @@
         <property name="brLevelGrand" type="java.lang.Integer">
             <column name="br_levelGrand" />
         </property>
-        <set name="adProductInfos" inverse="true">
+        <property name="stId" type="java.lang.Integer">
+            <column name="st_id" />
+        </property>
+        <set name="adProductInfos" inverse="true" lazy="false">
             <key>
                 <column name="br_id" />
             </key>

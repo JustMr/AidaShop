@@ -10,12 +10,12 @@ import java.util.Set;
 
 public class AdProductInfo implements java.io.Serializable {
 
+	// Fields
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	// Fields
-
+	private static final long serialVersionUID = 7250512370655257762L;
 	private Integer PId;
 	private AdProductcategory adProductcategory;
 	private BrandAD brandAD;
@@ -31,10 +31,11 @@ public class AdProductInfo implements java.io.Serializable {
 	private Integer PCommend;
 	private Integer PClickcount;
 	private Integer PSellCount;
-	private Set adOrderitems = new HashSet(0);
-	private Set adConsults = new HashSet(0);
-	private Set adComments = new HashSet(0);
-	private Set adWishlists = new HashSet(0);
+	private Integer stId;
+	private Set<?> adOrderitems = new HashSet<Object>(0);
+	private Set<?> adConsults = new HashSet<Object>(0);
+	private Set<?> adComments = new HashSet<Object>(0);
+	private Set<?> adWishlists = new HashSet<Object>(0);
 
 	// Constructors
 
@@ -54,8 +55,8 @@ public class AdProductInfo implements java.io.Serializable {
 			Timestamp PCreateTime, Double PBaseprice, Double PMarketprice,
 			Double PSellprice, String PSexrequest, String PPlace,
 			Integer PCount, Integer PCommend, Integer PClickcount,
-			Integer PSellCount, Set adOrderitems, Set adConsults,
-			Set adComments, Set adWishlists) {
+			Integer PSellCount, Integer stId, Set<?> adOrderitems, Set<?> adConsults,
+			Set<?> adComments, Set<?> adWishlists) {
 		this.PId = PId;
 		this.adProductcategory = adProductcategory;
 		this.brandAD = brandAD;
@@ -71,6 +72,7 @@ public class AdProductInfo implements java.io.Serializable {
 		this.PCommend = PCommend;
 		this.PClickcount = PClickcount;
 		this.PSellCount = PSellCount;
+		this.stId = stId;
 		this.adOrderitems = adOrderitems;
 		this.adConsults = adConsults;
 		this.adComments = adComments;
@@ -199,35 +201,43 @@ public class AdProductInfo implements java.io.Serializable {
 		this.PSellCount = PSellCount;
 	}
 
-	public Set getAdOrderitems() {
+	public Integer getStId() {
+		return this.stId;
+	}
+
+	public void setStId(Integer stId) {
+		this.stId = stId;
+	}
+
+	public Set<?> getAdOrderitems() {
 		return this.adOrderitems;
 	}
 
-	public void setAdOrderitems(Set adOrderitems) {
+	public void setAdOrderitems(Set<?> adOrderitems) {
 		this.adOrderitems = adOrderitems;
 	}
 
-	public Set getAdConsults() {
+	public Set<?> getAdConsults() {
 		return this.adConsults;
 	}
 
-	public void setAdConsults(Set adConsults) {
+	public void setAdConsults(Set<?> adConsults) {
 		this.adConsults = adConsults;
 	}
 
-	public Set getAdComments() {
+	public Set<?> getAdComments() {
 		return this.adComments;
 	}
 
-	public void setAdComments(Set adComments) {
+	public void setAdComments(Set<?> adComments) {
 		this.adComments = adComments;
 	}
 
-	public Set getAdWishlists() {
+	public Set<?> getAdWishlists() {
 		return this.adWishlists;
 	}
 
-	public void setAdWishlists(Set adWishlists) {
+	public void setAdWishlists(Set<?> adWishlists) {
 		this.adWishlists = adWishlists;
 	}
 

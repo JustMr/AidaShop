@@ -23,7 +23,81 @@ $(document).ready(function(){
 	$("#setFinishBtn").on("click",finishClick);
 	$("#addStoreTag").on("click",addStoreTag);
 	$(".storeTagBox i").on("click",closeStoreTag);
+	//品牌申请
+	$("#brand_add").on("click",PinPaiTianJia);
+	$(".closeIcon").on("click",TopHide);
+	$(".ppsqCanel").on("click",TopHide);
+	$("#ppsqBtn").on("click",PinPaiSub);
+	$("#ppsqBtnXG").on("click",PPEditSub);
 });
+//格式化Timestamp，转化为Date类型
+Date.prototype.Format = function (fmt) { //
+    var o = {
+        "M+": this.getMonth() + 1, //Month
+        "d+": this.getDate(), //Day
+        "h+": this.getHours(), //Hour
+        "m+": this.getMinutes(), //Minute
+        "s+": this.getSeconds(), //Second
+        "q+": Math.floor((this.getMonth() + 3) / 3), //Season
+        "S": this.getMilliseconds() //millesecond
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + 
+
+"").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, 
+
+(RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+};
+function PPEditSub() {
+	TopHide();
+	var brId = $("#brIdXG").val();
+	var brName =$("#brNameXG").val();
+	var brEngName = $("#brEngNameXG").val();
+	var brDiscription = $("#upBrTextXG").val();
+	$.post("updateBrSt",{brId:brId,brName:brName,brEngName:brEngName,brDiscription:brDiscription},function() {
+		brandListShow();
+	});
+}
+function PinPaiEdit(int) {
+	var brState = $(".brStateVal").eq(int).data("state");
+	if (brState=="4") {
+		$(".shadow").show();
+		$("#ppsqbj").show();
+		var brId = $(".srBrEdit").eq(int).attr("id");
+		var brNameVal = $(".brNameVal").eq(int).text();
+		var brEngNameVal = $(".brEngNameVal").eq(int).text();
+		var brDiscriptionVal = $(".brDiscriptionVal").eq(int).text();
+		$("#brIdXG").val(brId);
+		$("#brNameXG").val(brNameVal);
+		$("#brEngNameXG").val(brEngNameVal);
+		$("#upBrTextXG").val(brDiscriptionVal);
+	}else {
+		alert("审核未通过才能编辑!");
+	}
+}
+function PinPaiSub() {
+	var brName = $("#brNameTJ").val();
+	var brEngName = $("#brEngNameTJ").val();
+	var brDiscription = $("#upBrText").val();
+	$.post("addBrandStore",{brName:brName,brEngName:brEngName,brDiscription:brDiscription},function(data) {
+		if(data.success==true) {
+			brandListShow();
+			TopHide();
+		}else {
+			alert("添加失败!");
+		}
+	},"json");
+}
+function TopHide() {
+	$(".topFrame").hide();
+	$(".shadow").hide();
+}
+function PinPaiTianJia() {
+	$(".shadow").show();
+	$("#ppsqtj").show();
+}
 function closeStoreTag(){
 	if($(".storeTagBox").length==1){
 		alert("标签数必须大于等于1！");
@@ -199,4 +273,35 @@ function selected9() {
 	$("#list_brand").addClass("mer_list_selected");
 	$(".mer_left_wrap").hide();
 	$(".manage_brand").show();
+	brandListShow();
+}
+function brandListShow(){
+	$.post("stListBr",function(data) {
+		$("#brandAuthWrap").empty();
+		if (data.success==true) {
+			var length = data.obj.length;
+			for ( var int = 0; int < length; int++) {
+				var brState = "未通过";
+				if (data.obj[int].brState==0) {
+					brState = "停售";
+				}else if (data.obj[int].brState==1) {
+					brState = "正常";
+				}else if (data.obj[int].brState==2) {
+					brState = "促销";
+				}else if (data.obj[int].brState==3) {
+					brState = "开通中";
+				}else if (data.obj[int].brState==4) {
+					brState = "未通过";
+				}
+				var time = new Date(data.obj[int].brApplyTime).Format("yyyy-MM-dd hh:mm");
+				var $tr = "<tr><td class='brNameVal'>"+data.obj[int].brName+"</td>" +
+						"<td class='brEngNameVal'>"+data.obj[int].brEngName+"</td>" +
+								"<td class='brDiscriptionVal'>"+data.obj[int].brDiscription+"</td>" +
+										"<td class='brApplyTimeVal'>"+time+"</td>" +
+											"<td data-state='"+data.obj[int].brState+"' class='brStateVal'>"+brState+"</td>" +
+												"<td><a id='"+data.obj[int].brId+"' data-row='"+int+"' class='listEdit srBrEdit' title='编辑' href='javascript:void(0);' onclick='PinPaiEdit("+int+");'></a></td></tr>";
+				$("#brandAuthWrap").append($tr);
+			}
+		}
+	},"json");
 }

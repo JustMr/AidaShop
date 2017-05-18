@@ -21,8 +21,8 @@ public class AdProductcategory implements java.io.Serializable {
 	private Integer cgPid;
 	private Integer cgPosition;
 	private Integer cgState;
-	private Set adConsultthemes = new HashSet(0);
-	private Set adProductInfos = new HashSet(0);
+	private Set<?> adConsultthemes = new HashSet<Object>(0);
+	private Set<?> adProductInfos = new HashSet<Object>(0);
 
 	// Constructors
 
@@ -39,7 +39,7 @@ public class AdProductcategory implements java.io.Serializable {
 	/** full constructor */
 	public AdProductcategory(Integer cgId, String cgName, Integer cgLevel,
 			Integer cgPid, Integer cgPosition, Integer cgState,
-			Set adConsultthemes, Set adProductInfos) {
+			Set<?> adConsultthemes, Set<?> adProductInfos) {
 		this.cgId = cgId;
 		this.cgName = cgName;
 		this.cgLevel = cgLevel;
@@ -100,19 +100,19 @@ public class AdProductcategory implements java.io.Serializable {
 		this.cgState = cgState;
 	}
 
-	public Set getAdConsultthemes() {
+	public Set<?> getAdConsultthemes() {
 		return this.adConsultthemes;
 	}
 
-	public void setAdConsultthemes(Set adConsultthemes) {
+	public void setAdConsultthemes(Set<?> adConsultthemes) {
 		this.adConsultthemes = adConsultthemes;
 	}
 
-	public Set getAdProductInfos() {
+	public Set<?> getAdProductInfos() {
 		return this.adProductInfos;
 	}
 
-	public void setAdProductInfos(Set adProductInfos) {
+	public void setAdProductInfos(Set<?> adProductInfos) {
 		this.adProductInfos = adProductInfos;
 	}
 

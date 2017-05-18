@@ -51,6 +51,18 @@
 			<result name="SUCCESS" type="redirect">listBrand.action</result>   
 	        <result name="INPUT">/page/backstage/pinpaitianjia.jsp</result> 
 		</action>
+		<action name="addBrandStore" class="addBrandBean" method="addBrandStore">
+		</action>
+		<action name="stListBr" class="addBrandBean" method="stListBr">
+		</action>
+		<action name="updateBrSt" class="addBrandBean" method="updateBrSt">
+		</action>
+		<action name="listBrandAuth" class="addBrandBean" method="listBrandAuth">
+			<result name="success">/page/backstage/pinpaishenhe.jsp</result>
+		</action>
+		<action name="updateBrState" class="addBrandBean" method="updateBrState">
+			<result name="success" type="redirect">listBrandAuth.action</result>  
+		</action>
 		<action name="deleteBrand" class="deleteBrandBean" method="deleteBrand">
 			<result name="SUCCESS" type="redirect">listBrand.action</result>  
 	        <result name="INPUT">/page/backstage/pinpaitianjia.jsp</result>  
@@ -62,6 +74,12 @@
 		</action>
 		<action name="editBrand" class="editBrandBean" method="editBrand">
 			<result name="SUCCESS">/page/backstage/updateBrand.jsp</result>  
+		</action>
+		<action name="viBrandAuth" class="editBrandBean" method="viBrandAuth">
+			<result name="success">/page/backstage/pinpaishenqingvi.jsp</result>  
+		</action>
+		<action name="updateBrandAuth" class="editBrandBean" method="updateBrandAuth">
+			<result name="success" type="redirect">listBrandAuth.action</result>  
 		</action>
 		
 		<!-- 文件上传下载 -->

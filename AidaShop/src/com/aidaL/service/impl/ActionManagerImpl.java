@@ -197,6 +197,23 @@ public class ActionManagerImpl implements ActionManager {
 
 
 	//品牌管理***************************************************
+
+	@Override
+	public List<BrandAD> findBrandAuthByName(String brName, String brEngName) {
+		return this.adBrandDAO.findBrandAuthByName(brName, brEngName);
+	}
+
+	@Override
+	public List<BrandAD> findBrandAuth() {
+		// TODO Auto-generated method stub
+		return this.adBrandDAO.findBrandAuth();
+	}
+	
+	@Override
+	public List<BrandAD> findBrandByStId(Integer stId) {
+		return this.adBrandDAO.findBrandByStId(stId);
+	}
+
 	@Override
 	public void saveOrUpdateBrand(BrandAD brand) {
 		// TODO Auto-generated method stub
@@ -485,6 +502,7 @@ public class ActionManagerImpl implements ActionManager {
 	public void BackwardPosition(Integer cgPosition) {
 		this.pcateDao.BackwardPosition(cgPosition);
 	}
+
 
 
 }

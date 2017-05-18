@@ -18,7 +18,7 @@ public class BrandAD  implements java.io.Serializable {
      /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4378256884689904513L;
 	private Integer brId;
      private String brName;
      private Integer brState;
@@ -27,8 +27,8 @@ public class BrandAD  implements java.io.Serializable {
      private Timestamp brApplyTime;
      private Timestamp brEnterTime;
      private Integer brLevelGrand;
-     @SuppressWarnings("rawtypes")
-	private Set adProductInfos = new HashSet(0);
+     private Integer stId;
+     private Set<?> adProductInfos = new HashSet<Object>(0);
 
 
     // Constructors
@@ -44,7 +44,7 @@ public class BrandAD  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public BrandAD(Integer brId, String brName, Integer brState, String brEngName, String brDiscription, Timestamp brApplyTime, Timestamp brEnterTime, Integer brLevelGrand, @SuppressWarnings("rawtypes") Set adProductInfos) {
+    public BrandAD(Integer brId, String brName, Integer brState, String brEngName, String brDiscription, Timestamp brApplyTime, Timestamp brEnterTime, Integer brLevelGrand, Integer stId, Set<?> adProductInfos) {
         this.brId = brId;
         this.brName = brName;
         this.brState = brState;
@@ -53,6 +53,7 @@ public class BrandAD  implements java.io.Serializable {
         this.brApplyTime = brApplyTime;
         this.brEnterTime = brEnterTime;
         this.brLevelGrand = brLevelGrand;
+        this.stId = stId;
         this.adProductInfos = adProductInfos;
     }
 
@@ -121,6 +122,14 @@ public class BrandAD  implements java.io.Serializable {
     
     public void setBrLevelGrand(Integer brLevelGrand) {
         this.brLevelGrand = brLevelGrand;
+    }
+
+    public Integer getStId() {
+        return this.stId;
+    }
+    
+    public void setStId(Integer stId) {
+        this.stId = stId;
     }
 
     public Set<?> getAdProductInfos() {
