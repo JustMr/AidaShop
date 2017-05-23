@@ -7,6 +7,23 @@ import org.apache.struts2.ServletActionContext;
 
 public class FileIODB {
 
+	/**
+	 *  删除单个文件
+	 * @param fileName 要删除的文件的文件名
+	 */
+	public void deleteFile(String fileName) {
+        File file = new File(fileName);
+        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+        if (file.exists() && file.isFile()) {
+            if (file.delete()) {
+                System.out.println("删除单个文件" + fileName + "成功！");
+            } else {
+                System.out.println("删除单个文件" + fileName + "失败！");
+            }
+        } else {
+            System.out.println("删除单个文件失败：" + fileName + "不存在！");
+        }
+    }
 	
 	public String getSavePath(String inputPath) {
 		return ServletActionContext.getServletContext().getRealPath(inputPath);
@@ -20,7 +37,8 @@ public class FileIODB {
      */
     public String makeFileName(String filename) {
     	//为防止文件覆盖的现象发生，要为上传文件产生一个唯一的文件名
-		return UUID.randomUUID().toString()+"_"+filename;
+//		return UUID.randomUUID().toString()+"_"+filename;
+		return UUID.randomUUID().toString()+filename.substring(filename.lastIndexOf("."));
 	}
     
     /**

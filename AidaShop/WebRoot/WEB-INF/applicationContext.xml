@@ -46,7 +46,8 @@
 				<value>com/aidaL/bean/AdLog.hbm.xml</value>
 				<value>com/aidaL/bean/BrandAD.hbm.xml</value>
 				<value>com/aidaL/bean/AdStoreAuth.hbm.xml</value>
-				<value>com/aidaL/bean/AdImageFile.hbm.xml</value></list>
+				<value>com/aidaL/bean/AdImageFile.hbm.xml</value>
+			</list>
 		</property>
 	</bean>
 	
@@ -146,4 +147,36 @@
 	<bean id="adAppCustomer" class="com.aidaL.dao.impl.AdUserDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-</beans>
+	
+	<!-- 商品信息管理 -->
+	<bean id="GoodActionBean" class="com.aidaL.action.GoodAction" scope="prototype">
+		<property name="brmgr" ref="adAppMgrBrand"></property>
+		<property name="shopmgr" ref="AdProductInfoMgr"></property>
+		<property name="stmgr" ref="adAppMgrStore"></property>
+		<property name="catemgr" ref="adAppMgrPCategory"></property>
+		<property name="imagemgr" ref="AdImageFileMgr"></property>
+	</bean>
+	<bean id="AdProductInfoMgr" class="com.aidaL.service.impl.ShopManagerImpl">
+		<property name="goodDao">
+			<ref bean="AdProductInfoDAO"/>
+		</property>
+	</bean>
+	<bean id="AdProductInfoDAO" class="com.aidaL.dao.AdProductInfoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 图片存储路径 -->
+	<bean id="AdImageFileMgr" class="com.aidaL.service.impl.ShopManagerImpl">
+		<property name="imageDao">
+			<ref bean="AdImageFileDAO"/>
+		</property>
+	</bean>
+	<bean id="AdImageFileDAO" class="com.aidaL.dao.AdImageFileDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	</beans>

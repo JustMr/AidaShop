@@ -4,18 +4,19 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
+
 /**
  * AdProductInfo entity. @author MyEclipse Persistence Tools
  */
 
 public class AdProductInfo implements java.io.Serializable {
 
-	// Fields
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7250512370655257762L;
+	private static final long serialVersionUID = 7932604420565700403L;
+	// Fields
+
 	private Integer PId;
 	private AdProductcategory adProductcategory;
 	private BrandAD brandAD;
@@ -32,6 +33,7 @@ public class AdProductInfo implements java.io.Serializable {
 	private Integer PClickcount;
 	private Integer PSellCount;
 	private Integer stId;
+	private Integer PState;
 	private Set<?> adOrderitems = new HashSet<Object>(0);
 	private Set<?> adConsults = new HashSet<Object>(0);
 	private Set<?> adComments = new HashSet<Object>(0);
@@ -44,20 +46,18 @@ public class AdProductInfo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public AdProductInfo(Integer PId, String PName) {
-		this.PId = PId;
+	public AdProductInfo(String PName) {
 		this.PName = PName;
 	}
 
 	/** full constructor */
-	public AdProductInfo(Integer PId, AdProductcategory adProductcategory,
-			BrandAD brandAD, String PName, String PDescription,
-			Timestamp PCreateTime, Double PBaseprice, Double PMarketprice,
-			Double PSellprice, String PSexrequest, String PPlace,
-			Integer PCount, Integer PCommend, Integer PClickcount,
-			Integer PSellCount, Integer stId, Set<?> adOrderitems, Set<?> adConsults,
+	public AdProductInfo(AdProductcategory adProductcategory, BrandAD brandAD,
+			String PName, String PDescription, Timestamp PCreateTime,
+			Double PBaseprice, Double PMarketprice, Double PSellprice,
+			String PSexrequest, String PPlace, Integer PCount,
+			Integer PCommend, Integer PClickcount, Integer PSellCount,
+			Integer stId, Integer PState, Set<?> adOrderitems, Set<?> adConsults,
 			Set<?> adComments, Set<?> adWishlists) {
-		this.PId = PId;
 		this.adProductcategory = adProductcategory;
 		this.brandAD = brandAD;
 		this.PName = PName;
@@ -73,6 +73,7 @@ public class AdProductInfo implements java.io.Serializable {
 		this.PClickcount = PClickcount;
 		this.PSellCount = PSellCount;
 		this.stId = stId;
+		this.PState = PState;
 		this.adOrderitems = adOrderitems;
 		this.adConsults = adConsults;
 		this.adComments = adComments;
@@ -207,6 +208,14 @@ public class AdProductInfo implements java.io.Serializable {
 
 	public void setStId(Integer stId) {
 		this.stId = stId;
+	}
+
+	public Integer getPState() {
+		return this.PState;
+	}
+
+	public void setPState(Integer PState) {
+		this.PState = PState;
 	}
 
 	public Set<?> getAdOrderitems() {

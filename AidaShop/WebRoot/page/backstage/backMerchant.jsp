@@ -20,9 +20,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/style-back-merchant.css"> 
 	<link rel="stylesheet" type="text/css" href="css/style-clear.css">
 	<link rel="stylesheet" type="text/css" href="css/input/input.css">
+	<link rel="stylesheet" type="text/css" href="css/css-table1.css">
 	<link rel="stylesheet" type="text/css" href="css/style-table.css">
-	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="js/ajaxfileupload.js"></script>
 	<script type="text/javascript" src="js/js-back.merchant.js"></script>
+	
   </head> 
   
   <body>
@@ -177,14 +180,328 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    			<div id="good_add" class="add_bar"><i></i><span>添加</span></div>
 		    		</div>
 		    		<div id="goodNavWarp">
-		    			<a class="goodNavA" href="javascript:void(0);">所有商品</a>
+		    			<a class="goodNavA goodNavFocus" href="javascript:void(0);">所有商品</a>
 		    			<a class="goodNavA" href="javascript:void(0);">上架申请</a>
 		    			<a class="goodNavA" href="javascript:void(0);">销售统计</a>
 		    			<a class="goodNavA" href="javascript:void(0);">上架商品</a>
+		    			<div class="clear"></div>
 		    		</div>
 		    		<div>
-		    			<div id="allGood" class="goodNavContain"></div>
-		    			<div id="goodAuth" class="goodNavContain"></div>
+		    			<div id="allGood" class="goodNavContain goodNavContainShow">
+		    				<div id="noGood">
+		    					<h1>还没有任何商品，赶紧点击添加按钮添加去！</h1>
+		    				</div>
+		    				<table id="travel" class="simpleTable">
+							    <thead>    
+							        <tr>
+							        	<th scope="col" width="50px">商品图片</th>
+							            <th scope="col" width="20%">商品名称</th>
+							            <th scope="col">商品标签</th>
+							            <th scope="col" width="40%">商品描述</th>
+							            <th scope="col" width="12%">上架时间</th>
+							            <th scope="col">售价</th>
+							            <th scope="col" width="48px">查看</th>
+							        </tr>        
+							    </thead>
+							    <tbody>
+							    	
+							    </tbody>
+							</table>
+							<div id="viGood" class="XQGood">
+								<div>
+									<a id="viGoodBack" href="javascript:void(0);"></a>
+								</div>
+								<form action="" enctype="multipart/form-data">
+									<table id="viGoodtab" class="simpleTable">
+										<caption>商品详情</caption>
+										<tr>
+											<th scope="row" colspan="1">
+												商品名称：
+											</th>
+											<td colspan="3">
+												<input id="pidG" name="pidG" type="hidden" />
+												<input id="pnameG" name="pnameG" type="text" style="width: 50%;" />
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">
+												品牌：
+											</th>
+											<td>
+												<label id="brandG"></label>
+											</td>
+											<th scope="row">
+												标签：
+											</th>
+											<td>
+												<label id="cateG"></label>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row" colspan="4">
+												商品描述
+											</th>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<textarea id="descriptionG" name="descriptionG"></textarea>
+											</td>
+										</tr>
+										<tr>
+				    						<th scope="row" style="vertical-align: top;" colspan="1">商品轮转展示图:</th>
+				    						<td colspan="3">
+				    							<div id="LZtdGExist"></div>
+				    							<p>第一张轮转显示图即为商品列表展示时的图片;</p>
+				    							<p>添加的顺序即为显示的顺序.</p>
+				    							<div class='LZtdG'>
+					    							<input id="fileLZG1" name="fileLZG" type="file"/>
+					    							<input id="addLunzhuanG" class="insideBtn" type="button" value="还有图片"/>
+				    							</div>
+				    						 </td>
+				    					</tr>
+										<tr>
+				    						<th scope="row" style="vertical-align: top;" colspan="1">商品详情展示图:</th>
+				    						<td colspan="3">
+				    							<div id="XQtdGExist"></div>
+				    							<p>添加的顺序即为显示的顺序.</p>
+				    							<div class='XQtdG'><input id="fileXQG1" name="fileXQG" type="file"/>
+				    							<input id="addXiangQingG" class="insideBtn" type="button" value="还有图片"/></div>
+				    						 </td>
+				    					</tr>
+				    					<tr>
+				    						<td colspan="2">
+				    							<input id="spckBtnG" type="button" class="upBrBtn" value="提交" /> 
+				    							<p>提交后商品将变为上架申请状态，谨慎提交</p> 
+				    						</td>
+				    						<td colspan="2">
+				    							<input id="spscBtnG" type="button" class="upBrBtn" value="删除" /> 
+				    							<p>删除将删除本条商品的所有信息，谨慎删除</p> 
+				    						</td>
+				    					</tr>
+				    				</table>
+				    			</form>
+				    			<table class="simpleTable">
+				    				<caption>其他商品信息修改查看</caption>
+				    				<tr>
+										<th scope="row">
+											库存<p></p>
+										</th>
+										<td>
+											<input id="countG" name="countG" type="text" /><p id="countGP" class="PriChiness"></p>
+										</td>
+										<th scope="row">
+											进价
+											<p></p>
+										</th>
+										<td>
+											<label class="yuan">&yen;</label>
+											<input id="baseG" name="baseG" type="text"/> <label>(元)</label>
+											<p id="baseGP" class="PriChiness"></p>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											市场价<p></p>
+										</th>
+										<td>
+											<label class="yuan">&yen;</label>
+											<input id="marketG" type="text"/> <label>(元)</label>
+											<p id="marketGP" class="PriChiness"></p>
+										</td>
+										<th scope="row">
+											售价<p></p>
+										</th>
+										<td>
+											<label class="yuan">&yen;</label>
+											<input id="sellG" type="text"/> <label>(元)</label>
+											<p id="sellGP" class="PriChiness"></p>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">商品对应性别:</th>
+										<td>
+			    							<select id="PSexrequestG" name="PSexrequestG" style="margin-left: 10px;">
+			    								<option value="male">男</option>
+			    								<option value="female">女</option>
+			    								<option value="both">全部</option>
+			    							</select>
+			    						</td>
+			    						<th scope="row">
+											推荐等级
+											<p></p>
+										</th>
+										<td>
+											<select id="commendG" name="commendG" style="margin-left: 10px;">
+												<option value="0">普通</option>
+												<option value="1">一级</option>
+												<option value="2">二级</option>
+												<option value="3">三级</option>
+											</select>
+										</td>
+			    					</tr>
+									<tr>
+										<th scope="row">
+											点击量
+										</th>
+										<td>
+											<label id="cilckCountG"></label>
+										</td>
+										<th scope="row">
+											销售量
+											<p></p>
+										</th>
+										<td>
+											<label id="sellCountG" style="margin-left: 10px;"></label>
+										</td>
+									</tr>
+									<tr>
+				    					<th scope="row">
+											上架时间
+										</th>
+										<td>
+											<label id="createTimeG"></label>
+										</td>
+										<th scope="row">
+											状态
+										</th>
+										<td>
+											<select id="pStateG" name="pStateG">
+												<option value="2">正常</option>
+												<option value="3">停售</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+			    						<td colspan="4">
+			    							<input id="spxgG" type="button" class="upBrBtn" value="提交" /> 
+			    							<p>提交不会改变申请状态</p> 
+			    						</td>
+			    					</tr>
+				    			</table>
+							</div>
+		    			</div>
+		    			<div id="goodAuth" class="goodNavContain">
+		    				<div id="noGoodAuth" class="nothing">
+		    					<h1>还没有任何商品商品申请，点击添加按钮添加去！</h1>
+		    				</div>
+		    				<table id="goodAuthtab" class="simpleTable">
+		    					<thead>    
+							        <tr>
+							        	<th scope="col" width="50px">商品图片</th>
+							            <th scope="col" width="20%">商品名称</th>
+							            <th scope="col">商品标签</th>
+							            <th scope="col" width="40%">商品描述</th>
+							            <th scope="col" width="12%">上架时间</th>
+							            <th scope="col">状态</th>
+							            <th scope="col" width="48px">查看</th>
+							        </tr>        
+							    </thead>
+							    <tbody>
+							    	
+							    </tbody>
+		    				</table>
+		    				<div id="viGoodAuth" class="XQGood">
+								<table class="simpleTable">
+									<caption>申请修改</caption>
+								</table>
+							</div>
+		    			</div>
+		    			<div id="goodSales" class="goodNavContain"></div>
+		    			<div id="goodPut" class="goodNavContain">
+		    				<form action="" enctype="multipart/form-data">
+			    				<table id="goodPutTab">
+			    					<tr>
+			    						<th scope="row">商品名称:</th>
+			    						<td><input id="PNameTJ" type="text" name="PName" style="margin-left: 7px;width: 50%;"/> </td>
+			    					</tr>
+			    					<tr>
+			    						<th scope="row" style="vertical-align: top;">商品描述: </th>
+			    						<td><textarea id="PDescriptionTJ" name="PDescription" style="margin-left: 7px;"></textarea></td>
+			    					</tr>
+			    					<tr>
+			    						<th scope="row" style="vertical-align: top;">商品标签: </th>
+			    						<td>
+			    							<select id="cateFir" class="cataSelect">
+			    								<option value="0">...</option>
+			    							</select>
+			    							<select id="cateSec" class="cataSelect">
+			    								<option value="0">...</option>
+			    							</select>
+			    							<select id="cateTrd" class="cataSelect">
+			    								<option value="0">...</option>
+			    							</select>
+			    							<p></p>
+			    						</td>
+			    					</tr>
+			    					<tr>
+			    						<th scope="row" style="vertical-align: top;">所属品牌: <p>(没有可以去申请添加)</p></th>
+			    						<td>
+			    							<select id="brandSelect">
+			    								<option value="0">...</option>
+			    							</select>
+			    						</td>
+			    					</tr>
+			    					<tr>
+			    						<th scope="row">商品进价:<p></p></th>
+			    						<td>
+			    							<label class="yuan">&yen;</label>
+			    							<input id="PBasepriceTJ" type="text" name="PBaseprice"  autoComplete='off'/> <label>(元)</label>
+			    							<p class="PriChiness"><label id="BasePri" class="chinessyuan"></label></p>
+			    						</td>
+			    					</tr>
+			    					<tr>
+			    						<th scope="row">商品市场价:<p></p></th>
+			    						<td>
+			    							<label class="yuan">&yen;</label>
+			    							<input id="PMarketpriceTJ" type="text" name="PMarketprice"  autoComplete='off'/> <label>(元)</label>
+			    							<p class="PriChiness"><label id="MktPri" class="chinessyuan"></label></p>
+			    						</td>
+			    					</tr>
+			    					<tr>
+			    						<th scope="row">商品售价:<p></p></th>
+			    						<td>
+			    							<label class="yuan">&yen;</label>
+			    							<input id="PSellpriceTJ" type="text" name="PSellprice"  autoComplete='off'/> <label>(元)</label>
+			    							<p class="PriChiness"><label id="SellPri" class="chinessyuan"></label></p>
+			    						</td>
+			    					</tr>
+			    					<tr>
+			    						<th scope="row">商品对应性别:</th>
+			    						<td>
+			    							<select id="PSexrequestTJ" name="PSexrequest" style="margin-left: 10px;">
+			    								<option value="male">男</option>
+			    								<option value="female">女</option>
+			    								<option value="both">全部</option>
+			    							</select>
+			    						</td>
+			    					</tr>
+			    					<tr>
+			    						<th id="LZth" scope="row" style="vertical-align: top;" >商品轮转展示图:</th>
+			    						<td>
+			    							<p>第一张轮转显示图即为商品列表展示时的图片;</p>
+			    							<p>添加的顺序即为显示的顺序.</p>
+			    							<div class='LZtd'>
+				    							<input id="fileLZ1" name="fileLZ" type="file"/>
+				    							<input id="addLunzhuan" class="insideBtn" type="button" value="还有图片"/>
+			    							</div>
+			    						 </td>
+			    					</tr>
+			    					<tr>
+			    						<th id="XQth" scope="row" style="vertical-align: top;">商品详情展示图:</th>
+			    						<td>
+			    							<p>添加的顺序即为显示的顺序.</p>
+			    							<div class='XQtd'><input id="fileXQ1" name="fileXQ" type="file"/>
+			    							<input id="addXiangQing" class="insideBtn" type="button" value="还有图片"/></div>
+			    						 </td>
+			    					</tr>
+			    					<tr>
+			    						<td colspan="2">
+			    							<input id="sptjBtn" type="button" class="upBrBtn" value="提交" onclick="return ShangPinTianjia();" />  
+			    						</td>
+			    					</tr>
+			    				</table>
+		    				</form>
+		    			</div>
 		    		</div>
 		    	</div>
 		    	<div class="manage_brand mer_left_wrap">

@@ -10,7 +10,7 @@
             <column name="co_id" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="adCustomer" class="com.aidaL.bean.AdCustomer" fetch="select">
+        <many-to-one name="adCustomer" class="com.aidaL.bean.AdCustomer" fetch="select" lazy="false">
             <column name="u_id" />
         </many-to-one>
         <property name="coName" type="java.lang.String">

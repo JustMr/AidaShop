@@ -8,12 +8,12 @@
     <class name="com.aidaL.bean.AdOrderitem" table="ad_orderitem" schema="dbo" catalog="AidaL">
         <id name="OId" type="java.lang.Integer">
             <column name="o_id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="adProductInfo" class="com.aidaL.bean.AdProductInfo" fetch="select">
+        <many-to-one name="adProductInfo" class="com.aidaL.bean.AdProductInfo" fetch="select" lazy="false">
             <column name="o_productId" not-null="true" />
         </many-to-one>
-        <many-to-one name="adOrder" class="com.aidaL.bean.AdOrder" fetch="select">
+        <many-to-one name="adOrder" class="com.aidaL.bean.AdOrder" fetch="select" lazy="false">
             <column name="co_id" />
         </many-to-one>
         <property name="OProductName" type="java.lang.String">

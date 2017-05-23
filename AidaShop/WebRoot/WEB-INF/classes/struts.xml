@@ -43,6 +43,7 @@
 		
 		
 		<!-- brand manager -->
+		<action name="listBrandSt" class="listBrandBean" method="listBrandSt"></action>
 		<action name="listBrand" class="listBrandBean" method="listBrand">
 			<result name="SUCCESS">/page/backstage/pinpailiebiao.jsp</result>  
 	        <result name="INPUT">/page/backstage/pinpaitianjia.jsp</result>
@@ -130,5 +131,11 @@
 		<!-- 商品分类管理，商品导航菜单管理 -->
 		<action name="*PCategoryAction" class="PCategoryBean" method="{1}">
 		</action>
+		
+		<!-- GoodAction 商品管理 -->
+		<action name="*GoodAction" class="GoodActionBean" method="{1}">
+			<result name="supergall">/page/backstage/shangpinliebiao.jsp</result>
+		</action>
+		
 	</package>
 </struts>    

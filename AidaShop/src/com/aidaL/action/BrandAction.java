@@ -111,6 +111,19 @@ public class BrandAction extends BaseAction {
 		return null;
 	}
     
+    //添加商品显示所有品牌
+    public void listBrandSt() throws Exception {
+    	Json json = new Json();
+		this.listBrands = this.brandmgr.findAllBrand();
+		if (listBrands.size()>0) {
+			json.setSuccess(true);
+			json.setObj(listBrands);
+		}else {
+			json.setSuccess(false);
+		}
+		writeJson(json);
+	}
+    
 	//查找所有品牌信息
 	public String listBrand() throws Exception {
 		this.listBrands = this.brandmgr.findAllBrand();

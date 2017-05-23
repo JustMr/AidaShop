@@ -10,7 +10,7 @@
             <column name="ct_themeid" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="adProductcategory" class="com.aidaL.bean.AdProductcategory" fetch="select">
+        <many-to-one name="adProductcategory" class="com.aidaL.bean.AdProductcategory" fetch="select" lazy="false">
             <column name="cg_id" />
         </many-to-one>
         <property name="ctName" type="java.lang.String">

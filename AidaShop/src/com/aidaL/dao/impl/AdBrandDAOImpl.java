@@ -49,7 +49,7 @@ public class AdBrandDAOImpl extends HibernateDaoSupport implements AdBrandDAO {
 	@Override
 	public List<BrandAD> findAll() {
 		// TODO Auto-generated method stub
-		return this.getHibernateTemplate().find("from BrandAD au where au.brState <>"+3);
+		return this.getHibernateTemplate().find("from BrandAD au where au.brState  not in (3,4)");
 	}
 
 	@Override

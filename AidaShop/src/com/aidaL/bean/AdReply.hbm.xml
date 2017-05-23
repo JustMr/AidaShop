@@ -10,7 +10,7 @@
             <column name="re_id" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="adConsult" class="com.aidaL.bean.AdConsult" fetch="select">
+        <many-to-one name="adConsult" class="com.aidaL.bean.AdConsult" fetch="select" lazy="false">
             <column name="con_id" />
         </many-to-one>
         <property name="reContent" type="java.lang.String">

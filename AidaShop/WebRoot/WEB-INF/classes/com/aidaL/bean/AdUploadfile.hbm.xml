@@ -13,7 +13,7 @@
         <property name="ufPath" type="java.lang.String">
             <column name="uf_path" not-null="true" />
         </property>
-        <set name="adProductInfos" inverse="true">
+        <set name="adProductInfos" inverse="true" lazy="false">
             <key>
                 <column name="p_uploadFile" />
             </key>

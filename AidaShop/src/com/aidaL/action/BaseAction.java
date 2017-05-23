@@ -22,8 +22,10 @@ public class BaseAction extends ActionSupport {
 	public HttpServletResponse response = ServletActionContext.getResponse();
 	public HttpSession session = request.getSession(true);
 	
+	
 	public void writeJson(Object obj) {
 		try {
+			response.setContentType("text/html");
 			response.setCharacterEncoding("utf-8");
 			PrintWriter out = response.getWriter();
 			out.write(JSON.toJSONString(obj));
@@ -34,4 +36,5 @@ public class BaseAction extends ActionSupport {
 			e.printStackTrace();
 		}
 	}
+	
 }

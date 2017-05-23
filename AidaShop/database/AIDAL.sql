@@ -101,6 +101,8 @@ ALTER TABLE ad_productInfo DROP CONSTRAINT FK_productInfo_uploadfile;
 ALTER TABLE ad_productInfo DROP COLUMN p_uploadFile;
 --添加申请店铺ID
 ALTER TABLE ad_productInfo ADD st_id INT;
+--添加商品状态
+ALTER TABLE ad_productInfo ADD p_state INT;
 				
 CREATE TABLE ad_productcategory(						--商品类别信息表
 	cg_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,		--类别编号

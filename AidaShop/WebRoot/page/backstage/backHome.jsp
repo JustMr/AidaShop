@@ -108,8 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    				</div>
 	    				<ul>
 	    					<li>商品列表</li> 
-	    					<li>自营商品管理</li>
-	    					<li>店铺商品管理</li>
+	    					<li>商品上架管理</li>
 	    					<li>下架商品管理</li>
 	    					<li>问题商品管理</li>
 	    					<li>商品类别管理</li>

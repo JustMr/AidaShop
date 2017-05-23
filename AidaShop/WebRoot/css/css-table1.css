@@ -1,0 +1,79 @@
+body { 
+	margin:0; 
+	padding:20px; 
+	font:13px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+	}
+	
+/* ---- Some Resets ---- */
+
+p,
+table, caption, td, tr, th {
+	margin:0;
+	padding:0;
+	font-weight:normal;
+	}
+
+/* ---- Paragraphs ---- */
+
+p {
+	margin-bottom:15px;
+	}
+	
+/* ---- table.simpleTable ---- */
+
+table.simpleTable {
+	border-collapse:collapse;
+	margin-bottom:15px;
+	width:100%;
+	table-layout:fixed;
+	}
+	
+	table.simpleTable caption {
+		text-align:left;
+		font-size:15px;
+		padding-bottom:10px;
+		}
+	
+	table.simpleTable td,
+	table.simpleTable th {
+		padding:5px;
+		border:1px solid #fff;
+		border-width:0 1px 1px 0;
+		}
+		
+	table.simpleTable thead th {
+		background:#91c5d4;
+		}
+			
+	table.simpleTable thead th[colspan],
+	table.simpleTable thead th[rowspan] {
+		background:#66a9bd;
+		}
+		
+	table.simpleTable tbody th,
+	table.simpleTable tfoot th {
+		text-align:left;
+		background:#91c5d4;
+		}
+		
+	table.simpleTable tbody td,
+	table.simpleTable tfoot td {
+		text-align:center;
+		background:#d5eaf0;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+		}
+		
+	table.simpleTable tfoot th {
+		background:#b0cc7f;
+		}
+		
+	table.simpleTable tfoot td {
+		background:#d7e1c5;
+		font-weight:bold;
+		}
+			
+	table.simpleTable tbody tr.odd td { 
+		background:#bcd9e1;
+		}
