@@ -144,6 +144,12 @@ public class ShopManagerImpl implements ShopManager {
 		return (List<AdImageFile>) this.imageDao.findByIfPid(pId);
 	}
 
+	@Override
+	public List<AdProductInfo> findAllGoodOnlyAuth() {
+		// TODO Auto-generated method stub
+		return this.goodDao.findAllGoodOnlyAuth();
+	}
+
 
 
 

@@ -58,5 +58,11 @@ public interface ShopManager {
 	 */
 	public List<AdProductInfo> findAllGoodWithNoAuth();
 	
+	/**
+	 * 查询所有的代审核商品
+	 * @return 代审核商品列表
+	 */
+	public List<AdProductInfo> findAllGoodOnlyAuth();
+	
 	
 }

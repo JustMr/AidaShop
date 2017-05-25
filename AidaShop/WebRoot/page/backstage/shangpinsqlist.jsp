@@ -9,7 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <link rel="stylesheet" type="text/css" href="css/style-clear.css">
+	
+	<link rel="stylesheet" type="text/css" href="css/style-clear.css">
 	<link rel="stylesheet" type="text/css" href="css/input/input.css">
 	<link rel="stylesheet" type="text/css" href="css/css-table1.css">
 	<link rel="stylesheet" type="text/css" href="css/button/buttons.css">
@@ -36,10 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		}
 	</script>
+
   </head>
   
   <body>
-  	<table class="headTab" width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="right-font08">
+    <table class="headTab" width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="right-font08">
 		<tr> 
 			<td width="15%">
 				<span class="newfont07">选择：
@@ -74,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    			<input type="checkbox" name="PIds" value='<s:property value="PId" />' />  
 			    		</td>
 			    		<td>
-			    		<a href='<s:url action="superviGoodAction"><s:param  name="PId" value="PId" /></s:url>'><img class="imgShow" alt='<s:property value="PName"/>' src='<s:property value="#request.pathList[#st.index]"/>'></a>	
+			    		<a href='<s:url action="superviGoodAction"><s:param  name="PId" value="PId" /><s:param  name="page" value="superlist" /></s:url>'><img class="imgShow" alt='<s:property value="PName"/>' src='<s:property value="#request.pathList[#st.index]"/>'></a>	
 			    		</td>
 			    		<td><s:property value="PName"/></td>
 			    		<td><s:property value="adProductcategory.cgName"/></td>
@@ -82,8 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		<td><s:date name="PCreateTime" format="yyyy-MM-dd HH:mm" nice="false"/> </td>
 						<td><s:property value="PSellprice" /> </td>
 						<td>
-					   		<a class="listEdit" title="编辑" href='<s:url action="superviGoodAction"><s:param  name="PId" value="PId" /></s:url>'></a>
-					   		<a class="listDelete" title="删除" href='<s:url action="superDelGoodAction"><s:param  name="PId" value="PId" /><s:param  name="page" value="superlist" /></s:url>'></a>
+					   		<a class="listEdit" title="编辑" href='<s:url action="superviGoodAction"><s:param  name="PId" value="PId" /><s:param  name="page" value="superlist" /></s:url>'></a>
 					   	</td>
 			    	</tr>
 		    	</s:iterator>

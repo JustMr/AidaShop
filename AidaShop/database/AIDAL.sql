@@ -294,3 +294,32 @@ CREATE TABLE ad_imageFile (
 	if_filepath VARCHAR(300),						--存储位置
 	if_SN INT,										--显示顺序
 )
+
+--desginerinfo 造型师相关信息统计表
+CREATE TABLE ad_desginerinfo (
+	di_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--表ID
+	u_id INT NOT NULL,								--用户ID
+	di_articleCount INT DEFAULT(0),					--文章总数
+	di_readCount INT DEFAULT(0),					--文章阅读总量
+	di_likeCount INT DEFAULT(0),					--文章点赞总数
+	di_hateCount INT DEFAULT(0),					--文章讨厌总数
+	di_state INT,									--进阶状态
+)
+
+--文章表
+CREATE TABLE ad_article (
+	ar_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--表ID
+	u_id INT NOT NULL,								--用户ID
+	ar_title VARCHAR(300) NOT NULL,					--文章标题
+	ar_main TEXT NOT NULL,							--文章正文
+	ar_readCount INT DEFAULT(0),					--文章阅读总量
+	ar_likeCount INT DEFAULT(0),					--文章点赞总数
+	ar_hateCount INT DEFAULT(0),					--文章讨厌总数
+)
+
+--商品搭配表
+CREATE TABLE ad_goodsmatch (
+	gm_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--表ID
+	ar_id INT,										--所属文章表ID
+	p_id INT NOT NULL,								--商品ID
+)

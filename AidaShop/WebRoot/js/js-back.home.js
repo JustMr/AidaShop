@@ -86,6 +86,12 @@ function frameShow() {
 	} else if(name=="品牌开通申请") {
 		$("#backHFrame").attr("src","listBrandAuth");
 		$("#backHFrame").css("height","550px");
+	}else if(name=="商品列表") {
+		$("#backHFrame").attr("src","superListGoodAction");
+		$("#backHFrame").css("height","550px");
+	}else if(name=="商品上架管理") {
+		$("#backHFrame").attr("src","superGAListGoodAction");
+		$("#backHFrame").css("height","550px");
 	} else if(name=="会员列表") {
 		$("#backHFrame").attr("src","listCustomerAction");
 		$("#backHFrame").css("height","550px");

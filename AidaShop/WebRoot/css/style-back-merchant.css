@@ -480,8 +480,10 @@
 #brandSelect {margin-left: 10px;width: 15%;}
 .simpleTable .catGoodBtn {margin-left: 10px;}
 .XQGood {display: none;}
-#viGoodBack {display: block;width: 24px;height: 24px;background: url("../images/backto.png") no-repeat;background-size: 24px 24px;vertical-align: middle;margin-bottom: 20px;}
+#viGoodBack, #viGoodAuthBack {display: block;width: 24px;height: 24px;background: url("../images/backto.png") no-repeat;background-size: 24px 24px;vertical-align: middle;margin-bottom: 20px;}
 .imgGoodG {margin: 0 10px;vertical-align: middle;}
 #viGoodtab {table-layout: auto;}
 #viGoodtab td {overflow: auto;white-space: normal;}
+#viGoodAuthtab {table-layout: auto;}
+#viGoodAuthtab td {overflow: auto;white-space: normal;}
 /* ------------- 商品管理 end ---------- */

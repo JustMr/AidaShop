@@ -42,6 +42,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					<a href="###">电器城</a>
   				</li>
   				<li class="homeNavLi">
+  					<a href="page/home/dapeicenter.jsp">搭配中心</a>
+  				</li>
+  				<li class="homeNavLi">
   					<a href="###">爱搭排行</a>
   				</li>
   			</ul>

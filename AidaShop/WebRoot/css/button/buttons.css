@@ -110,3 +110,16 @@
 	min-width:70px;
 	width: 70px;
 }
+.listEdit,.listDelete,.subEdit,.cancelEdit {
+	display:inline-block;height:28px;width:28px;background-repeat: no-repeat;vertical-align: middle;background-size: 28px 28px;
+}
+.listEdit { background-image: url("../../images/48_edit-333.png");margin-left:20px; }
+.listEdit:hover { background-image: url("../../images/48_edit-fd6d37.png"); }
+.listDelete { background-image: url("../../images/48_delete-333.png"); }
+.listDelete:hover { background-image: url("../../images/48_delete-fd6d37.png"); }
+.subEdit { background-image: url("../../images/submit-fd6d37.png");cursor: pointer; margin-left: 20px;}
+.cancelEdit {background-image: url("../../images/cancel-large.png");margin-left: 5px;background-size: 25px 25px;height:25px;width:25px;}
+
+/* 提交按钮 */
+.upBrBtn { width:66px;height:32px;background: #fd6d37;color:#fff;border-radius:5px;border:none;outline: none;cursor: pointer;margin: 20px;}
+.upBrBtn:hover { -webkit-filter:brightness(.9); }

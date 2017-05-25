@@ -259,6 +259,16 @@ public class AdProductInfoDAO extends HibernateDaoSupport {
 		}
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdProductInfo> findAllGoodOnlyAuth() {
+		String queryString = "from AdProductInfo as model where model.PState = 1";
+		List<AdProductInfo> goods = this.getHibernateTemplate().find(queryString);
+		if (goods.size()>0) {
+			return goods;
+		}
+		return null;
+	}
 	
 	
 }

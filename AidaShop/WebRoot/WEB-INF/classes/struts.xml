@@ -135,6 +135,10 @@
 		<!-- GoodAction 商品管理 -->
 		<action name="*GoodAction" class="GoodActionBean" method="{1}">
 			<result name="supergall">/page/backstage/shangpinliebiao.jsp</result>
+			<result name="superagall">/page/backstage/shangpinsqlist.jsp</result>
+			<result name="supervi">/page/backstage/shangpinvi.jsp</result>
+			<result name="superglist" type="redirect">superListGoodAction.action</result>
+			<result name="supergalist" type="redirect">superGAListGoodAction.action</result>
 		</action>
 		
 	</package>

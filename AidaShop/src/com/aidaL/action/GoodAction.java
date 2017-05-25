@@ -14,6 +14,7 @@ import java.util.Set;
 import com.aidaL.bean.AdImageFile;
 import com.aidaL.bean.AdProductInfo;
 import com.aidaL.bean.AdProductcategory;
+import com.aidaL.bean.AdStore;
 import com.aidaL.bean.BrandAD;
 import com.aidaL.db.FileIODB;
 import com.aidaL.service.ActionManager;
@@ -38,6 +39,7 @@ public class GoodAction extends BaseAction {
 	private AdProductInfo good;
 	private BrandAD brandAD;
 	private AdImageFile image;
+	private AdStore store;
 	private List<AdImageFile> images = new ArrayList<AdImageFile>();
 	private List<AdProductInfo> goods = new ArrayList<AdProductInfo>();
 	
@@ -78,6 +80,8 @@ public class GoodAction extends BaseAction {
     private Integer countLZg;
     private Integer countXQg;
     
+    private String page;
+    
     
   //限制上传类型
   	private Set<String> allowType = new HashSet<String>();
@@ -91,12 +95,122 @@ public class GoodAction extends BaseAction {
 		allowType.add("png");
 	}
     
+    public String superGAList() {
+		
+    	goods = this.shopmgr.findAllGoodOnlyAuth();
+    	//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+    	//获取第一个轮转图片，并改变地址格式
+    	if (goods!=null) {
+			for (int i = 0; i < goods.size(); i++) {
+//				System.out.println("image Pid:"+goods.get(i).getPId());
+				image = this.imagemgr.findImageListOneByPId(goods.get(i).getPId());
+//				System.out.println("image"+i+":"+image);
+				if (image!=null) {
+					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+					path = path.replaceAll("\\\\", "/");
+					pathList.add(path);
+				}else {
+					pathList.add("nopath");
+				}
+			}
+    	}
+    	
+    	session.setAttribute("page1", "supergalist");
+    	
+    	System.out.println("pathList:"+pathList);
+    	request.setAttribute("pathList", pathList);
+    	
+    	return "superagall";
+	}
+    
+    public String superUpdate() {
+    	
+    	AdProductInfo prInfo = this.shopmgr.findGoodById(good.getPId());
+    	prInfo.setPState(good.getPState());
+    	this.shopmgr.saveOrUpdateGood(prInfo);
+    	
+    	page=(String) session.getAttribute("page1");
+    	
+    	if (page.equals("superlist")) {
+    		return "superglist";
+		}else if (page.equals("supergalist")) {
+			return "supergalist";
+		}
+    	
+		return "superglist";
+	}
+    
+    public String superDel() {
+    	
+    	this.shopmgr.deleteGood(PId);
+		images = this.imagemgr.findImageByPId(PId);
+		int l = images.size();
+		FileIODB fiIodb = new FileIODB();
+		if (l>0) {
+			for (int i = 0; i < l; i++) {
+				fiIodb.deleteFile(images.get(i).getIfFilepath());
+				this.imagemgr.deleteImage(images.get(i));
+			}
+		}
+		
+//		page = (String) session.getAttribute("page1");
+//		
+//		System.out.println("superlist:"+page);
+//		if (page.equals("superglist")) {
+//			return "superglist";
+//		}else if (page.equals("supergalist")) {
+//			return "supergalist";
+//		}
+    	
+		return "supergall";
+	}
+    
+    
+    /**
+     * 超管显示商品该详细信息
+     * @return
+     */
+    public String supervi() {
+    	
+    	good = this.shopmgr.findGoodById(PId);
+    	images = this.imagemgr.findImageListByPId(PId);
+    	
+    	List<String> lzpath = new ArrayList<String>();
+    	List<String> xqpath = new ArrayList<String>();
+    	
+    	if (images.size()>0) {
+			for (int i = 0; i < images.size(); i++) {
+				String path = "." + images.get(i).getIfFilepath().substring(images.get(i).getIfFilepath().indexOf("\\upload\\"));
+				path = path.replaceAll("\\\\", "/");
+				
+				if (images.get(i).getIfPosition()==0) {
+					lzpath.add(path);
+				}else {
+					xqpath.add(path);
+				}
+			}
+		}
+    	
+    	//获得所属店铺信息
+    	store = this.stmgr.findStoreById(good.getStId());
+    	
+    	System.out.println(lzpath);
+    	System.out.println(xqpath);
+    	
+    	request.setAttribute("lzpath", lzpath);
+    	request.setAttribute("xqpath", xqpath);
+    	
+    	return "supervi";
+    }
+    
     
     /**
      * 超管查看商品列表，无申请中或未通过商品
      * @return 商品列表和图片路径
      */
-    public String superListGood() {
+    public String superList() {
     	
     	
     	goods = this.shopmgr.findAllGoodWithNoAuth();
@@ -111,12 +225,15 @@ public class GoodAction extends BaseAction {
 //				System.out.println("image"+i+":"+image);
 				if (image!=null) {
 					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+					path = path.replaceAll("\\\\", "/");
 					pathList.add(path);
 				}else {
 					pathList.add("nopath");
 				}
 			}
     	}
+    	
+    	session.setAttribute("page1", "superglist");
     	System.out.println("pathList:"+pathList);
     	request.setAttribute("pathList", pathList);
     	
@@ -385,7 +502,7 @@ public class GoodAction extends BaseAction {
 		stId = (Integer) session.getAttribute("cusStore");
 //		System.out.println("stId:"+stId);
 		goods = this.shopmgr.findGoodAuthByStId(stId);
-//		System.out.println("goods:"+goods);
+		System.out.println("goods:"+goods);
 		if (goods!=null) {
 			for (int i = 0; i < goods.size(); i++) {
 				System.out.println("image Pid:"+goods.get(i).getPId());
@@ -1055,6 +1172,22 @@ public class GoodAction extends BaseAction {
 
 	public void setCountXQg(Integer countXQg) {
 		this.countXQg = countXQg;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
+	}
+
+	public AdStore getStore() {
+		return store;
+	}
+
+	public void setStore(AdStore store) {
+		this.store = store;
 	}
 	
 	

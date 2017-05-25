@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/css-table1.css">
 	<link rel="stylesheet" type="text/css" href="css/style-table.css">
 	<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="js/FastJson.js"></script>
 	<script type="text/javascript" src="js/ajaxfileupload.js"></script>
 	<script type="text/javascript" src="js/js-back.merchant.js"></script>
 	
@@ -401,10 +402,103 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    </tbody>
 		    				</table>
 		    				<div id="viGoodAuth" class="XQGood">
-								<table class="simpleTable">
-									<caption>申请修改</caption>
-								</table>
+								<div>
+									<a id="viGoodAuthBack" href="javascript:void(0);"></a>
+								</div>
+								<table id="viGoodAuthtab" class="simpleTable">
+									<caption>商品上架审核详情</caption>
+									<tr>
+										<th scope="row" colspan="1">
+											商品名称：
+										</th>
+										<td colspan="3">
+											<input id="pidGA" name="pidGA" type="hidden" />
+											<label id="pnameGA" style="width: 50%;" ></label>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											品牌：
+										</th>
+										<td>
+											<label id="brandGA"></label>
+										</td>
+										<th scope="row">
+											标签：
+										</th>
+										<td>
+											<label id="cateGA"></label>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row" colspan="4">
+											商品描述
+										</th>
+									</tr>
+									<tr>
+										<td colspan="4">
+											<label id="descriptionGA" ></label>
+										</td>
+									</tr>
+									<tr>
+			    						<th scope="row" style="vertical-align: top;" colspan="1">商品轮转展示图:</th>
+			    						<td colspan="3">
+			    							<div id="LZtdGAExist"></div>
+			    						 </td>
+			    					</tr>
+									<tr>
+			    						<th scope="row" style="vertical-align: top;" colspan="1">商品详情展示图:</th>
+			    						<td colspan="3">
+			    							<div id="XQtdGAExist"></div>
+			    						 </td>
+			    					</tr>
+				    				<tr>
+										<th scope="row">
+											进价
+											<p></p>
+										</th>
+										<td>
+											<label class="yuan">&yen;</label>
+											<label id="baseGA"></label> <label>(元)</label>
+										</td>
+										<th scope="row">
+											市场价<p></p>
+										</th>
+										<td>
+											<label class="yuan">&yen;</label>
+											<label id="marketGA"></label> <label>(元)</label>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											售价<p></p>
+										</th>
+										<td>
+											<label class="yuan">&yen;</label>
+											<label id="sellGA"></label> <label>(元)</label>
+										</td>
+										<th scope="row">商品对应性别:</th>
+										<td>
+											<label id="PSexrequestGA" style="margin-left: 10px;"></label>
+			    						</td>
+			    					</tr>
+									<tr>
+				    					<th scope="row">
+											申请时间
+										</th>
+										<td>
+											<label id="createTimeGA"></label>
+										</td>
+										<th scope="row">
+											状态
+										</th>
+										<td>
+											<label id="pStateGA"></label>
+										</td>
+									</tr>
+				    			</table>
 							</div>
+							
 		    			</div>
 		    			<div id="goodSales" class="goodNavContain"></div>
 		    			<div id="goodPut" class="goodNavContain">

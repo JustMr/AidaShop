@@ -65,6 +65,7 @@ $(document).ready(function(){
 	$("#addXiangQingG").on("click",addXiangQingG);
 	$("#spscBtnG").on("click", deleteGood);
 	$("#viGoodBack").on("click",GoodBack);
+	$("#viGoodAuthBack").on("click",GoodAuthBack);
 	$("#spxgG").on("click",spxgqtG);
 	$("#spckBtnG").on("click",spckqtBtnG);
 	
@@ -77,6 +78,11 @@ $(document).ready(function(){
 	
 	
 });
+function GoodAuthBack() {
+	$("#viGoodAuth").hide();
+	$("#goodAuthtab").show();
+	
+}
 function spckqtBtnG() {
 	var pId = $("#pidG").val().trim();
 	var pnameG = $("#pnameG").val().trim();
@@ -682,7 +688,101 @@ function ShangPinTianjiaShow() {
 }
 function catGoodAut(pId) {
 	//编辑商品申请表
-	
+	$("#goodAuthtab").hide();
+	$("#viGoodAuth").show();
+	$("#LZtdGAExist").empty();
+	$("#XQtdGAExist").empty();
+	$.ajax({
+		url: "viGoodAndImageGoodAction",
+		data: {
+			PId: pId,
+		},
+		dataType: "json",
+		type: "post",
+		success: function(data) {
+			console.log(data);
+			if (data.success==true) {
+				var t=data.obj;
+				$("#pidGA").val(t.pId);
+				$("#pnameGA").text(t.pName);
+				$("#brandGA").text(t.brandAD.brName);
+				$("#cateGA").text(t.adProductcategory.cgName);
+				$("#descriptionGA").text(t.pDescription);
+				$("#baseGA").text(t.pBaseprice);
+				$("#marketGA").text(t.pMarketprice);
+				$("#sellGA").text(t.pSellprice);
+				
+				var pSexrequest = "";
+				if (t.pSexrequest=="male") {
+					pSexrequest="男性";
+				}else if (t.pSexrequest=="famale") {
+					pSexrequest="女性";
+				}else {
+					pSexrequest="全部";
+				}
+				$("#PSexrequestGA").text(pSexrequest);
+				
+				var time = new Date(t.pCreateTime).Format("yyyy-MM-dd hh:mm:ss");
+				$("#createTimeGA").text(time);
+				
+				var state = "";
+				if (t.pState==0) {
+					state="未通过";
+				}else if (t.pState==1) {
+					state="审核中";
+				}else if (t.pState==2) {
+					state="正常";
+				}else {
+					state="停售";
+				}
+				$("#pStateGA").text(state);
+				
+				
+				//图片显示
+				if (data.msg=="success") {
+					l = data.obj1.length;
+					for ( var i = 0; i < l; i++) {
+						var s = data.obj1[i];
+						
+						//转化图片地址
+						var src = s.ifFilepath;
+						var index = src.indexOf("\\upload\\");
+						var reg=/\\/g;//g,表示全部替换
+						src = "."+src.substr(index).replace(reg,"/");
+
+						
+						if (s.ifPosition==0) {
+							var $img = "<img data-id='"+s.ifId+"' class='imgGoodGA' alt='"+t.pName+"' src='"+src+"'>";
+							$("#LZtdGAExist").append($img);
+						}else {
+							var $img = "<img data-id='"+s.ifId+"' class='imgGoodGA' alt='"+t.pName+"' src='"+src+"'>";
+							$("#XQtdGAExist").append($img);
+						}
+						
+						
+					}
+					
+					$(".imgGoodGA").each(function(){
+						//加载图片至内存，完成后执行
+						//获得原始图片高宽
+						var imgWidth = $(this).width();
+						var imgHeight = $(this).height();
+						//重新设置img的width和height
+						$(this).height((120*imgHeight)/imgWidth);
+						$(this).width(120);
+						console.log(imgWidth+","+imgHeight);
+					});
+					
+				}
+				
+			}else {
+				alert("something wrong!");
+			}
+		},
+		error: function() {
+			alert("something wrong!");
+		}
+	});
 	
 }
 function allGoodAuthShwo() {
@@ -692,6 +792,7 @@ function allGoodAuthShwo() {
 		type: "post",
 		dataType: "json",
 		success: function(data) {
+			FastJson.format(data);
 			if (data.success==true) {
 				//有申请表
 				$("#noGoodAuth").hide();
@@ -699,11 +800,13 @@ function allGoodAuthShwo() {
 				
 				
 				$("#goodAuthtab tbody").empty();
+				console.log(data);
 				var l = data.obj.length;
+				console.log(l);
 				for ( var i = 0; i < l; i++) {
 					t = data.obj[i];
 					s = data.obj1[i];
-					console.log(s);
+					console.log("for:"+t);
 					
 					
 					//转化图片地址
@@ -726,7 +829,6 @@ function allGoodAuthShwo() {
 					}else if (t.pState==3) {
 						state = "停售";
 					}
-					
 					
 					//添加每行数据
 					$tr = "<tr><td><a href='javascript:void(0);' onclick='catGoodAut("+t.pId+");'><img class='goodAthImg' src='"+s+"' alt='"+t.pName+"' title='"+t.pName+"' ></a></td>" +
@@ -860,6 +962,7 @@ function allGoodShwo() {
 		type: "post",
 		dataType: "json",
 		success: function(data) {
+			FastJson.format(data);
 			console.log(data);
 			if (data.success==true) {
 				$("#travel tbody").empty();
