@@ -40,9 +40,12 @@ function logincheck() {
 				console.log("ajax error");
 				return false;
 			} else if(role=="unactive") {
-				alert("该邮箱未激活，请先去邮箱激活！");
+				alert("该邮箱未激活，请先去邮箱激活!");
 				return false;
-			} else{
+			}else if(role=="stop") {
+				alert("此账户已被停用!");
+				return false;
+			}else{
 				if(role=="success" || role=="superAdmin" || role=="storeAdmin") {
 					//获取最近登录时间,写入session,添加本次日志
 					$.post("setnearLogAction",function() {

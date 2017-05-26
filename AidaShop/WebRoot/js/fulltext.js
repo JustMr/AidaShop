@@ -112,7 +112,8 @@ iconsHtml : function() {
 		builder.push('</tr>');
 	};
 	var _drawCell = function(builder, j) {
-		var url = '.././images/emoticons/face' + j + '.gif';
+		var url = './images/emoticons/face' + j + '.gif';
+//		var url = '../../images/emoticons/face' + j + '.gif';
 		builder
 				.push('<td style="background:url('
 						+ url
@@ -545,11 +546,11 @@ drawEditor : function(id,text_content) {
 	/****************************************************************/
 	addSheet('\
   #RTE_iframe{width:100%;height:100%;}\
-  #RTE_toolbar{float:left;width:100%;height:100%;}\
+  #RTE_toolbar{float:left;width:100%;}\
   #RTE_toolbar select{float:left;height:20px;width:60px;margin-right:5px;}\
   #RTE_toolbar .button{display:block;float:left; text-decoration:none;border:1px solid;\
   border-color:#ccc #f3f8fc #f3f8fc #ccc;margin:2px 2px 5px;background-image:\
-    url(.././images/tinymce.gif); }\
+    url(./images/tinymce.gif); }\
   #RTE_toolbar .button:hover{color:#fff;border-color:#fff #aaa #aaa #fff;}\
   div#fontpicker{display:none;height:150px;width:150px;overflow:auto;position:absolute;\
      border:2px solid #c3c9cf;background:#F1FAFA;}\

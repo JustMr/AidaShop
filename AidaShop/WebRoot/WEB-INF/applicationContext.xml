@@ -47,7 +47,9 @@
 				<value>com/aidaL/bean/BrandAD.hbm.xml</value>
 				<value>com/aidaL/bean/AdStoreAuth.hbm.xml</value>
 				<value>com/aidaL/bean/AdImageFile.hbm.xml</value>
-			</list>
+				<value>com/aidaL/bean/AdArticle.hbm.xml</value>
+				<value>com/aidaL/bean/AdDesginerinfo.hbm.xml</value>
+				<value>com/aidaL/bean/AdGoodsmatch.hbm.xml</value></list>
 		</property>
 	</bean>
 	
@@ -155,6 +157,7 @@
 		<property name="stmgr" ref="adAppMgrStore"></property>
 		<property name="catemgr" ref="adAppMgrPCategory"></property>
 		<property name="imagemgr" ref="AdImageFileMgr"></property>
+		
 	</bean>
 	<bean id="AdProductInfoMgr" class="com.aidaL.service.impl.ShopManagerImpl">
 		<property name="goodDao">
@@ -178,5 +181,53 @@
 			<ref bean="sessionFactory"/>
 		</property>
 	</bean>
+	
+	
+	<!-- 搭配管理中心 -->
+	<bean id="DesignerActionBean" class="com.aidaL.action.DesignerAction" scope="prototype">
+		<property name="articlemgr" ref="AdArticleMgr"></property>
+		<property name="desinfomgr" ref="AdDesginerinfoMgr"></property>
+		<property name="matchmgr" ref="AdGoodsmatchMgr"></property>
+		<property name="goodmgr" ref="AdProductInfoMgr"></property>
+		<property name="stmgr" ref="adAppMgrStore"></property>
+		<property name="imagemgr" ref="AdImageFileMgr"></property>
+		<property name="custmgr" ref="adAppMgr"></property>
+	</bean>
+	
+	
+	<!-- 文章 -->
+	<bean id="AdArticleMgr" class="com.aidaL.service.impl.DesignerManageImpl">
+		<property name="articleDao" ref="AdArticleDAO"></property>
+	</bean>
+	<bean id="AdArticleDAO" class="com.aidaL.dao.impl.AdArticleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	
+	<!-- 造型师详细信息 -->
+	<bean id="AdDesginerinfoMgr" class="com.aidaL.service.impl.DesignerManageImpl">
+		<property name="desginerinfoDao" ref="AdDesginerinfoDAO"></property>
+	</bean>
+	<bean id="AdDesginerinfoDAO"
+		class="com.aidaL.dao.impl.AdDesginerinfoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	
+	<!-- 商品所属文章搭配条目 -->
+	<bean id="AdGoodsmatchMgr" class="com.aidaL.service.impl.DesignerManageImpl">
+		<property name="gmDao" ref="AdGoodsmatchDAO"></property>
+	</bean>
+	<bean id="AdGoodsmatchDAO"
+		class="com.aidaL.dao.impl.AdGoodsmatchDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
 	
 	</beans>

@@ -6,7 +6,14 @@ public class JsonMultiObj {
 	private String msg = "";
 	private Object obj = null;
 	private Object obj1 = null;
+	private Object obj2 = null;
 	
+	public Object getObj2() {
+		return obj2;
+	}
+	public void setObj2(Object obj2) {
+		this.obj2 = obj2;
+	}
 	public boolean isSuccess() {
 		return success;
 	}

@@ -150,6 +150,16 @@ public class ShopManagerImpl implements ShopManager {
 		return this.goodDao.findAllGoodOnlyAuth();
 	}
 
+	@Override
+	public List<AdProductInfo> findGoodByUnSureName(String pName) {
+		return this.goodDao.findGoodByUnSureName(pName);
+	}
+
+	@Override
+	public List<AdProductInfo> findGoodByCgId(Integer cgId) {
+		return this.goodDao.findGoodByCgId(cgId);
+	}
+
 
 
 

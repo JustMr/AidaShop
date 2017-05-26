@@ -503,6 +503,11 @@ public class ActionManagerImpl implements ActionManager {
 		this.pcateDao.BackwardPosition(cgPosition);
 	}
 
+	@Override
+	public List<AdProductcategory> findPcategoryByUnSureName(String pName) {
+		return this.pcateDao.findPcategoryByUnSureName(pName);
+	}
+
 
 
 }

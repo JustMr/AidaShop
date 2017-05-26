@@ -257,4 +257,15 @@ public class ProductcategoryDAOImpl extends HibernateDaoSupport implements com.a
 		session.close();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AdProductcategory> findPcategoryByUnSureName(String pName) {
+		String query = "from AdProductcategory pc where pc.cgName like '%"+pName+"%' and pc.cgLevel = 2 and pc.cgState <> 0";
+		List<AdProductcategory> list = this.getHibernateTemplate().find(query);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+
 }

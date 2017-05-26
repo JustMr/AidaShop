@@ -97,6 +97,8 @@ public class LoginAction extends ActionSupport {
 			System.out.println("statu:"+statu);
 			if (statu==5) {
 				writer.print("unactive");
+			}else if (statu==1) {
+				writer.print("stop");
 			}else {
 				session.setAttribute("cusId", map.get("uId"));
 				session.setAttribute("cusNickName", map.get("uNickName"));

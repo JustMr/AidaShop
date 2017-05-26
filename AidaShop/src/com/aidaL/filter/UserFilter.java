@@ -53,6 +53,7 @@ public class UserFilter implements Filter {
 	public void init(FilterConfig arg0) throws ServletException {
 //		paths.add("/login.html");
 		paths.add("/page/home/shangjiaruzhu.jsp");
+		paths.add("/page/home/publisharticle.jsp");
 	}
 
 }

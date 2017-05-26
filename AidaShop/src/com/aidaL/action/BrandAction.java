@@ -115,6 +115,10 @@ public class BrandAction extends BaseAction {
     public void listBrandSt() throws Exception {
     	Json json = new Json();
 		this.listBrands = this.brandmgr.findAllBrand();
+//		for (int i = 0; i < listBrands.size(); i++) {
+//			System.out.println(listBrands.get(i).getBrName());
+//		}
+		
 		if (listBrands.size()>0) {
 			json.setSuccess(true);
 			json.setObj(listBrands);

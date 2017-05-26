@@ -35,6 +35,7 @@ public class GoodAction extends BaseAction {
 	private ActionManager stmgr;
 	private ShopManager imagemgr;
 	
+	
 	private AdProductcategory adProductcategory;
 	private AdProductInfo good;
 	private BrandAD brandAD;
@@ -42,6 +43,7 @@ public class GoodAction extends BaseAction {
 	private AdStore store;
 	private List<AdImageFile> images = new ArrayList<AdImageFile>();
 	private List<AdProductInfo> goods = new ArrayList<AdProductInfo>();
+	private List<AdProductcategory> cates = new ArrayList<AdProductcategory>();
 	
 
 	private Integer PId;
@@ -93,6 +95,89 @@ public class GoodAction extends BaseAction {
 		allowType.add("gif");
 		allowType.add("bmp");
 		allowType.add("png");
+	}
+    
+    //发表搭配时，搜索商品
+    public void search() {
+    	System.out.println("i am here");
+    	
+    	JsonMultiObj json = new JsonMultiObj();
+    	
+    	//模糊查询
+    	//按商品名查询
+    	goods = this.shopmgr.findGoodByUnSureName(PName);
+    	System.out.println("goods1:"+goods);
+    	//按标签查询
+    	cates = this.catemgr.findPcategoryByUnSureName(PName);
+//    	System.out.println("cates:"+cates);
+    	
+    	List<AdProductInfo> goods2 = new ArrayList<AdProductInfo>();
+    	if (cates!=null) {
+			for (int i = 0; i < cates.size(); i++) {
+				List<AdProductInfo> listg = new ArrayList<AdProductInfo>();
+				listg = this.shopmgr.findGoodByCgId(cates.get(i).getCgId());
+				//不确定能否查出
+				if (listg!=null) {
+					goods2.addAll(listg);
+				}
+			}
+			if (goods2.size()>0) {
+				for (int i = 0; i < goods2.size(); i++) {
+					int flag = 0;
+					for (int j = 0; j < goods.size(); j++) {
+						if (goods.get(j).getPId().equals(goods2.get(i).getPId())) {
+							flag = 1;
+						}
+					}
+					if (flag == 0) {
+						goods.add(goods2.get(i));
+					}
+				}
+			}
+			
+		}
+    	
+    	
+    	//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	//店铺名称
+    	List<String> storName = new ArrayList<String>();
+    	
+    	//获取第一个轮转图片，并改变地址格式
+    	if (goods!=null) {
+			for (int i = 0; i < goods.size(); i++) {
+//				System.out.println("image Pid:"+goods.get(i).getPId());
+				image = this.imagemgr.findImageListOneByPId(goods.get(i).getPId());
+//				System.out.println("image"+i+":"+image);
+				if (image!=null) {
+					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+					path = path.replaceAll("\\\\", "/");
+					pathList.add(path);
+				}else {
+					pathList.add("nopath");
+				}
+				
+				//得到店铺名称
+				store = this.stmgr.findStoreById(goods.get(i).getStId());
+				if (store!=null) {
+					storName.add(store.getStName());
+				}else {
+					storName.add("自营");
+				}
+				
+			}
+			json.setMsg("success");
+			json.setObj(goods);
+			json.setObj1(pathList);
+			json.setObj2(storName);
+			json.setSuccess(true);
+    	}else {
+    		json.setMsg("empty");
+    		json.setSuccess(false);
+		}
+    	
+    	writeJson(json);
+    	
 	}
     
     public String superGAList() {
@@ -1189,6 +1274,15 @@ public class GoodAction extends BaseAction {
 	public void setStore(AdStore store) {
 		this.store = store;
 	}
+
+	public List<AdProductcategory> getCates() {
+		return cates;
+	}
+
+	public void setCates(List<AdProductcategory> cates) {
+		this.cates = cates;
+	}
+
 	
 	
 }

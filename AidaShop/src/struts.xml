@@ -141,5 +141,11 @@
 			<result name="supergalist" type="redirect">superGAListGoodAction.action</result>
 		</action>
 		
+		<!-- 搭配管理中心 -->
+		<action name="*DesignerAction" class="DesignerActionBean" method="{1}">
+			<result name="dapeicenter">/page/home/dapeicenter.jsp</result>
+			<result name="viarticle">/page/detail/articledetail.jsp</result>
+		</action>
+		
 	</package>
 </struts>    

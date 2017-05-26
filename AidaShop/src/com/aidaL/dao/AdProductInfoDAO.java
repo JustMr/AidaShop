@@ -269,6 +269,27 @@ public class AdProductInfoDAO extends HibernateDaoSupport {
 		}
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdProductInfo> findGoodByUnSureName(String pName) {
+		String queryString = "from AdProductInfo as model where model.PName like '%"+pName+"%' and model.PState not in (0,1)";
+		List<AdProductInfo> goods = this.getHibernateTemplate().find(queryString);
+		if (goods.size()>0) {
+			return goods;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdProductInfo> findGoodByCgId(Integer cgId) {
+		//外键查询
+		String queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory where model.adProductcategory.cgId = "+cgId+" and model.PState not in (0,1)";
+		List<AdProductInfo> goods = this.getHibernateTemplate().find(queryString);
+		if (goods.size()>0) {
+			return goods;
+		}
+		return null;
+	}
 	
 	
 }

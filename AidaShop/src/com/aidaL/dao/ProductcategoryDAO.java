@@ -158,4 +158,11 @@ public interface ProductcategoryDAO {
 	 * @param cgPosition 前一个分类的位置
 	 */
 	void BackwardPosition(Integer cgPosition);
+
+	/**
+	 * 模糊查询
+	 * @param pName
+	 * @return
+	 */
+	List<AdProductcategory> findPcategoryByUnSureName(String pName);
 }

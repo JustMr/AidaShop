@@ -91,6 +91,13 @@ public interface ActionManager {
 	public AdProductcategory judgeFirstPre(Integer cgPosition, Integer cgState);
 	public AdProductcategory judgePre(Integer cgPid, Integer cgPosition);
 	public void BackwardPosition(Integer cgPosition);
+	
+	/**
+	 * 通过模糊查询标签名称获取标签列表
+	 * @param pName 标签名称
+	 * @return	标签列表
+	 */
+	public List<AdProductcategory> findPcategoryByUnSureName(String pName);
 
 	
 }

@@ -261,6 +261,7 @@ function BrandTJShow() {
 		type: "post",
 		dataType: "json",
 		success: function(data) {
+			FastJson.format(data);
 			if (data.success==true) {
 				var l = data.obj.length;
 				for ( var int = 0; int < l; int++) {

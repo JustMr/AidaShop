@@ -64,5 +64,19 @@ public interface ShopManager {
 	 */
 	public List<AdProductInfo> findAllGoodOnlyAuth();
 	
+	/**
+	 * 通过商品名称进行模糊查询商品
+	 * @param pName	商品名称
+	 * @return 商品列表
+	 */
+	public List<AdProductInfo> findGoodByUnSureName(String pName);
+	
+	/**
+	 * 通过标签编号查找商品
+	 * @param cgId
+	 * @return
+	 */
+	public List<AdProductInfo> findGoodByCgId(Integer cgId);
+	
 	
 }
