@@ -54,6 +54,7 @@ public class UserFilter implements Filter {
 //		paths.add("/login.html");
 		paths.add("/page/home/shangjiaruzhu.jsp");
 		paths.add("/page/home/publisharticle.jsp");
+		paths.add("/page/home/gerenzhongxin.jsp");
 	}
 
 }

@@ -398,6 +398,7 @@ public class CustomerAction extends BaseAction {
 		
 		
 		String page = (String) session.getAttribute("page");
+		
 		if (page.endsWith("all")) {
 			return "allist";
 		}else if (page.equals("style")) {
@@ -413,8 +414,11 @@ public class CustomerAction extends BaseAction {
 		} else if (page.equals("personal")) {
 			session.setAttribute("messageCenter", "修改成功!");
 			return "personalist";
+		}else if (page.equals("vip")) {
+			return "viplist";
 		}
-		return "viplist";
+		
+		return "allist";
 	}
 	
 	/**

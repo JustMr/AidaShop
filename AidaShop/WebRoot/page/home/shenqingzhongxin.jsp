@@ -30,27 +30,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 </tr>  
 			</thead>  
 			<tbody>  
+			<s:iterator value="storeAuth">
 			 <tr class="bhover">  
 			 <td class="introBh">店铺申请</td>  
 			  <td>
-			  	<s:hidden name="storeAuth.saId"></s:hidden>
-			  	<a href='<s:url action="sqviStoreAuthAction"><s:param  name="saId" value="storeAuth.saId" /></s:url>'>${cusNickName}</a>
+			  	<s:hidden name="saId"></s:hidden>
+			  	<a href='<s:url action="sqviStoreAuthAction"><s:param  name="saId" value="saId" /></s:url>'>${cusNickName}</a>
 			  </td>  
-			  <td class="introBh"><s:property value="storeAuth.saName" /></td>  
-			  <td class="introBh"><s:property value="storeAuth.saTag" /></td>  
+			  <td class="introBh"><s:property value="saName" /></td>  
+			  <td class="introBh"><s:property value="saTag" /></td>  
 			  <td class="introBh">
-			  	<s:hidden id="front_hide" name="storeAuth.saIdcardFront"></s:hidden>
+			  	<s:hidden id="front_hide" name="saIdcardFront"></s:hidden>
 			  	<img id="front_img" title="证件照正面" alt="证件照正面" src="">
 			  </td>  
 			  <td class="introBh">
-			  	<s:hidden id="back_hide" name="storeAuth.saIdcardBack"></s:hidden>
+			  	<s:hidden id="back_hide" name="saIdcardBack"></s:hidden>
 			  	<img id="back_img" title="证件照反面" alt="证件照反面" src="">
 			  </td>  
 			  <td>
-		  		<s:if test="storeAuth.saStatu==0">未通过</s:if>
-			  	<s:elseif test="storeAuth.saStatu==1">申请中</s:elseif>
-			  	<s:elseif test="storeAuth.saStatu==2">已通过</s:elseif>
+		  		<s:if test="saStatu==0">未通过</s:if>
+			  	<s:elseif test="saStatu==1">申请中</s:elseif>
+			  	<s:elseif test="saStatu==2">已通过</s:elseif>
 			  </td> 
+			 </tr>
+			 </s:iterator>
 		 	</tbody>  
 		</table>
 		<script type="text/javascript">

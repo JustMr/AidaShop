@@ -2,7 +2,57 @@ $(document).ready(function() {
 	$("#seachBth").on("click",SearchGoods);
 	$("#deleteBth").on("click",removeChoiceItme);
 	$("#pubtn").on("click",publlishArticle);
+	
+	//文章编辑
+	$("#editpubtn").on("click",editarticle);
 });
+function editarticle() {
+	var arTitle = $("#arTitle").val();
+	var mainText = $(window.frames["fulltext"].document).find("#textarea").val();
+	var ids = "";
+	
+	var choiceCount = $(".choiceItem").length;
+	if (choiceCount>0) {
+		for ( var i = 0; i < choiceCount; i++) {
+			var id = $(".choiceItem").eq(i).find(".searcha").data("id");
+			ids = ids + "," +id;
+		}
+		
+		ids = ids.substr(1);
+	}
+
+	var flag=0;
+	if (arTitle==""||arTitle==null||mainText==""||mainText==null) {
+		flag=1;
+		alert("请填写标题或正文保持文章完整!");
+	}
+	
+	var arId = $("#arId").val();
+	if (flag==0) {
+		$.ajax({
+			url: "editArticleDesignerAction",
+			data: {
+				arId: arId,
+				arTitle: arTitle,
+				arMain: mainText,
+				ids: ids,
+			},
+			type: "post",
+			dataType: "json",
+			success: function(data) {
+				if (data.success==true) {
+					alert("修改成功!");
+				}else {
+					alert("修改失败!");
+				}
+				
+			},
+			error: function() {
+				alert("something wrong!");
+			}
+		});
+	}
+}
 function SearchGoods() {
 	//搜素商品
 	var PName = $("#PName").val().trim();
@@ -151,13 +201,14 @@ function publlishArticle() {
 	var ids = "";
 	
 	var choiceCount = $(".choiceItem").length;
-	for ( var i = 0; i < choiceCount; i++) {
-		var id = $(".choiceItem").eq(i).find(".searcha").data("id");
-		ids = ids + "," +id;
+	if (choiceCount>0) {
+		for ( var i = 0; i < choiceCount; i++) {
+			var id = $(".choiceItem").eq(i).find(".searcha").data("id");
+			ids = ids + "," +id;
+		}
+		
+		ids = ids.substr(1);
 	}
-	
-	ids = ids.substr(1);
-	console.log(ids);
 
 	var flag=0;
 	if (arTitle==""||arTitle==null||mainText==""||mainText==null) {

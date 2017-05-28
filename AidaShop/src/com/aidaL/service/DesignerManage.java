@@ -45,5 +45,23 @@ public interface DesignerManage {
 	 */
 	public List<AdDesginerinfo> findSevenDesigner();
 	
+	/**
+	 * 查看已经审阅的文章列表
+	 * @return
+	 */
+	public List<AdArticle> findArticlesYSY();
+	
+	/**
+	 * 查看新发表的文章列表
+	 * @return
+	 */
+	public List<AdArticle> findArticlesNewPublish();
+	
+	/**
+	 * 审阅后又修改的文章列表
+	 * @return
+	 */
+	public List<AdArticle> findArticlesSYHXG();
+	
 	
 }

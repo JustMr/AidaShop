@@ -47,6 +47,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			<dd class="lastDd"><a href="javascript:void(0);">取消订单记录</a></dd>
    		</dl>
    		<dl>
+   			<dt>文章中心</dt>
+   			<dd class="lastDd"><a href="listownDesignerAction" target="grzxFrame">我的文章</a></dd>
+   		</dl>
+   		<dl>
    			<dt>关注中心</dt>
    			<dd><a href="javascript:void(0);">关注的商品</a></dd>
    			<dd><a href="javascript:void(0);">关注的店铺</a></dd>

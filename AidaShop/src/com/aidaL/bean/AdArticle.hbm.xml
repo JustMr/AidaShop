@@ -28,5 +28,8 @@
         <property name="arHateCount" type="java.lang.Integer">
             <column name="ar_hateCount" />
         </property>
+        <property name="arState" type="java.lang.Integer">
+            <column name="ar_state" />
+        </property>
     </class>
 </hibernate-mapping>

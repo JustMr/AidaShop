@@ -4,115 +4,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * AdArticle entity. @author MyEclipse Persistence Tools
  */
 
-public class AdArticle  implements java.io.Serializable {
+public class AdArticle implements java.io.Serializable {
 
+	// Fields
 
-    // Fields    
-
-     /**
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8944663828457062966L;
+	private static final long serialVersionUID = 4624878162495490834L;
 	private Integer arId;
-     private Integer UId;
-     private String arTitle;
-     private String arMain;
-     private Integer arReadCount;
-     private Integer arLikeCount;
-     private Integer arHateCount;
-     
-     //add by myself
-     private List<AdProductInfo> good = new ArrayList<AdProductInfo>();
-     private List<String> path = new ArrayList<String>();
-     private String digest;
+	private Integer UId;
+	private String arTitle;
+	private String arMain;
+	private Integer arReadCount;
+	private Integer arLikeCount;
+	private Integer arHateCount;
+	private Integer arState;
 
+	//add by myself
+    private List<AdProductInfo> good = new ArrayList<AdProductInfo>();
+    private List<String> path = new ArrayList<String>();
+    private String digest;
 
-    // Constructors
+	
+	// Constructors
 
-    /** default constructor */
-    public AdArticle() {
-    }
+	/** default constructor */
+	public AdArticle() {
+	}
 
 	/** minimal constructor */
-    public AdArticle(Integer UId, String arTitle, String arMain) {
-        this.UId = UId;
-        this.arTitle = arTitle;
-        this.arMain = arMain;
-    }
-    
-    /** full constructor */
-    public AdArticle(Integer UId, String arTitle, String arMain, Integer arReadCount, Integer arLikeCount, Integer arHateCount) {
-        this.UId = UId;
-        this.arTitle = arTitle;
-        this.arMain = arMain;
-        this.arReadCount = arReadCount;
-        this.arLikeCount = arLikeCount;
-        this.arHateCount = arHateCount;
-    }
+	public AdArticle(Integer UId, String arTitle, String arMain) {
+		this.UId = UId;
+		this.arTitle = arTitle;
+		this.arMain = arMain;
+	}
 
-   
-    // Property accessors
+	/** full constructor */
+	public AdArticle(Integer UId, String arTitle, String arMain,
+			Integer arReadCount, Integer arLikeCount, Integer arHateCount,
+			Integer arState) {
+		this.UId = UId;
+		this.arTitle = arTitle;
+		this.arMain = arMain;
+		this.arReadCount = arReadCount;
+		this.arLikeCount = arLikeCount;
+		this.arHateCount = arHateCount;
+		this.arState = arState;
+	}
 
-    public Integer getArId() {
-        return this.arId;
-    }
-    
-    public void setArId(Integer arId) {
-        this.arId = arId;
-    }
+	// Property accessors
 
-    public Integer getUId() {
-        return this.UId;
-    }
-    
-    public void setUId(Integer UId) {
-        this.UId = UId;
-    }
-
-    public String getArTitle() {
-        return this.arTitle;
-    }
-    
-    public void setArTitle(String arTitle) {
-        this.arTitle = arTitle;
-    }
-
-    public String getArMain() {
-        return this.arMain;
-    }
-    
-    public void setArMain(String arMain) {
-        this.arMain = arMain;
-    }
-
-    public Integer getArReadCount() {
-        return this.arReadCount;
-    }
-    
-    public void setArReadCount(Integer arReadCount) {
-        this.arReadCount = arReadCount;
-    }
-
-    public Integer getArLikeCount() {
-        return this.arLikeCount;
-    }
-    
-    public void setArLikeCount(Integer arLikeCount) {
-        this.arLikeCount = arLikeCount;
-    }
-
-    public Integer getArHateCount() {
-        return this.arHateCount;
-    }
-    
-    public void setArHateCount(Integer arHateCount) {
-        this.arHateCount = arHateCount;
-    }
+	public Integer getArId() {
+		return this.arId;
+	}
 
 	public List<AdProductInfo> getGood() {
 		return good;
@@ -137,13 +86,65 @@ public class AdArticle  implements java.io.Serializable {
 	public void setDigest(String digest) {
 		this.digest = digest;
 	}
-   
 
+	public void setArId(Integer arId) {
+		this.arId = arId;
+	}
 
+	public Integer getUId() {
+		return this.UId;
+	}
 
+	public void setUId(Integer UId) {
+		this.UId = UId;
+	}
 
+	public String getArTitle() {
+		return this.arTitle;
+	}
 
+	public void setArTitle(String arTitle) {
+		this.arTitle = arTitle;
+	}
 
+	public String getArMain() {
+		return this.arMain;
+	}
 
+	public void setArMain(String arMain) {
+		this.arMain = arMain;
+	}
+
+	public Integer getArReadCount() {
+		return this.arReadCount;
+	}
+
+	public void setArReadCount(Integer arReadCount) {
+		this.arReadCount = arReadCount;
+	}
+
+	public Integer getArLikeCount() {
+		return this.arLikeCount;
+	}
+
+	public void setArLikeCount(Integer arLikeCount) {
+		this.arLikeCount = arLikeCount;
+	}
+
+	public Integer getArHateCount() {
+		return this.arHateCount;
+	}
+
+	public void setArHateCount(Integer arHateCount) {
+		this.arHateCount = arHateCount;
+	}
+
+	public Integer getArState() {
+		return this.arState;
+	}
+
+	public void setArState(Integer arState) {
+		this.arState = arState;
+	}
 
 }

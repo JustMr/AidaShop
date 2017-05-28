@@ -49,7 +49,9 @@
 				<value>com/aidaL/bean/AdImageFile.hbm.xml</value>
 				<value>com/aidaL/bean/AdArticle.hbm.xml</value>
 				<value>com/aidaL/bean/AdDesginerinfo.hbm.xml</value>
-				<value>com/aidaL/bean/AdGoodsmatch.hbm.xml</value></list>
+				<value>com/aidaL/bean/AdGoodsmatch.hbm.xml</value>
+				<value>com/aidaL/bean/AdLikearticle.hbm.xml</value>
+				<value>com/aidaL/bean/AdHatearticle.hbm.xml</value></list>
 		</property>
 	</bean>
 	
@@ -192,6 +194,8 @@
 		<property name="stmgr" ref="adAppMgrStore"></property>
 		<property name="imagemgr" ref="AdImageFileMgr"></property>
 		<property name="custmgr" ref="adAppMgr"></property>
+		<property name="likemgr" ref="AdLikearticleMgr"></property>
+		<property name="hatemgr" ref="AdHatearticleMgr"></property>
 	</bean>
 	
 	
@@ -230,4 +234,22 @@
 	</bean>
 	
 	
-	</beans>
+	<!-- 点赞和不满意 -->
+	<bean id="AdHatearticleMgr" class="com.aidaL.service.impl.LikeHateManagerImpl">
+		<property name="hateDao" ref="AdHatearticleDAO"></property>
+	</bean>
+	<bean id="AdHatearticleDAO"
+		class="com.aidaL.dao.impl.AdHatearticleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="AdLikearticleMgr" class="com.aidaL.service.impl.LikeHateManagerImpl">
+		<property name="likeDao" ref="AdLikearticleDAO"></property>
+	</bean>
+	<bean id="AdLikearticleDAO"
+		class="com.aidaL.dao.impl.AdLikearticleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean></beans>

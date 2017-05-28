@@ -103,6 +103,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			<li class="bh_leftli">
 	    				<div>
 		    				<i class="iconDian"></i>
+		    				<span>文章管理</span>
+		    				<i class="iconArrow"></i>
+	    				</div>
+	    				<ul>
+	    					<li>文章列表</li>
+	    					<li>已审阅文章</li>
+	    					<li>新发表</li>
+	    					<li>审阅后修改</li>
+	    				</ul>
+	    			</li>
+	    			<li class="bh_leftli">
+	    				<div>
+		    				<i class="iconDian"></i>
 		    				<span>商品管理</span>
 		    				<i class="iconArrow"></i>
 	    				</div>

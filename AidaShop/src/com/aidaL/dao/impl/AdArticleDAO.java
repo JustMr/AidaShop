@@ -72,7 +72,7 @@ public class AdArticleDAO extends HibernateDaoSupport {
 		log.debug("getting AdArticle instance with id: " + id);
 		try {
 			AdArticle instance = (AdArticle) getHibernateTemplate().get(
-					"com.aidaL.dao.impl.AdArticle", id);
+					"com.aidaL.bean.AdArticle", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -133,7 +133,7 @@ public class AdArticleDAO extends HibernateDaoSupport {
 	public List<?> findAll() {
 		log.debug("finding all AdArticle instances");
 		try {
-			String queryString = "from AdArticle";
+			String queryString = "from AdArticle order by arId desc";
 			return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);
@@ -192,5 +192,35 @@ public class AdArticleDAO extends HibernateDaoSupport {
 			throw re;
 		}
 		return arid;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdArticle> findArticlesYSY() {
+		String queryString = "from AdArticle as model where model.arState = 2";
+		List<AdArticle> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdArticle> findArticlesNewPublish() {
+		String queryString = "from AdArticle as model where model.arState = 0";
+		List<AdArticle> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdArticle> findArticlesSYHXG() {
+		String queryString = "from AdArticle as model where model.arState = 1";
+		List<AdArticle> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
 	}
 }

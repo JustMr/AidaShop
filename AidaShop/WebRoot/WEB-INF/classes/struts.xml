@@ -145,7 +145,17 @@
 		<action name="*DesignerAction" class="DesignerActionBean" method="{1}">
 			<result name="dapeicenter">/page/home/dapeicenter.jsp</result>
 			<result name="viarticle">/page/detail/articledetail.jsp</result>
-		</action>
+			<result name="listown">/page/home/ownarticle.jsp</result>
+			<result name="viownarticle">/page/home/catownarticle.jsp</result>
+			<result name="articlelist" type="redirect">listownDesignerAction.action</result>
+			<result name="allist">/page/backstage/articleallist.jsp</result>
+			<result name="superlist">/page/backstage/articleslist.jsp</result>
+			<result name="supervi">/page/backstage/viarticle.jsp</result>
+			<result name="allarticle" type="redirect">allarticleDesignerAction.action</result>
+			<result name="ysy" type="redirect">ysyDesignerAction.action</result>
+			<result name="newpublish" type="redirect">newpublishDesignerAction.action</result>
+			<result name="syhxg" type="redirect">syhxgDesignerAction.action</result>
+		</action> 
 		
 	</package>
 </struts>    

@@ -5,9 +5,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html dir="ltr" lang="zh-CN">
   <head>
     <base href="<%=basePath%>">
+    
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
     
 <script type="text/javascript">
 	var addSheet = function() {
@@ -557,7 +559,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		/****************************************************************/
 		addSheet('\
-	  #RTE_iframe{width:100%;height:100%;}\
+	  #RTE_iframe{width:100%;height:90%;}\
 	  #RTE_toolbar{float:left;width:100%;}\
 	  #RTE_toolbar select{float:left;height:20px;width:60px;margin-right:5px;}\
 	  #RTE_toolbar .button{display:block;float:left; text-decoration:none;border:1px solid;\
@@ -600,7 +602,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<input type="hidden" id="ptext" name="ptext" value='' />
+  	<%
+  		String msg = request.getParameter("text");
+  		if(msg!=null) {
+  			String str=new String(msg.getBytes("ISO-8859-1"),"UTF-8");
+  	 %>
+  	<%-- <input type="hidden" id="ptext" name="ptext" value='${param.text}' /> --%>
+  	<input type="hidden" id="ptext" name="ptext" value='<%=str%>' />
+  	<%
+  		}else{
+  	 %>
+  	 <input type="hidden" id="ptext" name="ptext" value='' />
+  	 <%
+  	 	}
+  	  %>
     <textarea id="textarea" name="arMain" wrap="on"></textarea>
   </body>
 </html>

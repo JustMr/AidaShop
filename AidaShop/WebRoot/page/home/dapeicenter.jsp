@@ -79,10 +79,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    			</div>
 	    			<div class="artGoods" data-show="on">
 	    				<s:iterator status="st" value="#a.good" id="g">
-	    				<div class="goodsItem">
-	    					<a class="goodImg" href='page/detail/detail.jsp?PId=<s:property value="#g.PId" />'><img class="goodItem" alt='<s:property value="#g.PName"/>' src='<s:property value="#a.path[#st.index]"/>'></a> 
-	    					<a class="goodName" href='page/detail/detail.jsp?PId=<s:property value="#g.PId" />'><s:property value="#g.PName"/> </a>
-	    				</div>
+		    				<div class="goodsItem">
+		    					<a class="goodImg" href='page/detail/detail.jsp?PId=<s:property value="#g.PId" />'><img class="goodItem" alt='<s:property value="#g.PName"/>' src='<s:property value="#a.path[#st.index]"/>'></a> 
+		    					<a class="goodName" href='page/detail/detail.jsp?PId=<s:property value="#g.PId" />'><s:property value="#g.PName"/> </a>
+		    				</div>
 	    				</s:iterator>
 	    				<div class="clear"></div>
 	    			</div>

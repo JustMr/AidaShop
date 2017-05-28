@@ -29,7 +29,7 @@ width: 880px;}
 .artItem {border: 1px solid #e5e5e5;margin: 3px;}
 .artTit {padding: 10px 0 0;}
 .artMain {padding: 10px 0;border-bottom: 1px solid #e5e5e5;max-height: 40px;overflow: hidden;text-overflow:ellipsis;}
-.artGoods {padding: 10px 0;}
+.artGoods {padding: 10px 0;display: none;}
 /**
 *
 *publisharticle.jsp
@@ -72,3 +72,20 @@ width: 880px;}
 *articledetail.jsp
 *
 */
+#arc_detail_warp {border: 1px solid #e5e5e5;}
+.arctilte {width: 100%;text-align: center;font-size: 32px;height: 36px;line-height: 36px;font-weight: 500px;padding: 10px;}
+.article {padding: 10px 90px;}
+.arc_good {padding: 10px;width: 90%;margin: 10px auto;}
+.arc_good_item {border: 1px solid #e5e5e5;margin: 2px;padding: 10px;}
+.arcicon {display: inline-block;width: 48px;height: 48px;vertical-align: middle;}
+#like_icon {margin-right: 50px;background: url("../images/like_unactive.png") no-repeat; background-size: 48px 48px;}
+#like_icon:HOVER {background: url("../images/like_active.png") no-repeat;}
+#like_icon.likeActive {background: url("../images/like_active.png") no-repeat;}
+#hate_icon {background: url("../images/hate_unactive.png") no-repeat; background-size: 48px 48px;}
+#hate_icon:HOVER {background: url("../images/hate_active.png") no-repeat;}
+#hate_icon.hateActive {background: url("../images/hate_active.png") no-repeat;}
+.icon_warp {display: inline-block;margin: 20px auto;}
+.goodNameArc {display: inline-block;text-align: center;width: 600px;}
+.icon_warp {margin-left: 525px;}
+#shopAll {margin: 0 auto;display: block;}
+.article font {line-height:1.0;}

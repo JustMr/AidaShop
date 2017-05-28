@@ -86,7 +86,21 @@ function frameShow() {
 	} else if(name=="品牌开通申请") {
 		$("#backHFrame").attr("src","listBrandAuth");
 		$("#backHFrame").css("height","550px");
-	}else if(name=="商品列表") {
+	}
+	else if(name=="文章列表") {
+		$("#backHFrame").attr("src","allarticleDesignerAction");
+		$("#backHFrame").css("height","550px");
+	}else if(name=="已审阅文章") {
+		$("#backHFrame").attr("src","ysyDesignerAction");
+		$("#backHFrame").css("height","550px");
+	}else if(name=="新发表") {
+		$("#backHFrame").attr("src","newpublishDesignerAction");
+		$("#backHFrame").css("height","550px");
+	}else if(name=="审阅后修改") {
+		$("#backHFrame").attr("src","syhxgDesignerAction");
+		$("#backHFrame").css("height","550px");
+	}
+	else if(name=="商品列表") {
 		$("#backHFrame").attr("src","superListGoodAction");
 		$("#backHFrame").css("height","550px");
 	}else if(name=="商品上架管理") {

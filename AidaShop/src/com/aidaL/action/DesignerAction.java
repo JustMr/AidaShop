@@ -1,5 +1,7 @@
 package com.aidaL.action;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,12 +9,15 @@ import com.aidaL.bean.AdArticle;
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.bean.AdDesginerinfo;
 import com.aidaL.bean.AdGoodsmatch;
+import com.aidaL.bean.AdHatearticle;
 import com.aidaL.bean.AdImageFile;
+import com.aidaL.bean.AdLikearticle;
 import com.aidaL.bean.AdProductInfo;
 import com.aidaL.bean.AdStore;
 import com.aidaL.db.TextFilter;
 import com.aidaL.service.ActionManager;
 import com.aidaL.service.DesignerManage;
+import com.aidaL.service.LikeHateManager;
 import com.aidaL.service.ShopManager;
 import com.aidaL.util.Json;
 
@@ -30,6 +35,8 @@ public class DesignerAction extends BaseAction {
 	private ActionManager stmgr;
 	private ShopManager imagemgr;
 	private ActionManager custmgr;
+	private LikeHateManager likemgr;
+	private LikeHateManager hatemgr;
 	
 	private AdDesginerinfo desinfo;
 	private AdArticle article;
@@ -44,6 +51,8 @@ public class DesignerAction extends BaseAction {
 	private List<AdProductInfo> goods = new ArrayList<AdProductInfo>();
 	private AdCustomer cust;
 	private List<AdCustomer> custs;
+	private List<AdLikearticle> likes = new ArrayList<AdLikearticle>();
+	private List<AdHatearticle> hates = new ArrayList<AdHatearticle>();
 
 	private Integer cusId;
 	private String cusNickName;
@@ -55,15 +64,538 @@ public class DesignerAction extends BaseAction {
 	
 	private String arTitle;
     private String arMain;
-	
+
+    
+    
+    //超管删除文章
+    public String superdelete() {
+    	String page = (String) session.getAttribute("page");
+    	
+    	//删除文章表
+    	article = this.articlemgr.findArticleById(arId);
+    	this.articlemgr.deleteArticle(article);
+    	
+    	//删除搭配表
+    	gms = this.matchmgr.findGoodsMatchByArId(arId);
+		if (gms.size()>0) {
+			for (int i = 0; i < gms.size(); i++) {
+				this.matchmgr.deleteGoodsMatch(gms.get(i));
+			}
+		}
+		
+		//更新造型师信息表
+		UId = article.getUId();
+		desinfo = this.desinfomgr.findDesginerInfoByUId(UId);
+		Integer count = desinfo.getDiArticleCount() - 1;
+		desinfo.setDiArticleCount(count);
+		this.desinfomgr.saveOrUpdateDesginerInfo(desinfo);
+		
+		if (page.equals("allarticle")) {
+			return "allarticle";
+		}else if (page.equals("ysy")) {
+			return "ysy";
+		}else if (page.equals("newpublish")) {
+			return "newpublish";
+		}else if (page.equals("syhxg")) {
+			return "syhxg";
+		}
+		
+    	return "allarticle";
+		
+	}
+    
+   
+    //更改状态位已审阅
+    public String stateupdate() {
+		String page = (String) session.getAttribute("page");
+    	
+    	article = this.articlemgr.findArticleById(arId);
+    	article.setArState(2);
+    	this.articlemgr.saveOrUpdateArticle(article);
+    	
+    	if (page.equals("allarticle")) {
+			return "allarticle";
+		}else if (page.equals("ysy")) {
+			return "ysy";
+		}else if (page.equals("newpublish")) {
+			return "newpublish";
+		}else if (page.equals("syhxg")) {
+			return "syhxg";
+		}
+    	
+    	return "allarticle";
+	}
+    
+    
+    //超管查看文章啊详情
+    public String supervi() {
+    	
+    	article = this.articlemgr.findArticleById(arId);
+		
+		//获取商品信息和缩略图路径
+		gms = this.matchmgr.findGoodsMatchByArId(arId);
+		System.out.println("gms:"+gms);
+		goods = new ArrayList<AdProductInfo>();
+		List<String> paths = new ArrayList<String>();
+		if (gms.size()>0) {
+			for (int j = 0; j < gms.size(); j++) {
+				good = this.goodmgr.findGoodById(gms.get(j).getPId());
+				goods.add(good);
+				image = this.imagemgr.findImageListOneByPId(good.getPId());
+//				System.out.println("image"+i+":"+image);
+				if (image!=null) {
+					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+					path = path.replaceAll("\\\\", "/");
+					paths.add(path);
+				}else {
+					paths.add("nopath");
+				}
+			}
+		}
+		article.setGood(goods);
+		article.setPath(paths);
+		
+		//查询作者
+		cust = this.custmgr.findCustById(article.getUId());
+    	
+		return "supervi";
+	}
+    
+    
+    //超管查看所有文章
+    public String allarticle() {
+    	List<String> unames = new ArrayList<String>();
+    	
+    	//查询文章列表
+    	articles = this.articlemgr.findAllArticle();
+//    	System.out.println("articles:"+articles);
+    	if (articles!=null) {
+    		//将goods添加到articles中
+    		for (int i = 0; i < articles.size(); i++) {
+    			//设置摘要
+    			String digest = articles.get(i).getArMain();
+    			TextFilter textFilter = new TextFilter();
+    			digest = textFilter.stripHtml(digest);
+    			articles.get(i).setDigest(digest);
+    			
+    			//找到作者
+    			cust = this.custmgr.findCustById(articles.get(i).getUId());
+    			if (cust!=null) {
+					unames.add(cust.getUNickName());
+				}else {
+					unames.add("没查到作者!");
+				}
+        	}
+		}
+    	
+    	request.setAttribute("unames", unames);
+    	session.setAttribute("page", "allarticle");
+    	
+		return "allist";
+	}
+    
+    //超管查看已审阅列表
+    public String ysy() {
+    	List<String> unames = new ArrayList<String>();
+		
+    	//查询文章列表
+    	articles = this.articlemgr.findArticlesYSY();
+//    	System.out.println("articles:"+articles);
+    	if (articles!=null) {
+    		//将goods添加到articles中
+    		for (int i = 0; i < articles.size(); i++) {
+    			//设置摘要
+    			String digest = articles.get(i).getArMain();
+    			TextFilter textFilter = new TextFilter();
+    			digest = textFilter.stripHtml(digest);
+    			articles.get(i).setDigest(digest);
+    			
+    			//找到作者
+    			cust = this.custmgr.findCustById(articles.get(i).getUId());
+    			if (cust!=null) {
+					unames.add(cust.getUNickName());
+				}else {
+					unames.add("没查到作者!");
+				}
+        	}
+		}
+    	
+    	request.setAttribute("unames", unames);
+    	session.setAttribute("page", "ysy");
+    	
+    	return "superlist";
+	}
+    
+    //超管查看新发表列表
+    public String newpublish() {
+    	List<String> unames = new ArrayList<String>();
+    	
+    	//查询文章列表
+    	articles = this.articlemgr.findArticlesNewPublish();
+//    	System.out.println("articles:"+articles);
+    	if (articles!=null) {
+    		//将goods添加到articles中
+    		for (int i = 0; i < articles.size(); i++) {
+    			//设置摘要
+    			String digest = articles.get(i).getArMain();
+    			TextFilter textFilter = new TextFilter();
+    			digest = textFilter.stripHtml(digest);
+    			articles.get(i).setDigest(digest);
+    			
+    			//找到作者
+    			cust = this.custmgr.findCustById(articles.get(i).getUId());
+    			if (cust!=null) {
+					unames.add(cust.getUNickName());
+				}else {
+					unames.add("没查到作者!");
+				}
+        	}
+		}
+    	
+    	request.setAttribute("unames", unames);
+    	session.setAttribute("page", "newpublish");
+    	
+    	return "superlist";
+    }
+    
+    
+    //超管查看审阅后又修改的文章
+    public String syhxg() {
+    	List<String> unames = new ArrayList<String>();
+    	
+    	//查询文章列表
+    	articles = this.articlemgr.findArticlesSYHXG();
+//    	System.out.println("articles:"+articles);
+    	if (articles!=null) {
+    		//将goods添加到articles中
+    		for (int i = 0; i < articles.size(); i++) {
+    			//设置摘要
+    			String digest = articles.get(i).getArMain();
+    			TextFilter textFilter = new TextFilter();
+    			digest = textFilter.stripHtml(digest);
+    			articles.get(i).setDigest(digest);
+    			
+    			//找到作者
+    			cust = this.custmgr.findCustById(articles.get(i).getUId());
+    			if (cust!=null) {
+					unames.add(cust.getUNickName());
+				}else {
+					unames.add("没查到作者!");
+				}
+        	}
+		}
+    	
+    	request.setAttribute("unames", unames);
+    	session.setAttribute("page", "syhxg");
+		
+    	return "superlist";
+	}
+    
+ 
+    //个人删除自己的文章
+    public String delete() {
+    	
+    	//删除文章表
+    	article = this.articlemgr.findArticleById(arId);
+    	this.articlemgr.deleteArticle(article);
+    	
+    	//删除搭配表
+    	gms = this.matchmgr.findGoodsMatchByArId(arId);
+		if (gms.size()>0) {
+			for (int i = 0; i < gms.size(); i++) {
+				this.matchmgr.deleteGoodsMatch(gms.get(i));
+			}
+		}
+		
+		//更新造型师信息表
+		UId = (Integer) session.getAttribute("cusId");
+		desinfo = this.desinfomgr.findDesginerInfoByUId(UId);
+		Integer count = desinfo.getDiArticleCount() - 1;
+		desinfo.setDiArticleCount(count);
+		this.desinfomgr.saveOrUpdateDesginerInfo(desinfo);
+		
+    	return "articlelist";
+	}
+    
+    //个人中心编辑提交
+    public void editArticle() {
+    	Json json = new Json();
+		
+		String pIds = request.getParameter("ids");
+		
+		
+		//更新文章表
+		AdArticle newArt = this.articlemgr.findArticleById(arId);
+		newArt.setArTitle(arTitle);
+		newArt.setArMain(arMain);
+		if (newArt.getArState()==2) {
+			newArt.setArState(1);
+		}
+		this.articlemgr.saveOrUpdateArticle(newArt);
+		
+		
+		//更新商品搭配表，记录相关商品,先删除后添加
+		gms = this.matchmgr.findGoodsMatchByArId(arId);
+		if (gms.size()>0) {
+			for (int i = 0; i < gms.size(); i++) {
+				this.matchmgr.deleteGoodsMatch(gms.get(i));
+			}
+		}
+		if (pIds!=""&&pIds!=null) {
+			String[] Pids = pIds.split(",");
+			System.out.println("Pids:"+Pids);
+			if (Pids.length>0) {
+				for (int i = 0; i < Pids.length; i++) {
+					Integer pid =  Integer.valueOf(Pids[i]);
+					System.out.println(pid);
+					AdGoodsmatch newMatch = new AdGoodsmatch();
+					newMatch.setArId(arId);
+					newMatch.setPId(pid);
+					this.matchmgr.addGoodsMatch(newMatch);
+				}
+			}
+		}
+		
+		
+		json.setSuccess(true);
+		
+		
+		writeJson(json);
+	}
+    
+  
+    //个人中心编辑查看文章
+    public String viownarticle() {
+    	
+    	article = this.articlemgr.findArticleById(arId);
+    	
+    	//获取商品信息和缩略图路径
+		gms = this.matchmgr.findGoodsMatchByArId(arId);
+		System.out.println("gms:"+gms);
+		goods = new ArrayList<AdProductInfo>();
+		List<String> paths = new ArrayList<String>();
+		List<String> storName = new ArrayList<String>();
+		if (gms.size()>0) {
+			for (int j = 0; j < gms.size(); j++) {
+				good = this.goodmgr.findGoodById(gms.get(j).getPId());
+				if (good!=null) {
+					goods.add(good);
+					image = this.imagemgr.findImageListOneByPId(good.getPId());
+//	    					System.out.println("image"+i+":"+image);
+					if (image!=null) {
+						String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+						path = path.replaceAll("\\\\", "/");
+						paths.add(path);
+					}else {
+						paths.add("nopath");
+					}
+					
+					//得到店铺名称
+					store = this.stmgr.findStoreById(good.getStId());
+					if (store!=null) {
+						storName.add(store.getStName());
+					}else {
+						storName.add("自营");
+					}
+				}
+			}
+		}
+		article.setGood(goods);
+		article.setPath(paths);
+		
+		try {
+			String text = URLEncoder.encode(article.getArMain(), "utf-8");
+			article.setArMain(text);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("storName", storName);
+		
+		return "viownarticle";
+	}
+    
+    
+    //个人中心查看自己的文章列表
+    public String listown() {
+    	
+    	UId = (Integer) session.getAttribute("cusId");
+    	
+    	//查询文章列表
+    	articles = this.articlemgr.findArticleByUId(UId);
+//    	System.out.println("articles:"+articles);
+    	if (articles.size()>0) {
+    		//将goods添加到articles中
+    		for (int i = 0; i < articles.size(); i++) {
+    			//设置摘要
+    			String digest = articles.get(i).getArMain();
+    			TextFilter textFilter = new TextFilter();
+    			digest = textFilter.stripHtml(digest);
+    			articles.get(i).setDigest(digest);
+        	}
+		}
+    	
+		return "listown";
+	}
+    
+    
+    //cancel
+    public void cancelHate() {
+    	Json json = new Json();
+    	UId = (Integer) session.getAttribute("cusId");
+    	AdHatearticle hate = this.hatemgr.findHate(arId, UId);
+    	if (hate!=null) {
+    		this.hatemgr.deleteHate(hate);
+		}
+    	
+    	//更新文章hate信息
+		AdArticle art = this.articlemgr.findArticleById(arId);
+		Integer count = art.getArHateCount()-1;
+		art.setArHateCount(count);
+		this.articlemgr.saveOrUpdateArticle(art);
+		
+		
+		//更新造型师hate数据
+		desinfo = this.desinfomgr.findDesginerInfoByUId(art.getUId());
+		Integer count1 = desinfo.getDiHateCount()-1;
+		desinfo.setDiHateCount(count1);
+		this.desinfomgr.saveOrUpdateDesginerInfo(desinfo);
+		
+    	
+    	json.setSuccess(true);
+    	writeJson(json);
+	}
+    
+    
+    //hate
+    public void hate() {
+    	Json json = new Json();
+		UId = (Integer) session.getAttribute("cusId");
+		
+		AdHatearticle hate = new AdHatearticle();
+		hate.setArId(arId);
+		hate.setUId(UId);
+		this.hatemgr.addHate(hate);
+		
+		
+		//更新文章hate信息
+		AdArticle art = this.articlemgr.findArticleById(arId);
+		Integer count = art.getArHateCount()+1;
+		art.setArHateCount(count);
+		this.articlemgr.saveOrUpdateArticle(art);
+		
+		
+		//更新造型师hate数据
+		desinfo = this.desinfomgr.findDesginerInfoByUId(art.getUId());
+		Integer count1 = desinfo.getDiHateCount()+1;
+		desinfo.setDiHateCount(count1);
+		this.desinfomgr.saveOrUpdateDesginerInfo(desinfo);
+		
+		
+		json.setSuccess(true);
+		
+		writeJson(json);
+		
+	}
+    
+    
+    //hate judge
+    public void judHate() {
+    	Json json = new Json();
+		UId = (Integer) session.getAttribute("cusId");
+		boolean jud = this.hatemgr.findHateByUIdAndArId(arId, UId);
+		if (jud) {
+			json.setSuccess(true);
+			json.setMsg("find already");
+		}else {
+			json.setSuccess(false);
+			json.setMsg("unfind");
+		}
+		writeJson(json);
+	}
+    
+    
+    //取消点赞
+    public void cancelike() {
+    	Json json = new Json();
+    	UId = (Integer) session.getAttribute("cusId");
+    	AdLikearticle like = this.likemgr.findLike(arId, UId);
+    	if (like!=null) {
+			this.likemgr.deleteLike(like);
+		}
+    	
+    	//更新文章点赞信息
+		AdArticle art = this.articlemgr.findArticleById(arId);
+		Integer count = art.getArLikeCount()-1;
+		art.setArLikeCount(count);
+		this.articlemgr.saveOrUpdateArticle(art);
+		
+		
+		//更新造型师点赞数据
+		desinfo = this.desinfomgr.findDesginerInfoByUId(art.getUId());
+		Integer count1 = desinfo.getDiLikeCount()-1;
+		desinfo.setDiLikeCount(count1);
+		this.desinfomgr.saveOrUpdateDesginerInfo(desinfo);
+    	
+    	
+    	json.setSuccess(true);
+    	writeJson(json);
+	}
+    
+    //点赞
+    public void like() {
+		Json json = new Json();
+		UId = (Integer) session.getAttribute("cusId");
+		
+		//新建点赞信息
+		AdLikearticle like = new AdLikearticle();
+		like.setArId(arId);
+		like.setUId(UId);
+		this.likemgr.addLike(like);
+		
+		
+		//更新文章点赞信息
+		AdArticle art = this.articlemgr.findArticleById(arId);
+		Integer count = art.getArLikeCount()+1;
+		art.setArLikeCount(count);
+		this.articlemgr.saveOrUpdateArticle(art);
+		
+		
+		//更新造型师点赞数据
+		desinfo = this.desinfomgr.findDesginerInfoByUId(art.getUId());
+		Integer count1 = desinfo.getDiLikeCount()+1;
+		desinfo.setDiLikeCount(count1);
+		this.desinfomgr.saveOrUpdateDesginerInfo(desinfo);
+		
+		json.setSuccess(true);
+		
+		writeJson(json);
+		
+	}
+    //是够已点赞判断
+    public void judLike() {
+    	Json json = new Json();
+		UId = (Integer) session.getAttribute("cusId");
+    	boolean jud = this.likemgr.findLikeByUIdAndArId(arId, UId);
+    	
+    	if (jud) {
+			json.setSuccess(true);
+			json.setMsg("find already");
+		}else {
+			json.setSuccess(false);
+			json.setMsg("unfind");
+		}
+    	
+		writeJson(json);
+    }
+    
 	
 	//发表文章
 	public void pubArticle() {
 		Json json = new Json();
 		
 		String pIds = request.getParameter("ids");
-		String[] Pids = pIds.split(",");
-		System.out.println("Pids:"+Pids);
 		
 		
 		//创建文章表
@@ -75,20 +607,26 @@ public class DesignerAction extends BaseAction {
 		newArt.setArLikeCount(0);
 		newArt.setArReadCount(0);
 		newArt.setUId(UId);
+		newArt.setArState(0);
 		arId = this.articlemgr.addArticleRetArid(newArt);
 		
 		
 		//创建商品搭配表，记录相关商品
-		if (Pids.length>0) {
-			for (int i = 0; i < Pids.length; i++) {
-				Integer pid =  Integer.valueOf(Pids[i]);
-				System.out.println(pid);
-				AdGoodsmatch newMatch = new AdGoodsmatch();
-				newMatch.setArId(arId);
-				newMatch.setPId(pid);
-				this.matchmgr.addGoodsMatch(newMatch);
+		if (pIds!=""&&pIds!=null) {
+			String[] Pids = pIds.split(",");
+			System.out.println("Pids:"+Pids);
+			if (Pids.length>0) {
+				for (int i = 0; i < Pids.length; i++) {
+					Integer pid =  Integer.valueOf(Pids[i]);
+					System.out.println(pid);
+					AdGoodsmatch newMatch = new AdGoodsmatch();
+					newMatch.setArId(arId);
+					newMatch.setPId(pid);
+					this.matchmgr.addGoodsMatch(newMatch);
+				}
 			}
 		}
+		
 		
 		
 		//更新造型师文章统计信息
@@ -105,7 +643,7 @@ public class DesignerAction extends BaseAction {
 		
 	}
 	
-	//c查看文章详情
+	//查看文章详情
 	public String viArticle() {
 		article = this.articlemgr.findArticleById(arId);
 		desinfo = this.desinfomgr.findDesginerInfoByUId(article.getUId());
@@ -115,7 +653,7 @@ public class DesignerAction extends BaseAction {
 		article.setArReadCount(read);
 		this.articlemgr.saveOrUpdateArticle(article);
 		
-		//跟新造型师信息浏览总数
+		//更新造型师信息浏览总数
 		Integer read1 = desinfo.getDiReadCount() + 1;
 		desinfo.setDiReadCount(read1);
 		this.desinfomgr.saveOrUpdateDesginerInfo(desinfo);
@@ -142,6 +680,9 @@ public class DesignerAction extends BaseAction {
 		}
 		article.setGood(goods);
 		article.setPath(paths);
+		
+		//查询作者
+		cust = this.custmgr.findCustById(article.getUId());
 		
 		return "viarticle";
 	}
@@ -497,6 +1038,42 @@ public class DesignerAction extends BaseAction {
 
 	public void setArMain(String arMain) {
 		this.arMain = arMain;
+	}
+
+	public LikeHateManager getLikemgr() {
+		return likemgr;
+	}
+
+	public void setLikemgr(LikeHateManager likemgr) {
+		this.likemgr = likemgr;
+	}
+
+	public LikeHateManager getHatemgr() {
+		return hatemgr;
+	}
+
+	public void setHatemgr(LikeHateManager hatemgr) {
+		this.hatemgr = hatemgr;
+	}
+
+
+	public List<AdLikearticle> getLikes() {
+		return likes;
+	}
+
+
+	public void setLikes(List<AdLikearticle> likes) {
+		this.likes = likes;
+	}
+
+
+	public List<AdHatearticle> getHates() {
+		return hates;
+	}
+
+
+	public void setHates(List<AdHatearticle> hates) {
+		this.hates = hates;
 	}
 	
 	

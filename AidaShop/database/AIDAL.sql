@@ -316,10 +316,26 @@ CREATE TABLE ad_article (
 	ar_likeCount INT DEFAULT(0),					--文章点赞总数
 	ar_hateCount INT DEFAULT(0),					--文章讨厌总数
 )
+--添加状态位
+ALTER TABLE ad_article ADD ar_state INT DEFAULT(0)
 
 --商品搭配表
 CREATE TABLE ad_goodsmatch (
 	gm_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--表ID
 	ar_id INT,										--所属文章表ID
 	p_id INT NOT NULL,								--商品ID
+)
+
+--文章点赞表
+CREATE TABLE ad_likearticle (
+	la_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--表ID
+	ar_id INT,										--所属文章表ID
+	u_id INT,										--用户ID
+)
+
+--文章hate表
+CREATE TABLE ad_hatearticle (
+	ha_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--表ID
+	ar_id INT,										--所属文章表ID
+	u_id INT,										--用户ID
 )

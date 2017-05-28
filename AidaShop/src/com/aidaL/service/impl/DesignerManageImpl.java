@@ -184,6 +184,21 @@ public class DesignerManageImpl implements DesignerManage {
 		return this.gmDao.addGoodsMatchRetGmid(gm);
 	}
 
+	@Override
+	public List<AdArticle> findArticlesYSY() {
+		return this.articleDao.findArticlesYSY();
+	}
+
+	@Override
+	public List<AdArticle> findArticlesNewPublish() {
+		return this.articleDao.findArticlesNewPublish();
+	}
+
+	@Override
+	public List<AdArticle> findArticlesSYHXG() {
+		return this.articleDao.findArticlesSYHXG();
+	}
+
 
 	
 
