@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		<dl>
    			<dt>设置</dt>
    			<dd><a href="ordinaryCustomerAction?messageCenter=" target="grzxFrame">个人信息</a></dd>
-   			<dd><a href="javascript:void(0);">收货地址</a></dd>
+   			<dd><a href="addresslistOrderAction" target="grzxFrame">收货地址</a></dd>
    		</dl>
    	</div>
    	<div class="grzxRight">

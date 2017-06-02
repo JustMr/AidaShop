@@ -7,7 +7,7 @@ $(document).ready(function() {
 	$(".bh_leftli ul li").on("click",frameShow);
 });
 
-//iframe自适应
+
 function dyniframesize()
 {
 	var browserVersion = window.navigator.userAgent.toUpperCase();
@@ -77,67 +77,66 @@ function frameShow() {
 		$("#backHFrame").attr("src","page/backstage/guanlizhuye.jsp");
 	} else if(name=="首页导航菜单设置") {
 		$("#backHFrame").attr("src","page/backstage/daohangcaidan.jsp");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="品牌列表") {
 		$("#backHFrame").attr("src","listBrand");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="品牌添加") {
 		$("#backHFrame").attr("src","page/backstage/pinpaitianjia.jsp");
 	} else if(name=="品牌开通申请") {
 		$("#backHFrame").attr("src","listBrandAuth");
-		$("#backHFrame").css("height","550px");
+		 
 	}
 	else if(name=="文章列表") {
 		$("#backHFrame").attr("src","allarticleDesignerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	}else if(name=="已审阅文章") {
 		$("#backHFrame").attr("src","ysyDesignerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	}else if(name=="新发表") {
 		$("#backHFrame").attr("src","newpublishDesignerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	}else if(name=="审阅后修改") {
 		$("#backHFrame").attr("src","syhxgDesignerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	}
 	else if(name=="商品列表") {
 		$("#backHFrame").attr("src","superListGoodAction");
-		$("#backHFrame").css("height","550px");
+		 
 	}else if(name=="商品上架管理") {
 		$("#backHFrame").attr("src","superGAListGoodAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="会员列表") {
 		$("#backHFrame").attr("src","listCustomerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="VIP管理") {
 		$("#backHFrame").attr("src","vipCustomerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="造型师列表") {
 		$("#backHFrame").attr("src","styleCustomerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="认定审核") {
 		$("#backHFrame").attr("src","authCustomerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="管理员列表") {
 		$("#backHFrame").attr("src","adminCustomerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="店铺管理员") {
 		$("#backHFrame").attr("src","storeCustomerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="超级管理员") {
 		$("#backHFrame").attr("src","supCustomerAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="个人中心") {
 		$("#backHFrame").attr("src","personalCustomerAction?messageCenter="+"");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="店铺列表") {
 		$("#backHFrame").attr("src","listStoreAction");
-		$("#backHFrame").css("height","550px");
+		 
 	} else if(name=="店铺开通申请") {
 		$("#backHFrame").attr("src","listStoreAuthAction");
-		$("#backHFrame").css("height","550px");
+		
 	}
-	document.getElementById("backHFrame").onload=dyniframesize;
 }
 function ListFix() {
 	var lifix = $(".bh_leftli ul li");
@@ -161,5 +160,4 @@ function ShoWarp() {
 	if(name=="管理主页") {
 		$("#backHFrame").attr("src","page/backstage/guanlizhuye.jsp");
 	}
-	document.getElementById("backHFrame").onload=dyniframesize;
 }

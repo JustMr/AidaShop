@@ -160,6 +160,23 @@ public class ShopManagerImpl implements ShopManager {
 		return this.goodDao.findGoodByCgId(cgId);
 	}
 
+	@Override
+	public List<AdProductInfo> findGoodByCgBrPPNP(Integer cgId, Integer brId,
+			Integer prepri, Integer nextpri) {
+		return this.goodDao.findGoodByCgBrPPNP(cgId, brId, prepri, nextpri);
+	}
+
+	@Override
+	public List<AdProductInfo> findGoodByUnSureNameWithCgBrPPNP(String pName,Integer cgId,
+			Integer brId, Integer prepri, Integer nextpri) {
+		return this.goodDao.findGoodByUnSureNameWithCgBrPPNP(pName,cgId, brId, prepri, nextpri);
+	}
+
+	@Override
+	public List<AdImageFile> findImageByPIdGrouPAndOrder(Integer pId) {
+		return this.imageDao.findImageByPIdGrouPAndOrder(pId);
+	}
+
 
 
 

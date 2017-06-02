@@ -1,7 +1,9 @@
 package com.aidaL.bean;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,12 +17,10 @@ public class AdOrder implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1876908301088761329L;
 	private Integer coId;
 	private AdCustomer adCustomer;
 	private String coName;
-	private String coAddress;
-	private String coMobile;
 	private Double coTotalPrice;
 	private Double coDiscountPrice;
 	private Double coFreightCharge;
@@ -28,8 +28,11 @@ public class AdOrder implements java.io.Serializable {
 	private Timestamp coCreateTime;
 	private String coPaymentWay;
 	private String coOrderState;
-	@SuppressWarnings("rawtypes")
-	private Set adOrderitems = new HashSet(0);
+	private Integer shId;
+	private Set<?> adOrderitems = new HashSet<Object>(0);
+	
+	//add by myserlf
+	private List<AdOrderitem> orderitems = new ArrayList<AdOrderitem>();
 
 	// Constructors
 
@@ -37,25 +40,13 @@ public class AdOrder implements java.io.Serializable {
 	public AdOrder() {
 	}
 
-	/** minimal constructor */
-	public AdOrder(Integer coId, String coAddress, String coMobile) {
-		this.coId = coId;
-		this.coAddress = coAddress;
-		this.coMobile = coMobile;
-	}
-
 	/** full constructor */
-	@SuppressWarnings("rawtypes")
-	public AdOrder(Integer coId, AdCustomer adCustomer, String coName,
-			String coAddress, String coMobile, Double coTotalPrice,
+	public AdOrder(AdCustomer adCustomer, String coName, Double coTotalPrice,
 			Double coDiscountPrice, Double coFreightCharge, Double coRealPrice,
 			Timestamp coCreateTime, String coPaymentWay, String coOrderState,
-			Set adOrderitems) {
-		this.coId = coId;
+			Integer shId, Set<?> adOrderitems) {
 		this.adCustomer = adCustomer;
 		this.coName = coName;
-		this.coAddress = coAddress;
-		this.coMobile = coMobile;
 		this.coTotalPrice = coTotalPrice;
 		this.coDiscountPrice = coDiscountPrice;
 		this.coFreightCharge = coFreightCharge;
@@ -63,6 +54,7 @@ public class AdOrder implements java.io.Serializable {
 		this.coCreateTime = coCreateTime;
 		this.coPaymentWay = coPaymentWay;
 		this.coOrderState = coOrderState;
+		this.shId = shId;
 		this.adOrderitems = adOrderitems;
 	}
 
@@ -90,22 +82,6 @@ public class AdOrder implements java.io.Serializable {
 
 	public void setCoName(String coName) {
 		this.coName = coName;
-	}
-
-	public String getCoAddress() {
-		return this.coAddress;
-	}
-
-	public void setCoAddress(String coAddress) {
-		this.coAddress = coAddress;
-	}
-
-	public String getCoMobile() {
-		return this.coMobile;
-	}
-
-	public void setCoMobile(String coMobile) {
-		this.coMobile = coMobile;
 	}
 
 	public Double getCoTotalPrice() {
@@ -164,14 +140,28 @@ public class AdOrder implements java.io.Serializable {
 		this.coOrderState = coOrderState;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Set getAdOrderitems() {
+	public Integer getShId() {
+		return this.shId;
+	}
+
+	public void setShId(Integer shId) {
+		this.shId = shId;
+	}
+
+	public Set<?> getAdOrderitems() {
 		return this.adOrderitems;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void setAdOrderitems(Set adOrderitems) {
+	public void setAdOrderitems(Set<?> adOrderitems) {
 		this.adOrderitems = adOrderitems;
+	}
+
+	public List<AdOrderitem> getOrderitems() {
+		return orderitems;
+	}
+
+	public void setOrderitems(List<AdOrderitem> orderitems) {
+		this.orderitems = orderitems;
 	}
 
 }

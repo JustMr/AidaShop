@@ -191,4 +191,14 @@ public class AdImageFileDAO extends HibernateDaoSupport {
 		}
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdImageFile> findImageByPIdGrouPAndOrder(Integer pId) {
+		String queryString = "from AdImageFile as model where model.ifPid = "+pId+" order by model.ifSn asc";
+		List<AdImageFile> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
 }

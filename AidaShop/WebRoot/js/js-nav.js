@@ -23,7 +23,7 @@ $(function (){
 				var p = $(".firstMenuItem").eq(o).find("h3 a").length;
 				var q = t.cgState - p;
 				for ( var k = 0; k < q; k++) {
-					var $a = "<a class='firstMenuItemA' href='javascript:void(0);'>";
+					var $a = "<a class='firstMenuItemA' href='searchresult.jsp?cgId="+t.cgId+"&lv=1'>";
 					$(".firstMenuItem").eq(o).find("h3").append($a);
 				}
 				//添加第一级具体项中内容
@@ -44,7 +44,7 @@ $(function (){
 							for ( var i1 = 0; i1 < l1; i1++) {
 								var t1 = data1.obj[i1];
 								$div = "<div class='secondMenuItem'>" +
-										"<a class='secondItemATit' data-id='"+t1.cgId+"' href='javascript:void(0);'>"+t1.cgName+"<i>  &gt;</i></a></div>";
+										"<a class='secondItemATit' data-id='"+t1.cgId+"' href='searchresult.jsp?cgId="+t1.cgId+"&lv=2'>"+t1.cgName+"<i>  &gt;</i></a></div>";
 								$(".secondMenu").eq(o).append($div);
 								//添加第三季菜单
 								$.ajax({
@@ -58,7 +58,7 @@ $(function (){
 											var l2 = data2.obj.length;
 											for ( var i2 = 0; i2 < l2; i2++) {
 												var t2 = data2.obj[i2];
-												$a1 = "<a class='secondItemA' data-id='"+t2.cgId+"' href='javascript:void(0);'>"+t2.cgName+"</a>";
+												$a1 = "<a class='secondItemA' data-id='"+t2.cgId+"' href='searchresult.jsp?cgId="+t2.cgId+"&lv=3'>"+t2.cgName+"</a>";
 												$(".secondMenu").eq(o).find(".secondMenuItem:last").append($a1);
 											}
 										}

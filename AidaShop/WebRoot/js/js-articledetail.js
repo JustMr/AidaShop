@@ -48,6 +48,8 @@ function likeSet() {
 				}
 			});
 		}
+	}else if (flag==2) {
+		alert("请先登录!");
 	}
 	
 }
@@ -94,6 +96,8 @@ function hateSet() {
 				}
 			});
 		}
+	}else if (flag==2) {
+		alert("请先登录!");
 	}
 }
 function judLike() {
@@ -108,8 +112,14 @@ function judLike() {
 		success: function(data) {
 			if (data.success==true) {
 				$("#like_icon").addClass("likeActive");
+				flag=1;
+			}else {
+				if (data.msg=="unfind") {
+					flag=1;
+				}else {
+					flag=2;
+				}
 			}
-			flag=1;
 		},
 		error: function() {
 			alert("something wrong!");
@@ -128,8 +138,14 @@ function judHate() {
 		success: function(data) {
 			if (data.success==true) {
 				$("#hate_icon").addClass("hateActive");
+				flag=1;
+			}else {
+				if (data.msg=="unfind") {
+					flag=1;
+				}else {
+					flag=2;
+				}
 			}
-			flag=1;
 		},
 		error: function() {
 			alert("something wrong!");

@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/style-pinpaiguanli.css">
   </head>
   
-  <body>
+  <body style="height: auto;">
   	<span class="frameH3">品牌添加</span>
 	 <s:form action="addBrand">  
 		<table id="upBrtable">

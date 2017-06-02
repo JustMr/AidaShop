@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/js-xitongguanli.js"></script>
   </head>
   
-  <body>
+  <body style="height: auto;">
     <div id="zygl_info">
     	<p>
     		<span>用户名：</span>

@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body>
+  <body style="height: auto;">
     <span class="frameH3">店铺信息查看、修改</span>
     <div>
     	<s:form action="editStoreAction" method="POST">  

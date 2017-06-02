@@ -8,19 +8,13 @@
     <class name="com.aidaL.bean.AdOrder" table="ad_order" schema="dbo" catalog="AidaL">
         <id name="coId" type="java.lang.Integer">
             <column name="co_id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="adCustomer" class="com.aidaL.bean.AdCustomer" fetch="select" lazy="false">
             <column name="u_id" />
         </many-to-one>
         <property name="coName" type="java.lang.String">
             <column name="co_name" length="50" />
-        </property>
-        <property name="coAddress" type="java.lang.String">
-            <column name="co_address" length="200" not-null="true" />
-        </property>
-        <property name="coMobile" type="java.lang.String">
-            <column name="co_mobile" length="11" not-null="true" />
         </property>
         <property name="coTotalPrice" type="java.lang.Double">
             <column name="co_totalPrice" precision="53" scale="0" />
@@ -43,7 +37,10 @@
         <property name="coOrderState" type="java.lang.String">
             <column name="co_orderState" length="10" />
         </property>
-        <set name="adOrderitems" inverse="true">
+        <property name="shId" type="java.lang.Integer">
+            <column name="sh_id" />
+        </property>
+        <set name="adOrderitems" inverse="true" lazy="false">
             <key>
                 <column name="co_id" />
             </key>

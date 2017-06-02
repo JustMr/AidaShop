@@ -78,5 +78,35 @@ public interface ShopManager {
 	 */
 	public List<AdProductInfo> findGoodByCgId(Integer cgId);
 	
+	/**
+	 * 通过各种条件查询商品列表
+	 * @param cgId	标签ID
+	 * @param brId	品牌ID
+	 * @param prepri 价格区间上限
+	 * @param nextpri	价格区间下限
+	 * @return
+	 */
+	public List<AdProductInfo> findGoodByCgBrPPNP(Integer cgId, Integer brId,
+			Integer prepri, Integer nextpri);
+	
+	
+	/**
+	 * 通过各种限制条件模糊查询商品列表
+	 * @param pName 商品名称
+	 * @param brId 品牌ID
+	 * @param prepri 价格区间上限
+	 * @param nextpri 价格区间下限
+	 * @return
+	 */
+	public List<AdProductInfo> findGoodByUnSureNameWithCgBrPPNP(String pName, Integer cgId,
+			Integer brId, Integer prepri, Integer nextpri);
+	
+	/**
+	 * 按ifPosition分组并按ifSn排序
+	 * @param pId 商品ID
+	 * @return
+	 */
+	public List<AdImageFile> findImageByPIdGrouPAndOrder(Integer pId);
+	
 	
 }

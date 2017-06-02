@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -97,9 +98,368 @@ public class GoodAction extends BaseAction {
 		allowType.add("png");
 	}
     
+    
+    //详情页显示
+    public String detail() {
+    	
+		good = this.shopmgr.findGoodById(PId);
+		
+		List<String> lzpaths = new ArrayList<String>();
+		List<String> xqpaths = new ArrayList<String>();
+		
+		if (good!=null) {
+			images = this.imagemgr.findImageByPIdGrouPAndOrder(PId);
+			System.out.println(images);
+			if (images!=null) {
+				for (int i = 0; i < images.size(); i++) {
+					System.out.println(images.get(i).getIfPosition()+","+images.get(i).getIfSn());
+					Integer position = images.get(i).getIfPosition();
+					String oldpath = images.get(i).getIfFilepath();
+					if (position==0) {
+						if (oldpath!=null&&oldpath!="") {
+							String path = "." + oldpath.substring(oldpath.indexOf("\\upload\\"));
+							path = path.replaceAll("\\\\", "/");
+							lzpaths.add(path);
+						}
+					}else {
+						if (oldpath!=null&&oldpath!="") {
+							String path = "." + oldpath.substring(oldpath.indexOf("\\upload\\"));
+							path = path.replaceAll("\\\\", "/");
+							xqpaths.add(path);
+						}
+					}
+				}
+			}
+			
+			store = this.stmgr.findStoreById(good.getStId());
+		}
+		
+		request.setAttribute("lzpaths", lzpaths);
+		request.setAttribute("xqpaths", xqpaths);
+    	
+    	return "detail";
+	}
+    
+    //头部搜索框搜索
+    public String allsearch() {
+    	try {
+			PName = java.net.URLDecoder.decode(PName,"utf-8");
+			System.out.println("after pname:"+PName);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	String preprice = request.getParameter("preprice");
+    	Integer prepri = Integer.valueOf(preprice);
+    	
+    	String nextprice = request.getParameter("nextprice");
+    	Integer nextpri = Integer.valueOf(nextprice);
+    	
+    	//价格区间判断
+    	if (nextpri!=0&&prepri!=0) {
+			if (prepri.equals(nextpri)) {
+				if (prepri>0&&prepri<=100) {
+					prepri = 0;
+				}else {
+					prepri = prepri - 100;
+				}
+				nextpri = nextpri + 100;
+			}
+		}
+    	
+    	
+    	//模糊查询
+    	//按商品名查询
+//    	goods = this.shopmgr.findGoodByUnSureName(PName);
+    	goods = this.shopmgr.findGoodByUnSureNameWithCgBrPPNP(PName, cgId, brId, prepri, nextpri);
+    	
+    	System.out.println("goods1:"+goods);
+    	//按标签查询
+    	cates = this.catemgr.findPcategoryByUnSureName(PName);
+//    	System.out.println("cates:"+cates);
+    	
+    	List<AdProductInfo> goods2 = new ArrayList<AdProductInfo>();
+    	if (cates!=null) {
+			for (int i = 0; i < cates.size(); i++) {
+				List<AdProductInfo> listg = new ArrayList<AdProductInfo>();
+				listg = this.shopmgr.findGoodByCgBrPPNP(cates.get(i).getCgId(), brId, prepri, nextpri);
+				//不确定能否查出
+				if (listg!=null) {
+					goods2.addAll(listg);
+				}
+			}
+			if (goods2.size()>0) {
+				for (int i = 0; i < goods2.size(); i++) {
+					int flag = 0;
+					for (int j = 0; j < goods.size(); j++) {
+						if (goods.get(j).getPId().equals(goods2.get(i).getPId())) {
+							flag = 1;
+						}
+					}
+					if (flag == 0) {
+						goods.add(goods2.get(i));
+					}
+				}
+			}
+			
+		}
+    	
+    	
+    	//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	//店铺名称
+    	List<String> storName = new ArrayList<String>();
+    	
+    	//获取第一个轮转图片，并改变地址格式
+    	if (goods!=null) {
+			for (int i = 0; i < goods.size(); i++) {
+//				System.out.println("image Pid:"+goods.get(i).getPId());
+				image = this.imagemgr.findImageListOneByPId(goods.get(i).getPId());
+//				System.out.println("image"+i+":"+image);
+				if (image!=null) {
+					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+					path = path.replaceAll("\\\\", "/");
+					pathList.add(path);
+				}else {
+					pathList.add("nopath");
+				}
+				
+				//得到店铺名称
+				store = this.stmgr.findStoreById(goods.get(i).getStId());
+				if (store!=null) {
+					storName.add(store.getStName());
+				}else {
+					storName.add("自营");
+				}
+				
+			}
+    	}
+    	
+    	request.setAttribute("pathList", pathList);
+    	request.setAttribute("storName", storName);
+    	
+		return "search";
+	}
+    
+    
+    //一级分类搜索
+    public String onesearch() {
+    	String preprice = request.getParameter("preprice");
+    	Integer prepri = Integer.valueOf(preprice);
+    	
+    	String nextprice = request.getParameter("nextprice");
+    	Integer nextpri = Integer.valueOf(nextprice);
+    	
+    	//价格区间判断
+    	if (nextpri!=0&&prepri!=0) {
+			if (prepri.equals(nextpri)) {
+				if (prepri>0&&prepri<=100) {
+					prepri = 0;
+				}else {
+					prepri = prepri - 100;
+				}
+				nextpri = nextpri + 100;
+			}
+		}
+    	
+    	
+    	List<AdProductcategory> twocate = new ArrayList<AdProductcategory>();
+    	List<AdProductcategory> threecate = new ArrayList<AdProductcategory>();
+    	
+    	//得到所有的三级分类标签
+    	twocate = this.catemgr.findLvOneOrThree(cgId);
+    	if (twocate!=null) {
+			for (int i = 0; i < twocate.size(); i++) {
+				List<AdProductcategory> catelist = new ArrayList<AdProductcategory>();
+				catelist = this.catemgr.findLvOneOrThree(twocate.get(i).getCgId());
+				if (catelist!=null) {
+					threecate.addAll(catelist);
+				}
+			}
+		}
+    	
+    	System.out.println("threecate:"+threecate);
+    	System.out.println("threecate size:"+threecate.size());
+    	
+    	//得到相应商品列表
+    	goods = new ArrayList<AdProductInfo>();
+    	if (threecate!=null) {
+			for (int i = 0; i < threecate.size(); i++) {
+				List<AdProductInfo> goodlist = new ArrayList<AdProductInfo>();
+//				goodlist = this.shopmgr.findGoodByCgId(threecate.get(i).getCgId());
+				goodlist = this.shopmgr.findGoodByCgBrPPNP(threecate.get(i).getCgId(), brId, prepri, nextpri);
+				if (goodlist!=null) {
+					goods.addAll(goodlist);
+				}
+			}
+		}
+    	
+    	//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	//店铺名称
+    	List<String> storName = new ArrayList<String>();
+    	
+    	//获取第一个轮转图片，并改变地址格式
+    	if (goods!=null) {
+			for (int i = 0; i < goods.size(); i++) {
+				image = this.imagemgr.findImageListOneByPId(goods.get(i).getPId());
+				if (image!=null) {
+					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+					path = path.replaceAll("\\\\", "/");
+					pathList.add(path);
+				}else {
+					pathList.add("nopath");
+				}
+				
+				//得到店铺名称
+				store = this.stmgr.findStoreById(goods.get(i).getStId());
+				if (store!=null) {
+					storName.add(store.getStName());
+				}else {
+					storName.add("自营");
+				}
+				
+			}
+    	}
+    	
+    	request.setAttribute("pathList", pathList);
+    	request.setAttribute("storName", storName);
+		
+    	return "search";
+	}
+    
+    //二级分类搜索
+    public String twosearch() {
+    	String preprice = request.getParameter("preprice");
+    	Integer prepri = Integer.valueOf(preprice);
+    	
+    	String nextprice = request.getParameter("nextprice");
+    	Integer nextpri = Integer.valueOf(nextprice);
+    	
+    	//价格区间判断
+    	if (nextpri!=0&&prepri!=0) {
+			if (prepri.equals(nextpri)) {
+				if (prepri>0&&prepri<=100) {
+					prepri = 0;
+				}else {
+					prepri = prepri - 100;
+				}
+				nextpri = nextpri + 100;
+			}
+		}
+    	
+    	//得到所有的三级分类标签
+    	List<AdProductcategory> threecate = new ArrayList<AdProductcategory>();
+    	threecate = this.catemgr.findLvOneOrThree(cgId);
+    	
+    	//得到相应商品列表
+    	goods = new ArrayList<AdProductInfo>();
+    	if (threecate!=null) {
+    		for (int i = 0; i < threecate.size(); i++) {
+				List<AdProductInfo> goodlist = new ArrayList<AdProductInfo>();
+				goodlist = this.shopmgr.findGoodByCgBrPPNP(threecate.get(i).getCgId(), brId, prepri, nextpri);
+				if (goodlist!=null) {
+					goods.addAll(goodlist);
+				}
+			}
+		}
+    	
+    	System.out.println("threecate:"+threecate);
+    	System.out.println("threecate size:"+threecate.size());
+    	
+    	//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	//店铺名称
+    	List<String> storName = new ArrayList<String>();
+    	
+    	//获取第一个轮转图片，并改变地址格式
+    	if (goods!=null) {
+			for (int i = 0; i < goods.size(); i++) {
+				image = this.imagemgr.findImageListOneByPId(goods.get(i).getPId());
+				if (image!=null) {
+					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+					path = path.replaceAll("\\\\", "/");
+					pathList.add(path);
+				}else {
+					pathList.add("nopath");
+				}
+				
+				//得到店铺名称
+				store = this.stmgr.findStoreById(goods.get(i).getStId());
+				if (store!=null) {
+					storName.add(store.getStName());
+				}else {
+					storName.add("自营");
+				}
+				
+			}
+    	}
+    	
+    	request.setAttribute("pathList", pathList);
+    	request.setAttribute("storName", storName);
+    	
+    	return "search";
+	}
+    
+    //三级分类搜索
+    public String threesearch() {
+    	String preprice = request.getParameter("preprice");
+    	Integer prepri = Integer.valueOf(preprice);
+    	
+    	String nextprice = request.getParameter("nextprice");
+    	Integer nextpri = Integer.valueOf(nextprice);
+    	
+    	//价格区间判断
+    	if (nextpri!=0&&prepri!=0) {
+			if (prepri.equals(nextpri)) {
+				if (prepri>0&&prepri<=100) {
+					prepri = 0;
+				}else {
+					prepri = prepri - 100;
+				}
+				nextpri = nextpri + 100;
+			}
+		}
+    	
+    	goods = this.shopmgr.findGoodByCgBrPPNP(cgId, brId, prepri, nextpri);
+    	
+    	//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	//店铺名称
+    	List<String> storName = new ArrayList<String>();
+    	
+    	//获取第一个轮转图片，并改变地址格式
+    	if (goods!=null) {
+			for (int i = 0; i < goods.size(); i++) {
+				image = this.imagemgr.findImageListOneByPId(goods.get(i).getPId());
+				if (image!=null) {
+					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+					path = path.replaceAll("\\\\", "/");
+					pathList.add(path);
+				}else {
+					pathList.add("nopath");
+				}
+				
+				//得到店铺名称
+				store = this.stmgr.findStoreById(goods.get(i).getStId());
+				if (store!=null) {
+					storName.add(store.getStName());
+				}else {
+					storName.add("自营");
+				}
+				
+			}
+    	}
+    	
+    	request.setAttribute("pathList", pathList);
+    	request.setAttribute("storName", storName);
+    	
+    	return "search";
+	}
+    
+    
     //发表搭配时，搜索商品
     public void search() {
-    	System.out.println("i am here");
     	
     	JsonMultiObj json = new JsonMultiObj();
     	

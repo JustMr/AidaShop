@@ -16,12 +16,6 @@
         <many-to-one name="adOrder" class="com.aidaL.bean.AdOrder" fetch="select" lazy="false">
             <column name="co_id" />
         </many-to-one>
-        <property name="OProductName" type="java.lang.String">
-            <column name="o_productName" length="200" not-null="true" />
-        </property>
-        <property name="OProductPrice" type="java.lang.Double">
-            <column name="o_productPrice" precision="53" scale="0" not-null="true" />
-        </property>
         <property name="OAmount" type="java.lang.Integer">
             <column name="o_amount" />
         </property>

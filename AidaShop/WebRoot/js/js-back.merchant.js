@@ -1276,6 +1276,7 @@ function selected9() {
 }
 function brandListShow(){
 	$.post("stListBr",function(data) {
+		FastJson.format(data);
 		$("#brandAuthWrap").empty();
 		if (data.success==true) {
 			var length = data.obj.length;

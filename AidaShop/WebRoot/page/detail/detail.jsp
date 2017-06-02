@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -19,19 +20,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="shortcut icon" href="images/icon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="css/style-aida-detail.css">
 	<link rel="stylesheet" type="text/css" href="css/style-clear.css">
+	<link rel="stylesheet" href="css/jquery.mThumbnailScroller.css">
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+		function judlogin() {
+			uid = "<%=session.getAttribute("cusId")%>";
+			 if( uid == ""||uid=="null"||uid==null)
+		     {
+		        alert("请先登录");
+		        return false;
+		     }
+		}
+	</script>
   </head>	
   
   <body>
   	<!-- 头部 -->
     <jsp:include page="../reuse/detailheader.jsp"></jsp:include>
+    
+    
     <div class="detail_header_wrap">
 	    <div id="shop_header">
 	  		<div id="module_103484694">
 		  		<div class="shop_con">
 			  		<img usemap="#shop-sign_103484694" alt="KOOL" src="images/store/ChEi1lgpT3yAU019AAAfbkO0yGk13000.jpg">
 			  		<map name="shop-sign_103484694">
-			  			<area target="_blank" href="###" coords="867,7,1047,102">
+			  			<area target="_blank" href="home.jsp" coords="867,7,1047,102">
 			  		</map>
 			  	</div>	
 	  		</div>
@@ -39,22 +53,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  		<div id="inshopMat-nav">
 		  			<ul class="inshopMat-navFir">
 		  				<li class="firstnac">
-		  					<a href="###" target="_blank">秋冬上新</a>
+		  					<a href="home.jsp" target="_blank">秋冬上新</a>
 		  				</li>
 		  				<li>
-		  					<a href="###" target="_blank">首页</a>
+		  					<a href="home.jsp" target="_blank">首页</a>
 		  				</li>
 		  				<li>
-		  					<a href="###" target="_blank">棉衣</a>
+		  					<a href="home.jsp" target="_blank">棉衣</a>
 		  				</li>
 		  				<li>
-		  					<a href="###" target="_blank">羽绒服</a>
+		  					<a href="home.jsp" target="_blank">羽绒服</a>
 		  				</li>
 		  				<li>
-		  					<a href="###" target="_blank">针织衫</a>
+		  					<a href="home.jsp" target="_blank">针织衫</a>
 		  				</li>
 		  				<li>
-		  					<a href="###" target="_blank">呢大衣</a>
+		  					<a href="home.jsp" target="_blank">呢大衣</a>
 		  				</li>
 		  			</ul>
 		  		</div>
@@ -67,36 +81,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="mod_detail_preview">
 	  			<!-- 左侧主图区域 -->
 	  			<div id="jsproCrumb" class="proCrumb left">
-	  				<a class="cBtn prev" title="上一个"></a>
+	  				<a class="cBtn prev" href="javascript:void(0);" title="上一个"></a>
 	  				<div class="hideBox">
-	  					<div class="mBox">
+	  					<div id="mbox1" class="mBox">
+	  						<s:iterator id="it" value="#request.lzpaths">
 	  						<b>
-	  							<img alt="KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021" src="images/shopDetail/mini/CgMBmVKMJ_uAZVGFAAWPQhUaQ1w78000_58 82.jpg">
+	  							<img class="minipicture" alt='<s:property value="good.PName"/>' src='<s:property value="#it"/>'>
 	  						</b>
-	  						<b>
-	  							<img alt="KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021" src="images/shopDetail/mini/CgQCrVI34-SAALw1AAOX9Ho4BYg02000_58 82.jpg">
-	  						</b>
-	  						<b>
-	  							<img alt="KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021" src="images/shopDetail/mini/CgQCsFI34_CAE1uDAALOYtmHZYE13700_58 82.jpg">
-	  						</b>
-	  						<b>
-	  							<img alt="KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021" src="images/shopDetail/mini/CgQCsFI34-iAFNOwAADzqOzR1w409800_58 82.jpg">
-	  						</b>
-	  						<b>
-	  							<img alt="KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021" src="images/shopDetail/mini/CgQCtlI34-aAf_ohAANwheaYxt051600_58 82.jpg">
-	  						</b>
-	  						<b>
-	  							<img alt="KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021" src="images/shopDetail/mini/CgQCtlI34-yAI_d8AAKnTkGrNyE30600_58 82.jpg">
-	  						</b>
-	  						<b>
-	  							<img alt="KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021" src="images/shopDetail/mini/CgQDrVI34_KAH72JAAGuwRWmqzY79800_58 82.jpg">
-	  						</b>
+	  						</s:iterator>
 	  					</div>
 	  				</div>
-	  				<a class="cBtn next" title="下一个"></a>
+	  				<a class="cBtn next" href="javascript:void(0);" title="下一个"></a>
 	  			</div>
 	  			<div class="proImg left">
-	  				<img id="J_proImg" alt="KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021" src="images/shopDetail/large/CgMBmVKMJ_uAZVGFAAWPQhUaQ1w78000_332 464.jpg" >
+	  				<img id="J_proImg" alt='<s:property value="good.PName"/>' src='<s:property value="#request.lzpaths[0]"/>' >
 	  			</div>
 	  			<div class="clear"></div>
 	  		</div>
@@ -104,11 +102,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			<div class="prod_1">
 	  				<p id="pro_code" class="product_id">
 	  					<span>商品编号</span>
-	  					0133122722
+	  					<s:property value="good.PId"/>
 	  				</p>
 	  			</div>
 	  			<p class="collect">
-	  				<a class="collect" href="javascript:;">
+	  				<a class="collect" href="javascript:void(0);">
 		  				<i class="iconDetail"></i>
 		  				<span>收藏</span>
 		  				<span id="detailFavnums">0</span>
@@ -118,8 +116,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		</div>
   		<div class="main_content ">
   			<div id="name">
-  				<h1>KOOL 男装 时尚修身纯色牛仔裤 水洗 135207021蓝色33</h1>
-  				<div id="p-ad">【赠】：手提袋！【惠】：关注+分享可抵价！晒图领返现！</div>
+  				<h1><s:property value="good.PName"/></h1>
+  				<!-- <div id="p-ad">【赠】：手提袋！【惠】：关注+分享可抵价！晒图领返现！</div> -->
   			</div>
   			<div id="summary">
   				<div id="summary-price" class="clearfix">
@@ -128,12 +126,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   						<strong>
   							<span id="ad-price">
   								<em>¥</em>
-  								359
+  								<s:property value="good.PSellprice"/>
   							</span>
   						</strong>
   					</div>
   				</div>
-  				<div id="summary-top">
+  				<%-- <div id="summary-top">
 	  				<div id="ad-summary-top">
 		  				<div class="dt">优惠</div>
 		  				<div class="dd ad-prom-wrap">
@@ -180,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  					</div>
 		  				</div>
 		  			</div>
-  				</div>
+  				</div> --%>
 	  			<div class="line clear"></div>
 	  			<div id="summary-stock">
 	  				<div class="dt">配送</div>
@@ -271,20 +269,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   					</div>
   				</div>
   				<div class="clear"></div>
+  				<s:form id="formshopcar" action="shopcarOrderAction" method="POST" onsubmit="return judlogin()">
   				<div class="choose-count" class="clearfix">
   					<div class="dt">数量</div>
   					<div class="dd">
   						<div class="wrap-input">
-  							<a class="btn_reduce" href="javascript:;">-</a>
-  							<a class="btn_add" href="javascript:;">+</a>
-  							<input id="buy-num" class="text" value="1" type="text">
+  							<input name="PId" type="hidden" value='<s:property value="good.PId"/>'/>
+  							<a class="btn_reduce" href="javascript:void(0);">-</a>
+  							<a class="btn_add" href="javascript:void(0);">+</a>
+  							<input id="buy-num" name="OAmount" class="text" value="1" type="text" autocomplete="off"  readonly="true">
   						</div>
   					</div>
   				</div>
   				<div class="clear"></div>
   				<div id="choose-btn-append" class="btn-cart">
-  					<a class="p-btn" href="javascript:;">加入购物车</a>
+  					<s:submit cssClass="p-btn" value="加入购物车"></s:submit>
   				</div>
+  				</s:form>
   			</div>
   		</div>
   		<div id="r_mod" class="r">
@@ -300,8 +301,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="mod_box">
   				<div class="box_hd box_shop_name">
 	  				<p class="shop_name">
-	  					<strong title="Kool时尚男装旗舰店">
-	  						<a href="###" target="_blank">Kool时尚男装旗舰店</a>
+	  					<strong title='<s:property value="store.stName"/>'>
+	  						<a data-id='<s:property value="store.stId"/>' href="javascript:void(0);" target="_blank"><s:property value="store.stName"/></a>
 	  					</strong>
 	  				</p>
 	  			</div>
@@ -328,8 +329,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  			</p>
 	  			<ul class="inshopInf_sd">
 	  				<li class="inshopDes">
-	  					<label>描述相符：</label>
-	  					<a href="###">0.00</a>
+	  					<label>服务质量：</label>
+	  					<a href="javascript:void(0);"><s:property value="store.stServiceQuality"/></a>
 	  					<span class="inshop_leveleLower inshop_leveles">
 	  						<b class="inshop_levele">
 	  							<i class="iconfont">&#xe60d;</i>
@@ -341,7 +342,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				</li>
 	  				<li class="inshopSer">
 	  					<label>服务态度：</label>
-	  					<a href="###">0.00</a>
+	  					<a href="javascript:void(0);"><s:property value="store.stServiceManner"/></a>
 	  					<span class="inshop_leveleLower inshop_leveles">
 	  						<b class="inshop_levele">
 	  							<i class="iconfont">&#xe60d;</i>
@@ -353,7 +354,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  				</li>
 	  				<li class="inshopShip">
 	  					<label>发货速度：</label>
-	  					<a href="###">0.00</a>
+	  					<a href="javascript:void(0);"><s:property value="store.stSpeed"/></a>
 	  					<span class="inshop_leveleLower inshop_leveles">
 	  						<b class="inshop_levele">
 	  							<i class="iconfont">&#xe60e;</i>
@@ -417,7 +418,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			</div>
   			<div class="good_introduce">
 	  			<div class="specificatoin">
-	  				<dl class="spec_form">
+	  				<!-- <dl class="spec_form">
 	  					<dt>规格参数</dt>
 	  					<dd>品牌：KOOL</dd>
 	  					<dd>风格：潮流/休闲</dd>
@@ -431,62 +432,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  					<dd>厚薄：常规</dd>
 	  					<dd>裤长：长裤</dd>
 	  					<dd>版型：直筒型</dd>
-	  				</dl>
+	  				</dl> -->
+	  				<div>
+	  					<s:property value="good.PDescription"/>
+	  				</div>
 	  				<div class="clear"></div>
 	  			</div>
 	  			<div class="picture_show">
 	  				<table id="picture_tab" cellpadding="0" cellspacing="0" border="0">
 	  					<tbody>
+	  						<s:iterator id="it" value="#request.xqpaths">
 	  						<tr>
 	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_01.jpg">
+	  								<img alt='<s:property value="good.PName"/>' src='<s:property value="#it"/>'>
 	  							</td>
 	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_02.jpg">
-	  							</td>
-	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_03.jpg">
-	  							</td>
-	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_04.jpg">
-	  							</td>
-	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_05.jpg">
-	  							</td>
-	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_06.jpg">
-	  							</td>
-	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_07.jpg">
-	  							</td>
-	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_08.jpg">
-	  							</td>
-	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_09.jpg">
-	  							</td>
-	  						</tr>
-	  						<tr>
-	  							<td>
-	  								<img alt="" src="images/detail_picture/13520702101_10.jpg">
-	  							</td>
-	  						</tr>
+	  						</s:iterator>
 	  					</tbody>
 	  				</table>
 	  			</div>
@@ -526,6 +487,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			</div>
   		</div>
   		<script type="text/javascript" src="js/detail.js"></script>
+  		<script src="js/jquery.mThumbnailScroller.js"></script> 
   	</div>
   	<!-- 底部 -->
   	<jsp:include page="../reuse/detailfooter.jsp"></jsp:include>

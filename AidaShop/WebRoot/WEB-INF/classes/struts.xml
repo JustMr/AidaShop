@@ -139,6 +139,8 @@
 			<result name="supervi">/page/backstage/shangpinvi.jsp</result>
 			<result name="superglist" type="redirect">superListGoodAction.action</result>
 			<result name="supergalist" type="redirect">superGAListGoodAction.action</result>
+			<result name="search">/page/detail/resultwrap.jsp</result>
+			<result name="detail">/page/detail/detail.jsp</result>
 		</action>
 		
 		<!-- 搭配管理中心 -->
@@ -155,6 +157,14 @@
 			<result name="ysy" type="redirect">ysyDesignerAction.action</result>
 			<result name="newpublish" type="redirect">newpublishDesignerAction.action</result>
 			<result name="syhxg" type="redirect">syhxgDesignerAction.action</result>
+		</action> 
+		
+		<!-- 购物 -->
+		<action name="*OrderAction" class="OrderActionBean" method="{1}">
+			<result name="addresslist">/page/home/addresslist.jsp</result>
+			<result name="addAddress" type="redirect">addresslistOrderAction.action</result>
+			<result name="shopcar">/page/detail/addshopcar.jsp</result>
+			<result name="vishopcar">/page/detail/shopcar.jsp</result>
 		</action> 
 		
 	</package>

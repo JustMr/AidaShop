@@ -273,7 +273,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<a id="type1" data-type="2" style="outline: medium none;" onclick="changeTab();">店铺</a>
     				</div>
     				<div class="search_wrap left">
-    					<input type="text" autocomplete="off" placeholder="帽子">
+    					<input id="searchname" name="PName" type="text" autocomplete="off" placeholder="帽子">
     					<button id="searchSuggest" class="serch_btn" type="button" >搜 索</button>
     				</div>
     			</div>

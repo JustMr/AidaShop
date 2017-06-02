@@ -1,4 +1,4 @@
-wCREATE DATABASE AidaL
+CREATE DATABASE AidaL
 
 CREATE TABLE ad_customer(								--会员表
 	u_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL ,		--系统自动编号
@@ -41,6 +41,23 @@ ALTER TABLE ad_order
 		REFERENCES ad_customer(u_id)
 			ON UPDATE CASCADE
 			 ON DELETE CASCADE;
+--修改送货地址为送货地址表ID
+ALTER TABLE ad_order DROP COLUMN co_address
+ALTER TABLE ad_order ADD sh_id INT
+--删除电话
+ALTER TABLE ad_order DROP COLUMN co_mobile
+
+--创建送货地址表
+CREATE TABLE ad_deliveryaddress (
+	sh_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--送货地址ID
+	sh_name	VARCHAR(50) NOT NULL,					--收货人姓名
+	sh_phone VARCHAR(13) NOT NULL,					--收货人电话
+	sh_address VARCHAR(300) NOT NULL,				--收货人地址
+	sh_state INT DEFAULT(0)							--地址状态
+)
+--添加所属用户ID
+ALTER TABLE ad_deliveryaddress ADD u_id INT NOT NULL
+
 
 CREATE TABLE ad_orderitem(								--订单条目信息表
 	o_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,		--条目ID	
@@ -50,9 +67,6 @@ CREATE TABLE ad_orderitem(								--订单条目信息表
 	o_amount INT,										--商品数量
 	co_id INT,											--订单ID
 )
---添加店铺ID
-
-
 ALTER TABLE ad_orderitem
 	ADD CONSTRAINT FK_orderitem_productInfo FOREIGN KEY (o_productId)
 		REFERENCES ad_productInfo (p_id)
@@ -62,6 +76,10 @@ ALTER TABLE ad_orderitem
 		REFERENCES ad_order (co_id)
 			ON UPDATE CASCADE
 				ON DELETE CASCADE;
+--删除商品名称，商品价格
+ALTER TABLE ad_orderitem DROP COLUMN o_productName
+ALTER TABLE ad_orderitem DROP COLUMN o_productPrice
+
 
 CREATE TABLE ad_productInfo(							--商品信息表
 	p_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,		--商品ID

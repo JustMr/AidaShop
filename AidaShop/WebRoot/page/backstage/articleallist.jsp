@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body>
+  <body style="height: auto;">
     <table id="brandListTAb" class="bordered">  
 		<thead>  
 		 <tr>  

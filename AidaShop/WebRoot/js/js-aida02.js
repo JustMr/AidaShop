@@ -3,6 +3,7 @@
  */
 var count=0;
 $(function() {
+	$(".serch_btn").on("click", searchGood);
 	$.post("loginInfo",function(data) {
 		if (data.cusId!=null) {
 			$("#login_top").show();
@@ -17,6 +18,13 @@ $(function() {
 		}
 	});
 });
+//搜索商品
+function searchGood() {
+	var pname = $("#searchname").val().trim();
+	var url = "searchresult.jsp?PName="+encodeURI(encodeURI(pname));
+	window.location.href=url;
+}
+
 //头部信息栏，显示，隐藏
 var loginWrap = document.getElementsByClassName("login_wrap");
 var adUserCenter = document.getElementsByClassName("ad_user_center");

@@ -504,14 +504,20 @@ public class DesignerAction extends BaseAction {
     public void judHate() {
     	Json json = new Json();
 		UId = (Integer) session.getAttribute("cusId");
-		boolean jud = this.hatemgr.findHateByUIdAndArId(arId, UId);
-		if (jud) {
-			json.setSuccess(true);
-			json.setMsg("find already");
-		}else {
+		if (UId!=null) {
+			boolean jud = this.hatemgr.findHateByUIdAndArId(arId, UId);
+			if (jud) {
+				json.setSuccess(true);
+				json.setMsg("find already");
+			}else {
+				json.setSuccess(false);
+				json.setMsg("unfind");
+			}
+		} else {
 			json.setSuccess(false);
-			json.setMsg("unfind");
+			json.setMsg("unlog");
 		}
+		
 		writeJson(json);
 	}
     
@@ -577,14 +583,19 @@ public class DesignerAction extends BaseAction {
     public void judLike() {
     	Json json = new Json();
 		UId = (Integer) session.getAttribute("cusId");
-    	boolean jud = this.likemgr.findLikeByUIdAndArId(arId, UId);
-    	
-    	if (jud) {
-			json.setSuccess(true);
-			json.setMsg("find already");
+		if (UId != null) {
+			boolean jud = this.likemgr.findLikeByUIdAndArId(arId, UId);
+	    	
+	    	if (jud) {
+				json.setSuccess(true);
+				json.setMsg("find already");
+			}else {
+				json.setSuccess(false);
+				json.setMsg("unfind");
+			}
 		}else {
 			json.setSuccess(false);
-			json.setMsg("unfind");
+			json.setMsg("unlog");
 		}
     	
 		writeJson(json);

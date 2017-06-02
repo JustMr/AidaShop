@@ -23,6 +23,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/style-dpcenter.css">
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/js-articledetail.js"></script>
+	<script type="text/javascript">
+		function judlogin() {
+			uid = "<%=session.getAttribute("cusId")%>";
+			 if( uid == ""||uid=="null"||uid==null)
+		     {
+		        alert("请先登录");
+		        return false;
+		     }
+		}
+	</script>
 
   </head>
   
@@ -51,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<div class="article">
     		<s:property value="article.arMain" escapeHtml="false"/>
     	</div>
-    	<s:form action="" method="post">
+    	<s:form action="gmshopOrderAction" method="post" onsubmit="return judlogin()">
 	    	<div class="arc_good">
 	    		<s:iterator status="st" value="article.good" id="g">
 		    		<div class="arc_good_item" >

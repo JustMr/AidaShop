@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   
-  <body>
+  <body style="height: auto;">
   <s:form action="stateupdateDesignerAction" method="post">
     <div id="arc_detail_warp" class="mainContent">
     	<div class="arctilte">

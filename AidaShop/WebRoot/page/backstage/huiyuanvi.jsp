@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/style-pinpaiguanli.css">
   </head>
   
-  <body>
+  <body style="height: auto;">
     <span class="frameH3">成员信息查看、修改</span>
     <div>
     	<s:form action="updateCustomerAction" method="POST">  

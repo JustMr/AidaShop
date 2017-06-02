@@ -11,12 +11,10 @@ public class AdOrderitem implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3886311221563442565L;
 	private Integer OId;
 	private AdProductInfo adProductInfo;
 	private AdOrder adOrder;
-	private String OProductName;
-	private Double OProductPrice;
 	private Integer OAmount;
 
 	// Constructors
@@ -26,23 +24,15 @@ public class AdOrderitem implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public AdOrderitem(Integer OId, AdProductInfo adProductInfo,
-			String OProductName, Double OProductPrice) {
-		this.OId = OId;
+	public AdOrderitem(AdProductInfo adProductInfo) {
 		this.adProductInfo = adProductInfo;
-		this.OProductName = OProductName;
-		this.OProductPrice = OProductPrice;
 	}
 
 	/** full constructor */
-	public AdOrderitem(Integer OId, AdProductInfo adProductInfo,
-			AdOrder adOrder, String OProductName, Double OProductPrice,
+	public AdOrderitem(AdProductInfo adProductInfo, AdOrder adOrder,
 			Integer OAmount) {
-		this.OId = OId;
 		this.adProductInfo = adProductInfo;
 		this.adOrder = adOrder;
-		this.OProductName = OProductName;
-		this.OProductPrice = OProductPrice;
 		this.OAmount = OAmount;
 	}
 
@@ -70,22 +60,6 @@ public class AdOrderitem implements java.io.Serializable {
 
 	public void setAdOrder(AdOrder adOrder) {
 		this.adOrder = adOrder;
-	}
-
-	public String getOProductName() {
-		return this.OProductName;
-	}
-
-	public void setOProductName(String OProductName) {
-		this.OProductName = OProductName;
-	}
-
-	public Double getOProductPrice() {
-		return this.OProductPrice;
-	}
-
-	public void setOProductPrice(Double OProductPrice) {
-		this.OProductPrice = OProductPrice;
 	}
 
 	public Integer getOAmount() {

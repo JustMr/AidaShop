@@ -24,7 +24,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/style-back.home.css">
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="js/js-back.home.js"></script>
-	
+	<script type="text/javascript">
+		//iframe自适应
+function reinitIframe(){
+	var iframe = document.getElementById("backHFrame");
+	try{
+	/* var bHeight = iframe.contentWindow.document.body.scrollHeight; */
+	var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+	/* var height = Math.max(bHeight, dHeight); */
+	iframe.height = dHeight;
+	}catch (ex){}
+}
+		window.setInterval("reinitIframe()", 200);
+	</script>
   </head>
   
   <body>
@@ -218,7 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		<div id="righTit"></div>
 	    		<div id="bh_rightWarp">
 	    			<div id="frameShow" class="bh_rightShow">
-	    				<iframe id="backHFrame" class="iframeBH" name="backHFrame"  frameborder="0" scrolling="auto" src=""></iframe>
+	    				<iframe id="backHFrame" class="iframeBH" name="backHFrame"  frameborder="0" scrolling="no" src=""></iframe>
 	    			</div>
 	    		</div>
 	    	</div>

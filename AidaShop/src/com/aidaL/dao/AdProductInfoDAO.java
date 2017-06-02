@@ -290,6 +290,110 @@ public class AdProductInfoDAO extends HibernateDaoSupport {
 		}
 		return null;
 	}
+
+	
+	@SuppressWarnings("unchecked")
+	public List<AdProductInfo> findGoodByCgBrPPNP(Integer cgId, Integer brId,
+			Integer prepri, Integer nextpri) {
+		
+		String queryString = "";
+		if (prepri.equals(nextpri)) {
+			//价格区间为零，查询全部价格商品
+			if (brId==0) {
+				//品牌ID为零,查询全部品牌商品
+				//全部价格区间，全部品牌
+				queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory where model.adProductcategory.cgId = "+cgId+" and model.PState not in (0,1)";
+			}else {
+				//全部价格区间,具体品牌
+				queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory LEFT OUTER JOIN fetch model.brandAD where model.adProductcategory.cgId = "+cgId+" and model.PState not in (0,1) " +
+						" and model.brandAD.brId = "+brId;
+			}
+		}else {
+			//有价格区间
+			if (brId==0) {
+				//有价格区间,全部品牌
+				queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory where model.adProductcategory.cgId = "+cgId+" and model.PState not in (0,1) " +
+						" and model.PSellCount > "+prepri+" and model.PSellCount < "+nextpri;
+			}else {
+				//有价格区间，具体品牌
+				queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory LEFT OUTER JOIN fetch model.brandAD where model.adProductcategory.cgId = "+cgId+" and model.PState not in (0,1) " +
+						" and model.PSellCount > "+prepri+" and model.PSellCount < "+nextpri+" and model.brandAD.brId = "+brId;
+			}
+		}
+		
+		List<AdProductInfo> goods = this.getHibernateTemplate().find(queryString);
+		if (goods.size()>0) {
+			return goods;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdProductInfo> findGoodByUnSureNameWithCgBrPPNP(String pName,Integer cgId,
+			Integer brId, Integer prepri, Integer nextpri) {
+		
+		String queryString = "";
+		if (prepri.equals(nextpri)) {
+			//价格区间为零，查询全部价格商品
+			if (brId==0) {
+				//品牌ID为零,查询全部品牌商品
+				//全部价格区间，全部品牌
+				if (cgId==0) {
+					//全部标签
+					queryString = "from AdProductInfo as model where model.PName like '%"+pName+"%' and model.PState not in (0,1)";
+				}else {
+					//指定标签
+					queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory where model.PName like '%"+pName+"%' and model.PState not in (0,1) " +
+							" and model.adProductcategory.cgId = "+cgId;
+				}
+				
+			}else {
+				//全部价格区间,具体品牌
+				if (cgId==0) {
+					//全部标签
+					queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.brandAD where model.PName like '%"+pName+"%' and model.PState not in (0,1) " +
+							" and model.brandAD.brId = "+brId;
+				}else {
+					//指定标签
+					queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory LEFT OUTER JOIN fetch model.brandAD where model.PName like '%"+pName+"%' and model.PState not in (0,1) " +
+							" and model.brandAD.brId = "+brId+" and model.adProductcategory.cgId = "+cgId;
+				}
+			}
+		}else {
+			//有价格区间
+			if (brId==0) {
+				//有价格区间,全部品牌
+				if (cgId==0) {
+					//全部标签
+					queryString = "from AdProductInfo as model where model.PName like '%"+pName+"%' and model.PState not in (0,1) " +
+							" and model.PSellCount > "+prepri+" and model.PSellCount < "+nextpri;
+				}else {
+					//指定标签
+					queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory where model.PName like '%"+pName+"%' and model.PState not in (0,1) " +
+							" and model.PSellCount > "+prepri+" and model.PSellCount < "+nextpri+" and model.adProductcategory.cgId = "+cgId;
+				}
+			}else {
+				//有价格区间，具体品牌
+				if (cgId==0) {
+					//全部标签
+					queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.brandAD where model.PName like '%"+pName+"%' and model.PState not in (0,1) " +
+							" and model.PSellCount > "+prepri+" and model.PSellCount < "+nextpri+" and model.brandAD.brId = "+brId;
+				}else {
+					//指定标签
+					queryString = "from AdProductInfo as model LEFT OUTER JOIN fetch model.adProductcategory LEFT OUTER JOIN fetch model.brandAD where model.PName like '%"+pName+"%' and model.PState not in (0,1) " +
+							" and model.PSellCount > "+prepri+" and model.PSellCount < "+nextpri+" and model.brandAD.brId = "+brId+" and model.adProductcategory.cgId = "+cgId;
+				}
+				
+			}
+		}
+		
+		List<AdProductInfo> goods = this.getHibernateTemplate().find(queryString);
+		if (goods.size()>0) {
+			return goods;
+		}
+		
+		return null;
+	}
 	
 	
 }

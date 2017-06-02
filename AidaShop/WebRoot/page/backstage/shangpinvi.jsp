@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   
-  <body>
+  <body style="height: auto;">
   	<s:form action="superUpdateGoodAction" method="POST">
 	  	<table id="viGoodtab" class="simpleTable">
 			<caption>商品详情:</caption>
