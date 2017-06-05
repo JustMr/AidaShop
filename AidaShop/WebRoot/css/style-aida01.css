@@ -421,7 +421,7 @@
 	top: 43px;
 	right: 0;
 	width: 358px;
-	height: 160px;
+	min-height: 160px;
 	padding:10px 0;
 	border: 1px solid #dedede;
 	background-color: #FFF;

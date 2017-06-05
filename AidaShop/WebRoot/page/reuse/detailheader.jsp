@@ -22,6 +22,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/style-aida01.css">
     <link rel="stylesheet" type="text/css" href="css/style-clear.css">
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="js/FastJson.js"></script>
+	<style type="text/css">
+	.#minicartab {border: none;border-spacing: 0;width: 100%;}
+	.mini_minishop,.mini_shopname,.mini_pricecount {
+		float: left;overflow: hidden;text-align: left;text-overflow:ellipsis;
+		white-space:nowrap;padding: 3px;
+	}
+	.mini_minishop {width: 50px;border: 1px solid #ccc;}
+	.mini_shopname {width: 210px;}
+	</style>
   </head>
   
   <body>
@@ -251,7 +261,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    						<em></em>
 	    					</a>
 	    					<div class="site_nav menu_list">
-	    						
 	    					</div>
 	    				</li>
 	    			</ul>
@@ -285,7 +294,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<div id="prismWrap" class="prism_wrap right">
     			<div id="miniCart" class="mini_cart">
     				<u id="cartNum" class="in_cart_num none"></u>
-    				<a>
+    				<a href="page/detail/shopcar.jsp" target="_blank">
     					<em></em>
     					<span>购物车</span>
     				</a>
@@ -294,7 +303,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<a target="_blank" id="miniCartLogin" href="login.html">登录</a>
     				</div>
     				<div id="miniCarLog">
-    					<div ></div>
+    					<table id="minicartab">
+    						
+    					</table>
     				</div>
     			</div>
     		</div>

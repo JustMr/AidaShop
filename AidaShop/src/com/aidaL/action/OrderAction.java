@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.bean.AdDeliveryaddress;
+import com.aidaL.bean.AdImageFile;
 import com.aidaL.bean.AdOrder;
 import com.aidaL.bean.AdOrderitem;
 import com.aidaL.bean.AdProductInfo;
@@ -17,6 +18,7 @@ import com.aidaL.service.DesignerManage;
 import com.aidaL.service.OrderManager;
 import com.aidaL.service.ShopManager;
 import com.aidaL.util.Json;
+import com.aidaL.util.JsonMultiObj;
 
 public class OrderAction extends BaseAction {
 
@@ -56,21 +58,99 @@ public class OrderAction extends BaseAction {
 	private AdCustomer cust;
 	private AdProductInfo good;
 	private List<AdProductInfo> goods;
+	private AdImageFile image;
+	private List<AdImageFile> images = new ArrayList<AdImageFile>();
 	
 	
 	private List<Integer> Pids;
-	
-	
-	public String vishopcar() {
+
+	//某一项减一
+	public String reduceone() {
+		good = this.goodmgr.findGoodById(PId);
 		
+		return "itemlist";
+	}
+	
+	//某一项数量加一
+	public String addone() {
+		
+		return "itemlist";
+	}
+	
+	//删除某一项商品	
+	public String deleteoi() {
+		
+		return "itemlist";
+	}
+	
+	//mini购物车
+	public void headshopshow() {
+		JsonMultiObj json = new JsonMultiObj();
 		UId = (Integer) session.getAttribute("cusId");
 		
 		orders = this.ordermgr.findOrderByUId(UId, "new");
-		order = orders.get(0);
 		if (orders!=null) {
+			order = orders.get(0);
 			orderitems = this.orderItemgr.findOrderItemByCoId(order.getCoId());
 			order.setOrderitems(orderitems);
+			json.setObj(order);
+			json.setSuccess(true);
+			
+			//第一个轮转图片路径
+	    	List<String> pathList = new ArrayList<String>();
+			for (int i = 0; i < orderitems.size(); i++) {
+				good = orderitems.get(i).getAdProductInfo();
+		    	//获取第一个轮转图片，并改变地址格式
+		    	if (good!=null) {
+					image = this.imagemgr.findImageListOneByPId(good.getPId());
+					if (image!=null) {
+						String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+						path = path.replaceAll("\\\\", "/");
+						pathList.add(path);
+					}else {
+						pathList.add("nopath");
+					}
+		    	}
+			}
+			
+			json.setObj1(pathList);
+		}else {
+			json.setSuccess(false);
 		}
+		
+		writeJson(json);
+		
+	}
+	
+	
+	//购物车详情页
+	public String vishopcar() {
+		UId = (Integer) session.getAttribute("cusId");
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+		orders = this.ordermgr.findOrderByUId(UId, "new");
+		if (orders!=null) {
+			order = orders.get(0);
+			orderitems = this.orderItemgr.findOrderItemByCoId(order.getCoId());
+			order.setOrderitems(orderitems);
+			
+			for (int i = 0; i < orderitems.size(); i++) {
+				good = orderitems.get(i).getAdProductInfo();
+		    	//获取第一个轮转图片，并改变地址格式
+		    	if (good!=null) {
+					image = this.imagemgr.findImageListOneByPId(good.getPId());
+					if (image!=null) {
+						String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+						path = path.replaceAll("\\\\", "/");
+						pathList.add(path);
+					}else {
+						pathList.add("nopath");
+					}
+		    	}
+			}
+		}
+		request.setAttribute("pathList", pathList);
 		
 		return "vishopcar";
 	}
@@ -553,6 +633,22 @@ public class OrderAction extends BaseAction {
 
 	public void setPids(List<Integer> pids) {
 		Pids = pids;
+	}
+
+	public AdImageFile getImage() {
+		return image;
+	}
+
+	public void setImage(AdImageFile image) {
+		this.image = image;
+	}
+
+	public List<AdImageFile> getImages() {
+		return images;
+	}
+
+	public void setImages(List<AdImageFile> images) {
+		this.images = images;
 	}
 	
 	

@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="res_wrap">
     	<a class="shop_btn" href="javascript:void(0);" onclick="bacnpage()">返回该商品</a>
     	<a class="shop_btn" href="home.jsp">继续购物</a>
-    	<a class="shop_btn" href="vishopcarOrderAction">查看购物车</a>
+    	<a class="shop_btn" href="page/detail/shopcar.jsp">查看购物车</a>
     </div>
     
     <jsp:include page="/page/reuse/detailfooter.jsp"></jsp:include>

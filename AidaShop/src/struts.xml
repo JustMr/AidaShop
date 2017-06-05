@@ -164,7 +164,7 @@
 			<result name="addresslist">/page/home/addresslist.jsp</result>
 			<result name="addAddress" type="redirect">addresslistOrderAction.action</result>
 			<result name="shopcar">/page/detail/addshopcar.jsp</result>
-			<result name="vishopcar">/page/detail/shopcar.jsp</result>
+			<result name="vishopcar">/page/home/shopcarwrap.jsp</result>
 		</action> 
 		
 	</package>

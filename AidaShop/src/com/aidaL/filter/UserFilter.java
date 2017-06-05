@@ -37,7 +37,7 @@ public class UserFilter implements Filter {
 			//已登录，允许所有路径访问
 			chain.doFilter(request, response);
 		} else {
-			if (paths.contains(path)||path.indexOf("/backstage/")!=-1) {
+			if (paths.contains(path)||path.indexOf("/backstage/")!=-1||path.indexOf("shopcar.jsp")!=-1) {
 				response.sendRedirect(request.getContextPath()+"/login.html");
 				//没有return出现以下错误
 				//java.lang.IllegalStateException: Cannot call sendError() after the response has been committed
@@ -55,6 +55,7 @@ public class UserFilter implements Filter {
 		paths.add("/page/home/shangjiaruzhu.jsp");
 		paths.add("/page/home/publisharticle.jsp");
 		paths.add("/page/home/gerenzhongxin.jsp");
+		paths.add("/vishopcarOrderAction");
 	}
 
 }

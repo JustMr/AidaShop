@@ -12,6 +12,36 @@ $(function() {
 			$("#login_name").text(data.cusNickName);
 			console.log("已登录");
 			count=1;
+			//加载mini购物车
+			$.ajax({
+				url: "headshopshowOrderAction",
+				type: "post",
+				dataType: "json",
+				success: function(data) {
+					FastJson.format(data);
+					console.log(data);
+					if (data.success==true) {
+						var item = data.obj.orderitems;
+						for ( var i = 0; i < item.length; i++) {
+							var $div = "<tr class='miniitem'>" +
+									"<td class='mini_minishop'><img class='minishopimg' alt='"+item[i].adProductInfo.pName+"' src='"+data.obj1[i]+"'></td>" +
+											"<td class='mini_shopname'>"+item[i].adProductInfo.pName+"</td>" +
+											"<td class='mini_pricecount'>&yen;"+item[i].adProductInfo.pSellprice+"&times;"+item[i].oAmount+"</td></tr>";
+							$("#minicartab").append($div);
+						}
+						$(".minishopimg").each(function() {
+							var imgWidth = $(this).width();
+							var imgHeight = $(this).height();
+							//重新设置img的width和height
+							$(this).height((50*imgHeight)/imgWidth);
+							$(this).width(50);
+						});
+					}
+				},
+				error: function() {
+					alert("something wrong!");
+				}
+			});
 		}else {
 			count=0;
 			console.log("未登录");
