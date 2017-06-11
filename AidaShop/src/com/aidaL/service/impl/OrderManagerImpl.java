@@ -147,8 +147,18 @@ public class OrderManagerImpl implements OrderManager {
 	}
 
 	@Override
-	public AdOrderitem findOrderitemByCoIdAndUId(Integer coId, Integer pId) {
-		return this.orderitemDAO.findOrderitemByCoIdAndUId(coId, pId);
+	public AdOrderitem findOrderitemByCoIdAndPId(Integer coId, Integer pId) {
+		return this.orderitemDAO.findOrderitemByCoIdAndPId(coId, pId);
+	}
+
+	@Override
+	public List<AdOrder> findOrderByState(String string) {
+		return this.orderDAO.findOrderByState(string);
+	}
+
+	@Override
+	public List<AdOrder> findAllOrder() {
+		return this.orderDAO.findAllOrder();
 	}
 
 	

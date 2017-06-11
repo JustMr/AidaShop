@@ -25,6 +25,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		#prismWrap {display: none;}
 		#iframeWarp {width: 1200px;margin: 20px auto;}
 		#shopcar {width: 100%;overflow: hidden;min-height: 400px;border: none;}
+		#jiesuan {display: block;background: #872222;width: 120px;height: 36px;
+		line-height: 36px;text-align: center;color: #fff;font-size: 18px;font-weight: 500;float: right;}
+		#jiesuan:HOVER {
+			text-decoration: none;
+		}
+		.paytotal {width: 1200px;margin: 20 auto;height: 36px;}
 	</style>
 	<script type="text/javascript">
 		function setIframeHeight(iframe) {

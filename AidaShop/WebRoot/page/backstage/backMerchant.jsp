@@ -26,6 +26,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/FastJson.js"></script>
 	<script type="text/javascript" src="js/ajaxfileupload.js"></script>
 	<script type="text/javascript" src="js/js-back.merchant.js"></script>
+	<style type="text/css">
+    	.ordera {display: inline-block;height: 24px;line-height: 24px;padding: 3px 5px;text-align: center;}
+    	.ashow {border-bottom: 2px solid red;}
+    	.ordertab {display: none;}
+    	.tabshow {display: block;}
+    </style>
+	<script type="text/javascript">
+		$(function() {
+			$(".ordera").click(function() {
+				$(".ordera").removeClass("ashow");
+				$(this).addClass("ashow");
+				var index = $(this).index(".ordera");
+				$(".ordertab").removeClass("tabshow");
+				$(".ordertab").eq(index).addClass("tabshow");
+			});
+		});
+	</script>
 	
   </head> 
   
@@ -677,6 +694,57 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<div class="manger_bar_tit">
 		    			<span class="mer_left_wrap_name">订单管理</span>
 		    		</div>
+		    		<div>
+				    	<a class="ordera ashow" href="javascript:void(0);">已完成</a>
+				    	<a class="ordera" href="javascript:void(0);">待付款</a>
+				    	<a class="ordera" href="javascript:void(0);">待收货</a>
+				    </div>
+				    <div class="ordertab tabshow">
+			    	<table id="brandListTAb" class="bordered">  
+						<thead>  
+						 <tr>  
+						  <th>订单编号</th>  
+						  <th>创建时间</th> 
+						  <th>总价格</th>  
+						  <th>实付</th> 
+						  <th>买家</th>
+						  <th>状态</th>
+						 </tr>  
+						</thead>  
+						<tbody>  
+					 	</tbody>  
+					</table>
+			    </div>
+			    <div class="ordertab">
+			    	<table id="brandListTAb" class="bordered">  
+						<thead>  
+						 <tr>  
+						  <th>订单编号</th>  
+						  <th>创建时间</th> 
+						  <th>总价格</th>  
+						  <th>实付</th> 
+						  <th>状态</th>
+						 </tr>  
+						</thead>  
+						<tbody>  
+					 	</tbody>  
+					</table>
+			    </div>
+			    <div class="ordertab">
+			    	<table id="brandListTAb" class="bordered">  
+						<thead>  
+						 <tr>  
+						  <th>订单编号</th>  
+						  <th>创建时间</th> 
+						  <th>总价格</th>  
+						  <th>实付</th> 
+						  <th>状态</th>
+						 </tr>  
+						</thead>  
+						<tbody>  
+					 	</tbody>  
+					</table>
+			    </div>
 		    	</div>
 		    	<div class="manage_comment mer_left_wrap">
 		    		<div class="manger_bar_tit">

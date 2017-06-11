@@ -156,7 +156,7 @@ public class AdOrderitemDAO extends HibernateDaoSupport {
 	}
 
 	@SuppressWarnings("unchecked")
-	public AdOrderitem findOrderitemByCoIdAndUId(Integer coId, Integer pId) {
+	public AdOrderitem findOrderitemByCoIdAndPId(Integer coId, Integer pId) {
 		String queryString = "from AdOrderitem as model LEFT OUTER JOIN fetch model.adOrder " +
 				"LEFT OUTER JOIN fetch model.adProductInfo where model.adOrder.coId = "+coId+" " +
 				"and model.adProductInfo.PId = "+pId;

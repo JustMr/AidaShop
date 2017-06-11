@@ -165,7 +165,14 @@
 			<result name="addAddress" type="redirect">addresslistOrderAction.action</result>
 			<result name="shopcar">/page/detail/addshopcar.jsp</result>
 			<result name="vishopcar">/page/home/shopcarwrap.jsp</result>
-		</action> 
+			<result name="itemlist" type="redirect">vishopcarOrderAction.action</result>
+			<result name="suborder">/page/home/suborder.jsp</result>
+			<result name="payrequest">/page/payment/payconfirm.jsp</result>
+			<result name="list">/page/home/listorder.jsp</result>
+			<result name="superlist">/page/backstage/superorderlist.jsp</result>
+			<result name="statistics">/page/backstage/orderstatistics.jsp</result>
+			<result name="viorder">/page/order/orderdetail.jsp</result>
+		</action>  
 		
 	</package>
 </struts>    

@@ -41,5 +41,16 @@
 	</listener>
   <!-- end -->  
   
+  <servlet>
+  <servlet-name>DisplayChart</servlet-name>
+    <servlet-class>
+        org.jfree.chart.servlet.DisplayChart   <!--这个固定不变-->
+    </servlet-class>
+   </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>DisplayChart</servlet-name>
+        <url-pattern>/DisplayChart</url-pattern>
+    </servlet-mapping>
 
 </web-app>

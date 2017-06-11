@@ -19,5 +19,8 @@
         <property name="OAmount" type="java.lang.Integer">
             <column name="o_amount" />
         </property>
+        <property name="OState" type="java.lang.String">
+            <column name="o_state" length="15" />
+        </property>
     </class>
 </hibernate-mapping>

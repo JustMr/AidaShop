@@ -149,8 +149,8 @@ function reinitIframe(){
 	    				<ul>
 	    					<li>订单列表</li>
 	    					<li>未付款订单</li>
-	    					<li>未发货订单</li>
-	    					<li>撤销订单</li>
+	    					<li>未收货订单</li>
+	    					<li>已完成订单</li>
 	    					<li>订单统计</li>
 	    				</ul>
 	    			</li>

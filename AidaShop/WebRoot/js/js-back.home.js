@@ -85,7 +85,6 @@ function frameShow() {
 		$("#backHFrame").attr("src","page/backstage/pinpaitianjia.jsp");
 	} else if(name=="品牌开通申请") {
 		$("#backHFrame").attr("src","listBrandAuth");
-		 
 	}
 	else if(name=="文章列表") {
 		$("#backHFrame").attr("src","allarticleDesignerAction");
@@ -106,7 +105,23 @@ function frameShow() {
 	}else if(name=="商品上架管理") {
 		$("#backHFrame").attr("src","superGAListGoodAction");
 		 
-	} else if(name=="会员列表") {
+	}
+	else if (name=="订单列表") {
+		$("#backHFrame").attr("src","superlistOrderAction");
+	}
+	else if (name=="未付款订单") {
+		$("#backHFrame").attr("src","nonpayOrderAction");
+	}
+	else if (name=="未收货订单") {
+		$("#backHFrame").attr("src","paidOrderAction");
+	}
+	else if (name=="已完成订单") {
+		$("#backHFrame").attr("src","findishOrderAction");
+	}
+	else if (name=="订单统计") {
+		$("#backHFrame").attr("src","statisticsOrderAction");
+	}
+	else if(name=="会员列表") {
 		$("#backHFrame").attr("src","listCustomerAction");
 		 
 	} else if(name=="VIP管理") {

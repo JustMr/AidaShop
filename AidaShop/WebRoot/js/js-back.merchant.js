@@ -76,8 +76,50 @@ $(document).ready(function(){
 	$("#cateSec").on("input propertychange", GoodTJCategoryTrd);
 	BrandTJShow();
 	
+	//订单管理
+	FinishedOrderShow();
 	
 });
+function FinishedOrderShow() {
+	$.ajax({
+		url: "",
+		type: "post",
+		dataType: "json",
+		success: function(data) {
+			FastJson.format(data);
+			
+		},
+		error: function() {
+			alert("something wrong!");
+		}
+	});
+}
+function nonpayOrderShow() {
+	$.ajax({
+		url: "",
+		type: "post",
+		dataType: "json",
+		success: function(data) {
+			FastJson.format(data);
+		},
+		error: function() {
+			alert("something wrong!");
+		}
+	});
+}
+function PaidOrderShow() {
+	$.ajax({
+		url: "",
+		type: "post",
+		dataType: "json",
+		success: function(data) {
+			FastJson.format(data);
+		},
+		error: function() {
+			alert("something wrong!");
+		}
+	});
+}
 function GoodAuthBack() {
 	$("#viGoodAuth").hide();
 	$("#goodAuthtab").show();

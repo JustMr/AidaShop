@@ -11,11 +11,12 @@ public class AdOrderitem implements java.io.Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3886311221563442565L;
+	private static final long serialVersionUID = 2875047835269916535L;
 	private Integer OId;
 	private AdProductInfo adProductInfo;
 	private AdOrder adOrder;
 	private Integer OAmount;
+	private String OState;
 
 	// Constructors
 
@@ -30,10 +31,11 @@ public class AdOrderitem implements java.io.Serializable {
 
 	/** full constructor */
 	public AdOrderitem(AdProductInfo adProductInfo, AdOrder adOrder,
-			Integer OAmount) {
+			Integer OAmount, String OState) {
 		this.adProductInfo = adProductInfo;
 		this.adOrder = adOrder;
 		this.OAmount = OAmount;
+		this.OState = OState;
 	}
 
 	// Property accessors
@@ -68,6 +70,14 @@ public class AdOrderitem implements java.io.Serializable {
 
 	public void setOAmount(Integer OAmount) {
 		this.OAmount = OAmount;
+	}
+
+	public String getOState() {
+		return this.OState;
+	}
+
+	public void setOState(String OState) {
+		this.OState = OState;
 	}
 
 }

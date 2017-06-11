@@ -32,6 +32,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                <a href="home.jsp">
                    <img src="images/aidal01.png">
                </a>
+               <a href="home.jsp">
+                  	一个可以搭配商城
+               </a>
            </div>
            <div id="title_right">
            		<a href="login.html">请登录</a>

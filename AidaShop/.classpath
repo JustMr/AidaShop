@@ -66,5 +66,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/smtp.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ezmorph-1.0.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="WebRoot/js/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="WebRoot/js/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

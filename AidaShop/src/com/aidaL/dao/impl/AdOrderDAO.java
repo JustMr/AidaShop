@@ -194,4 +194,24 @@ public class AdOrderDAO extends HibernateDaoSupport {
 		coId = neworder.getCoId();
 		return coId;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdOrder> findOrderByState(String string) {
+		String queryString = "from AdOrder as model where model.coOrderState = '"+string+"'";
+		List<AdOrder> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdOrder> findAllOrder() {
+		String queryString = "from AdOrder as model where model.coOrderState <> 'new' order by model.coId desc";
+		List<AdOrder> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
 }

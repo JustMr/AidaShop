@@ -60,7 +60,20 @@ public interface OrderManager {
 	 * @param pId
 	 * @return
 	 */
-	public AdOrderitem findOrderitemByCoIdAndUId(Integer coId, Integer pId);
+	public AdOrderitem findOrderitemByCoIdAndPId(Integer coId, Integer pId);
+	
+	/**
+	 * 根据订单状态获取所有订单
+	 * @param string 订单状态
+	 * @return
+	 */
+	public List<AdOrder> findOrderByState(String string);
+	
+	/**
+	 * 找到所有订单
+	 * @return
+	 */
+	public List<AdOrder> findAllOrder();
 	
 
 }

@@ -63,20 +63,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			text-decoration: none;
 			color: red;
 		}
+		#jiesuan {display: block;background: #872222;width: 120px;height: 36px;
+		line-height: 36px;text-align: center;color: #fff;font-size: 18px;font-weight: 500;float: right;}
+		#jiesuan:HOVER {
+			text-decoration: none;
+		}
+		.paytotal {width: 1200px;margin: 20 auto;height: 36px;}
 	</style>
-	
   </head>
   
   <body>
     <div id="shop_wrap">
+    	<div class="paytotal">
+    		<input type="hidden" name="subcoId" id="subcoId" value='<s:property value="order.coId"/>'/>
+	    	<a id="jiesuan" href='javascript:void(0);' >去结算</a>
+	    </div>
+	    <script type="text/javascript">
+		$("#jiesuan").click(function() {
+			var href = "suborderOrderAction?coId="+$("#subcoId").val();
+			top.location.href = href;
+		});
+		</script>
     	<table id="shoptab">
     		<thead>
     			<tr>
     			<th colspan="2">商品</th>
-    			<th>单价</th>
-    			<th>数量</th>
-				<th>小计</th>
-    			<th>操作</th></tr>
+    			<th style="text-align: left;">单价</th>
+    			<th style="text-align: left;padding-left: 30px;">数量</th>
+				<th style="text-align: left;">小计</th>
+    			<th style="text-align: left;">操作</th></tr>
     		</thead>
     		<tbody id="shopcartd">
     			<s:iterator status="st" value="order.orderitems" id="it">
@@ -84,7 +99,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				<td><img class="shoppicture" alt='<s:property value="#it.adProductInfo.PName" />' src='<s:property value="#request.pathList[#st.index]" />'> </td>
     				<td><s:property value="#it.adProductInfo.PName" /></td>
     				<td><s:property value="#it.adProductInfo.PSellprice" /></td>
-    				<td><s:property value="#it.OAmount" /></td>
     				<td>
 						<div class="wrap-input">
   							<a class="btn_reduce" href='<s:url action="reduceoneOrderAction"><s:param  name="PId" value="#it.adProductInfo.PId" /></s:url>'>-</a>
@@ -92,14 +106,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   							<input id="buy-num" name="OAmount" class="text" value='<s:property value="#it.OAmount" />' type="text" autocomplete="off"  readonly="true">
   						</div>
 					</td>
+					<td>&yen;<s:property value="#request.pricelist[#st.index]" /></td>
     				<td><a class="deleteshop" href='<s:url action="deleteoiOrderAction"><s:param  name="PId" value="#it.adProductInfo.PId" /></s:url>'>删除</a> </td>
     			</tr>
     			</s:iterator>
     		</tbody>
     	</table>
-    	<div class="paytotal">
-    		<a id="jiesuan" href="javascript:void(0);" >去结算</a>
-    	</div>
     </div>
     <script type="text/javascript">
 	$(".shoppicture").each(function(){

@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<div class="grzxLeft">
    		<dl id="firstDL">
    			<dt>订单中心</dt>
-   			<dd><a href="javascript:void(0);">我的订单</a></dd>
+   			<dd><a href="listOrderAction" target="grzxFrame">我的订单</a></dd>
    			<dd><a href="javascript:void(0);">组合订单记录</a></dd>
    			<dd class="lastDd"><a href="javascript:void(0);">取消订单记录</a></dd>
    		</dl>

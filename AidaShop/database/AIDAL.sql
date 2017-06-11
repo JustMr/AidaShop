@@ -79,6 +79,9 @@ ALTER TABLE ad_orderitem
 --删除商品名称，商品价格
 ALTER TABLE ad_orderitem DROP COLUMN o_productName
 ALTER TABLE ad_orderitem DROP COLUMN o_productPrice
+--添加订单条目状态位
+ALTER TABLE ad_orderitem ADD o_state VARCHAR(15)
+
 
 
 CREATE TABLE ad_productInfo(							--商品信息表
