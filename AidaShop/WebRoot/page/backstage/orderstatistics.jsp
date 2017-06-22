@@ -19,7 +19,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%  
    	/* String fileName=request.getParameter("filename");  
     System.out.println(fileName);  */
-    String url = "D:/Program Files/Apache Software Foundation/Tomcat 7.0/temp/";
+   /*  String url =  request.getContentPath()+"/temp"; */
+    String url =  "D:/Program Files/Apache Software Foundation/Tomcat 7.0/temp";
 	%> 
 	<img src="<%=url%>${filename}" width="800" height="600">
 		</div>

@@ -52,7 +52,9 @@
 				<value>com/aidaL/bean/AdGoodsmatch.hbm.xml</value>
 				<value>com/aidaL/bean/AdLikearticle.hbm.xml</value>
 				<value>com/aidaL/bean/AdHatearticle.hbm.xml</value>
-				<value>com/aidaL/bean/AdDeliveryaddress.hbm.xml</value></list>
+				<value>com/aidaL/bean/AdDeliveryaddress.hbm.xml</value>
+				<value>com/aidaL/bean/AdExregood.hbm.xml</value>
+				<value>com/aidaL/bean/AdLogistics.hbm.xml</value></list>
 		</property>
 	</bean>
 	
@@ -266,6 +268,8 @@
 		<property name="stmgr" ref="adAppMgrStore"></property>
 		<property name="imagemgr" ref="AdImageFileMgr"></property>
 		<property name="custmgr" ref="adAppMgr"></property>
+		<property name="exremgr" ref="AdExregoodMgr"></property>
+		<property name="logisticsmgr" ref="AdLogisticsMgr"></property>
 	</bean>
 	<bean id="OrderMgr" class="com.aidaL.service.impl.OrderManagerImpl">
 		<property name="orderDAO" ref="AdOrderDAO"></property>
@@ -289,6 +293,27 @@
 	</bean>
 	<bean id="AdOrderitemDAO"
 		class="com.aidaL.dao.impl.AdOrderitemDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 退换货申请 -->
+	<bean id="AdExregoodMgr" class="com.aidaL.service.impl.OrderManagerImpl">
+		<property name="exregoodDAO" ref="AdExregoodDAO"></property>
+	</bean>
+	<bean id="AdExregoodDAO" class="com.aidaL.dao.impl.AdExregoodDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+
+	<!-- 物流管理 -->
+	<bean id="AdLogisticsMgr" class="com.aidaL.service.impl.OrderManagerImpl">
+		<property name="logisticsDAO" ref="AdLogisticsDAO"></property>
+	</bean>
+	<bean id="AdLogisticsDAO"
+		class="com.aidaL.dao.impl.AdLogisticsDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory"/>
 		</property>

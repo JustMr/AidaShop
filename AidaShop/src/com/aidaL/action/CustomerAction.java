@@ -245,6 +245,7 @@ public class CustomerAction extends BaseAction {
 		try {
 			SendMail sendMail = new SendMail();
             sendMail.send(receiver, content);
+            sendMail.sendMail(receiver, content);
 		} catch (Exception e) {
 			res = 2;
 		}

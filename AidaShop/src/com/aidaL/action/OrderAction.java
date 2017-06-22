@@ -31,7 +31,9 @@ import cn.itcast.utils.PaymentUtil;
 
 import com.aidaL.bean.AdCustomer;
 import com.aidaL.bean.AdDeliveryaddress;
+import com.aidaL.bean.AdExregood;
 import com.aidaL.bean.AdImageFile;
+import com.aidaL.bean.AdLogistics;
 import com.aidaL.bean.AdOrder;
 import com.aidaL.bean.AdOrderitem;
 import com.aidaL.bean.AdProductInfo;
@@ -57,6 +59,8 @@ public class OrderAction extends BaseAction {
 	private ShopManager goodmgr;
 	private ActionManager custmgr;
 	private DesignerManage matchmgr;
+	private OrderManager exremgr;
+	private OrderManager logisticsmgr;
 	
 	private Integer coId;
 	private Integer shId;
@@ -83,7 +87,9 @@ public class OrderAction extends BaseAction {
 	private List<AdProductInfo> goods;
 	private AdImageFile image;
 	private List<AdImageFile> images = new ArrayList<AdImageFile>();
-	
+	private AdExregood exre;
+	private List<AdExregood> exres;
+	private AdLogistics logistics;
 	
 	private List<Integer> Pids;
 	
@@ -93,6 +99,468 @@ public class OrderAction extends BaseAction {
 	private List<AdOrder> finishOrders = new ArrayList<AdOrder>();
 	
 	private String fileName;
+	private String auth;
+	private Integer OId;
+	private String erReason;
+	private Integer erId;
+	private String erFeedback;
+	private Integer erState;
+	
+	private Integer lgId;
+	private String lgCompaby;
+	private String lgNumber;
+	
+	
+	//查看物流信息
+	public void vilogtics() {
+		Json json = new Json();
+		logistics = this.logisticsmgr.findlogisticsByOId(OId);
+		
+		if (logistics!=null) {
+			json.setObj(logistics);
+			json.setSuccess(true);
+		}
+		
+		writeJson(json);
+		
+	}
+	
+	//更新物流信息
+	public void updatalogtics() {
+		Json json = new Json();
+		logistics = this.logisticsmgr.findlogisticsByOId(OId);
+		if (logistics!=null) {
+			logistics.setLgCompaby(lgCompaby);
+			logistics.setLgNumber(lgNumber);
+			this.logisticsmgr.saveOrUpdatelogistics(logistics);
+		}else {
+			AdLogistics newLogistics = new AdLogistics();
+			newLogistics.setLgCompaby(lgCompaby);
+			newLogistics.setLgNumber(lgNumber);
+			newLogistics.setOId(OId);
+			this.logisticsmgr.addlogistics(newLogistics);
+		}
+		json.setSuccess(true);
+		writeJson(json);
+	}
+	
+	//店铺查看订单详情
+	public String stvi() {
+		orderitem = this.orderItemgr.findOrderitemById(OId);
+		cust = orderitem.getAdOrder().getAdCustomer();
+		good = orderitem.getAdProductInfo();
+		logistics = this.logisticsmgr.findlogisticsByOId(orderitem.getOId());
+		String path ="";
+		//获取第一个轮转图片，并改变地址格式
+    	if (good!=null) {
+			image = this.imagemgr.findImageListOneByPId(good.getPId());
+			if (image!=null) {
+				path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+				path = path.replaceAll("\\\\", "/");
+			}else {
+				path="nopath";
+			}
+    	}
+    	request.setAttribute("path", path);
+    	
+		return "stvi";
+	}
+	
+	//确认收货
+	public String grfinish() {
+		orderitem = this.orderItemgr.findOrderitemById(OId);
+		orderitem.setOState("finished");
+		this.orderItemgr.saveOrUpdateOrderItem(orderitem);
+		
+		order = orderitem.getAdOrder();
+		orderitems = this.orderItemgr.findOrderItemByCoId(order.getCoId());
+		int flag = 0;
+		if (orderitems!=null) {
+			for (int i = 0; i < orderitems.size(); i++) {
+				String state = orderitems.get(i).getOState();
+				if (!state.equals("finished")) {
+					flag = 1;
+				}
+			}
+		}
+		
+		if (flag==0) {
+			order.setCoOrderState("finished");
+			this.ordermgr.saveOrUpdateOrder(order);
+		}
+		
+		return "grfinish";
+	}
+	
+	//店铺查看已完成订单
+	public String stfinish() {
+		Integer stId = (Integer) session.getAttribute("cusStore");
+		orderitems = this.orderItemgr.findOrderitemByStIdAndState(stId, "finished");
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+    	List<String> nicknames = new ArrayList<String>();
+		if (orderitems!=null) {
+			for (int i = 0; i < orderitems.size(); i++) {
+				orderitem = orderitems.get(i);
+    			good = orderitem.getAdProductInfo();
+    			//获取第一个轮转图片，并改变地址格式
+    	    	if (good!=null) {
+    				image = this.imagemgr.findImageListOneByPId(good.getPId());
+    				if (image!=null) {
+    					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+    					path = path.replaceAll("\\\\", "/");
+    					pathList.add(path);
+    				}else {
+    					pathList.add("nopath");
+    				}
+    	    	}
+    	    	
+    	    	//查找购买用户昵称
+    	    	cust = orderitem.getAdOrder().getAdCustomer();
+    	    	nicknames.add(cust.getUNickName());
+			}
+		}
+		
+		request.setAttribute("pathList", pathList);
+    	request.setAttribute("nicknames", nicknames);
+    	
+		return "storder";
+	}
+	
+	//店铺查看待付款订单
+	public String stunpaid() {
+		Integer stId = (Integer) session.getAttribute("cusStore");
+		orderitems = this.orderItemgr.findOrderitemByStIdAndState(stId, "nonpay");
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+    	List<String> nicknames = new ArrayList<String>();
+		if (orderitems!=null) {
+			for (int i = 0; i < orderitems.size(); i++) {
+				orderitem = orderitems.get(i);
+    			good = orderitem.getAdProductInfo();
+    			//获取第一个轮转图片，并改变地址格式
+    	    	if (good!=null) {
+    				image = this.imagemgr.findImageListOneByPId(good.getPId());
+    				if (image!=null) {
+    					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+    					path = path.replaceAll("\\\\", "/");
+    					pathList.add(path);
+    				}else {
+    					pathList.add("nopath");
+    				}
+    	    	}
+    	    	
+    	    	//查找购买用户昵称
+    	    	cust = orderitem.getAdOrder().getAdCustomer();
+    	    	nicknames.add(cust.getUNickName());
+			}
+		}
+		
+		request.setAttribute("pathList", pathList);
+    	request.setAttribute("nicknames", nicknames);
+		return "storder";
+	}
+	
+	//店铺查看发货中订单
+	public String stsending() {
+		Integer stId = (Integer) session.getAttribute("cusStore");
+		orderitems = this.orderItemgr.findOrderitemByStIdAndState(stId, "sending");
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+    	List<String> nicknames = new ArrayList<String>();
+		if (orderitems!=null) {
+			for (int i = 0; i < orderitems.size(); i++) {
+				orderitem = orderitems.get(i);
+    			good = orderitem.getAdProductInfo();
+    			//获取第一个轮转图片，并改变地址格式
+    	    	if (good!=null) {
+    				image = this.imagemgr.findImageListOneByPId(good.getPId());
+    				if (image!=null) {
+    					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+    					path = path.replaceAll("\\\\", "/");
+    					pathList.add(path);
+    				}else {
+    					pathList.add("nopath");
+    				}
+    	    	}
+    	    	
+    	    	//查找购买用户昵称
+    	    	cust = orderitem.getAdOrder().getAdCustomer();
+    	    	nicknames.add(cust.getUNickName());
+			}
+		}
+		
+		request.setAttribute("pathList", pathList);
+    	request.setAttribute("nicknames", nicknames);
+		return "storder";
+	}
+	
+	
+	//店铺更新退还货信息
+	public void updatexer() {
+		Json json = new Json();
+		System.out.println(erFeedback);
+		System.out.println(erState);
+		AdExregood exergood = this.exremgr.findEXREAuthByErId(erId);
+		exergood.setErState(erState);
+		exergood.setErFeedback(erFeedback);
+		this.exremgr.saveOrUpdateEXREAuth(exergood);
+		
+		if (erState==2) {
+			//修改订单条目状态位退换货中
+			orderitem = this.orderItemgr.findOrderitemById(exergood.getOId());
+			if (exergood.getErAuth().equals("refund")) {
+				orderitem.setOState("refund");
+			}else {
+				orderitem.setOState("exgood");
+			}
+			this.orderItemgr.saveOrUpdateOrderItem(orderitem);
+		}
+		json.setSuccess(true);
+		writeJson(json);
+	}
+	
+	
+	//店铺查看退换货详情
+	public String editexer() {
+		exre = this.exremgr.findEXREAuthByErId(erId);
+		orderitem = this.orderItemgr.findOrderitemById(exre.getOId());
+		good = orderitem.getAdProductInfo();
+		//获取第一个轮转图片，并改变地址格式
+		String path = "";
+    	if (good!=null) {
+			image = this.imagemgr.findImageListOneByPId(good.getPId());
+			if (image!=null) {
+				path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+				path = path.replaceAll("\\\\", "/");
+			}else {
+				path = "nopath";
+			}
+    	}
+    	cust = this.custmgr.findCustById(exre.getUId());
+    	request.setAttribute("path", path);
+		
+		return "editexer";
+	}
+	
+	
+	//店铺查看换货申请
+	public String stex() {
+		Integer stId = (Integer) session.getAttribute("cusStore");
+		
+		exres =this.exremgr.findAdExregoodsByStIdWithAuth(stId,"exchange");
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+    	List<String> nicknames = new ArrayList<String>();
+    	if (exres!=null) {
+    		for (int i = 0; i < exres.size(); i++) {
+    			orderitem = this.orderItemgr.findOrderitemById(exres.get(i).getOId());
+    			exres.get(i).setGood(orderitem.getAdProductInfo());
+    			good = orderitem.getAdProductInfo();
+    			//获取第一个轮转图片，并改变地址格式
+    	    	if (good!=null) {
+    				image = this.imagemgr.findImageListOneByPId(good.getPId());
+    				if (image!=null) {
+    					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+    					path = path.replaceAll("\\\\", "/");
+    					pathList.add(path);
+    				}else {
+    					pathList.add("nopath");
+    				}
+    	    	}
+    	    	
+    	    	//查找申请用户昵称
+    	    	cust = this.custmgr.findCustById(exres.get(i).getUId());
+    	    	nicknames.add(cust.getUNickName());
+    		}
+		}
+		
+		request.setAttribute("pathList", pathList);
+    	request.setAttribute("nicknames", nicknames);
+    	
+		return "stexer";
+	}
+	
+	//店铺查看退货申请
+	public String stre() {
+		Integer stId = (Integer) session.getAttribute("cusStore");
+		
+		exres =this.exremgr.findAdExregoodsByStIdWithAuth(stId, "refund");
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+    	List<String> nicknames = new ArrayList<String>();
+    	if (exres!=null) {
+    		for (int i = 0; i < exres.size(); i++) {
+    			orderitem = this.orderItemgr.findOrderitemById(exres.get(i).getOId());
+    			exres.get(i).setGood(orderitem.getAdProductInfo());
+    			good = orderitem.getAdProductInfo();
+    			//获取第一个轮转图片，并改变地址格式
+    	    	if (good!=null) {
+    				image = this.imagemgr.findImageListOneByPId(good.getPId());
+    				if (image!=null) {
+    					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+    					path = path.replaceAll("\\\\", "/");
+    					pathList.add(path);
+    				}else {
+    					pathList.add("nopath");
+    				}
+    	    	}
+    	    	
+    	    	//查找申请用户昵称
+    	    	cust = this.custmgr.findCustById(exres.get(i).getUId());
+    	    	nicknames.add(cust.getUNickName());
+    		}
+		}
+		
+		request.setAttribute("pathList", pathList);
+    	request.setAttribute("nicknames", nicknames);
+		
+		return "stexer";
+	}
+	
+	
+	//店铺查看所有申请信息
+	public String stexer() {
+		Integer stId = (Integer) session.getAttribute("cusStore");
+		
+		exres =this.exremgr.findAdExregoodsByStId(stId);
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+    	List<String> nicknames = new ArrayList<String>();
+    	if (exres!=null) {
+    		for (int i = 0; i < exres.size(); i++) {
+    			orderitem = this.orderItemgr.findOrderitemById(exres.get(i).getOId());
+    			exres.get(i).setGood(orderitem.getAdProductInfo());
+    			good = orderitem.getAdProductInfo();
+    			//获取第一个轮转图片，并改变地址格式
+    	    	if (good!=null) {
+    				image = this.imagemgr.findImageListOneByPId(good.getPId());
+    				if (image!=null) {
+    					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+    					path = path.replaceAll("\\\\", "/");
+    					pathList.add(path);
+    				}else {
+    					pathList.add("nopath");
+    				}
+    	    	}
+    	    	
+    	    	//查找申请用户昵称
+    	    	cust = this.custmgr.findCustById(exres.get(i).getUId());
+    	    	nicknames.add(cust.getUNickName());
+    		}
+		}
+		
+		request.setAttribute("pathList", pathList);
+    	request.setAttribute("nicknames", nicknames);
+		return "stexer";
+	}
+	
+	
+	//超管查看退换货列表
+	public String superexre() {
+		exres =this.exremgr.findAdExregoods();
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+    	
+    	List<String> nicknames = new ArrayList<String>();
+    	if (exres!=null) {
+    		for (int i = 0; i < exres.size(); i++) {
+    			orderitem = this.orderItemgr.findOrderitemById(exres.get(i).getOId());
+    			exres.get(i).setGood(orderitem.getAdProductInfo());
+    			good = orderitem.getAdProductInfo();
+    			//获取第一个轮转图片，并改变地址格式
+    	    	if (good!=null) {
+    				image = this.imagemgr.findImageListOneByPId(good.getPId());
+    				if (image!=null) {
+    					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+    					path = path.replaceAll("\\\\", "/");
+    					pathList.add(path);
+    				}else {
+    					pathList.add("nopath");
+    				}
+    	    	}
+    	    	
+    	    	//查找申请用户昵称
+    	    	cust = this.custmgr.findCustById(exres.get(i).getUId());
+    	    	nicknames.add(cust.getUNickName());
+    		}
+		}
+		
+		request.setAttribute("pathList", pathList);
+    	request.setAttribute("nicknames", nicknames);
+		
+		return "superexre";
+	}
+	
+	//查看个人退换货商品列表
+	public String exreperson() {
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+		UId = (Integer) session.getAttribute("cusId");
+		exres = this.exremgr.findEXREAuthByUId(UId);
+		if (exres!=null) {
+			for (int i = 0; i < exres.size(); i++) {
+				orderitem = this.orderItemgr.findOrderitemById(exres.get(i).getOId());
+				exres.get(i).setGood(orderitem.getAdProductInfo());
+				good = orderitem.getAdProductInfo();
+				//获取第一个轮转图片，并改变地址格式
+		    	if (good!=null) {
+					image = this.imagemgr.findImageListOneByPId(good.getPId());
+					if (image!=null) {
+						String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+						path = path.replaceAll("\\\\", "/");
+						pathList.add(path);
+					}else {
+						pathList.add("nopath");
+					}
+		    	}
+			}
+		}
+		
+		request.setAttribute("pathList", pathList);
+		
+		return "exreperson";
+	}
+	
+	
+	//退换货申请
+	public void exreauth() {
+		Json json = new Json();
+		UId = (Integer) session.getAttribute("cusId");
+//		exres = this.exremgr.findEXREAuthByOIdWithState(OId,auth);
+		exre = this.exremgr.findEXREAuthByOId(OId);
+		if (exre==null) {
+			//创建新的退换货表
+			AdExregood exrenew = new AdExregood();
+			exrenew.setErAmount(OAmount);
+			exrenew.setErAuth(auth);
+			exrenew.setErReason(erReason);
+			exrenew.setErState(0);
+			exrenew.setOId(OId);
+			exrenew.setUId(UId);
+			orderitem =this.orderItemgr.findOrderitemById(OId);
+			exrenew.setStId(orderitem.getAdProductInfo().getStId());
+			this.exremgr.addEXREAuth(exrenew);
+			
+			json.setSuccess(true);
+		}else {
+			exre.setErAmount(OAmount);
+			exre.setErAuth(auth);
+			exre.setErReason(erReason);
+			exre.setErState(0);
+			this.exremgr.saveOrUpdateEXREAuth(exre);
+			
+			json.setSuccess(false);
+		}
+		
+		writeJson(json);
+	}
 	
 	
 	//普通用户查看订单详情
@@ -261,6 +729,36 @@ public class OrderAction extends BaseAction {
 		paidOrders = this.ordermgr.findOrderByUId(UId, "paid");
 		finishOrders = this.ordermgr.findOrderByUId(UId, "finished");
 		
+		orderitems = new ArrayList<AdOrderitem>();
+		if (paidOrders!=null) {
+			for (int i = 0; i < paidOrders.size(); i++) {
+				List<AdOrderitem> list = this.orderItemgr.findOrderItemByCoIdAndState(paidOrders.get(i).getCoId(), "sending");
+				orderitems.addAll(list);
+			}
+		}
+		//第一个轮转图片路径
+    	List<String> pathList = new ArrayList<String>();
+		if (orderitems!=null) {
+			for (int i = 0; i < orderitems.size(); i++) {
+				orderitem = orderitems.get(i);
+    			good = orderitem.getAdProductInfo();
+    			//获取第一个轮转图片，并改变地址格式
+    	    	if (good!=null) {
+    				image = this.imagemgr.findImageListOneByPId(good.getPId());
+    				if (image!=null) {
+    					String path = "." + image.getIfFilepath().substring(image.getIfFilepath().indexOf("\\upload\\"));
+    					path = path.replaceAll("\\\\", "/");
+    					pathList.add(path);
+    				}else {
+    					pathList.add("nopath");
+    				}
+    	    	}
+    	    	
+			}
+		}
+		
+		request.setAttribute("pathList", pathList);
+		
 		return "list";
 	}
 	
@@ -325,18 +823,54 @@ public class OrderAction extends BaseAction {
 		String keyValue = PayConfig.getValue("keyValue");
 		
 		boolean b = PaymentUtil.verifyCallback(hmac, p1_MerId, r0_Cmd, r1_Code, r2_TrxId, r3_Amt, r4_Cur, r5_Pid, r6_Order, r7_Uid, r8_MP, r9_BType, keyValue);
+		
+		System.out.println("r6_Order:"+r6_Order);
+		
+		request.setAttribute("paymsg", "支付失败！！！");
+		
 		if(!b){
 //			response.getWriter().write("交易签名已被修改！！！");
 //			return ;
+			request.setAttribute("paymsg", "交易签名已被修改！！！");
 		}
+		
+		
 		
 		if("1".equals(r1_Code)){  //处理支付成功
 			if("1".equals(r9_BType)){
 //				response.getWriter().write("支付成功！！");
 //				return;
+				//修改状态为已支付
+				order = this.ordermgr.findOrderBycoName(r6_Order);
+				order.setCoOrderState("paid");
+				this.ordermgr.saveOrUpdateOrder(order);
+				
+				//修改相关条目状态状态为发货中
+				orderitems = this.orderItemgr.findOrderItemByCoId(order.getCoId());
+				if (orderitems!=null) {
+					for (int i = 0; i < orderitems.size(); i++) {
+						orderitems.get(i).setOState("sending");
+						this.orderItemgr.saveOrUpdateOrderItem(orderitems.get(i));
+					}
+				}
+				request.setAttribute("paymsg", "支付成功！！");
 			}
 			if("2".equals(r9_BType)){
 //				response.getWriter().write("success");
+				//修改状态为已支付
+				order = this.ordermgr.findOrderBycoName(r6_Order);
+				order.setCoOrderState("paid");
+				this.ordermgr.saveOrUpdateOrder(order);
+				
+				//修改相关条目状态状态为发货中
+				orderitems = this.orderItemgr.findOrderItemByCoId(order.getCoId());
+				if (orderitems!=null) {
+					for (int i = 0; i < orderitems.size(); i++) {
+						orderitems.get(i).setOState("sending");
+						this.orderItemgr.saveOrUpdateOrderItem(orderitems.get(i));
+					}
+				}
+				request.setAttribute("paymsg", "支付成功！！");
 			}
 		}
 		
@@ -378,6 +912,11 @@ public class OrderAction extends BaseAction {
 		    	
 		    	//计算总价
 		    	totalprice += priceone;
+		    	
+		    	//更新订单条目状态为未支付
+		    	orderitem = orderitems.get(i);
+		    	orderitem.setOState("nonpay");
+		    	this.orderItemgr.saveOrUpdateOrderItem(orderitem);
 			}
 			//更新订单创建时间为现在
 	    	//获取创建时间
@@ -1155,6 +1694,136 @@ public class OrderAction extends BaseAction {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+
+	public String getAuth() {
+		return auth;
+	}
+
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+
+
+	public OrderManager getExremgr() {
+		return exremgr;
+	}
+
+
+	public void setExremgr(OrderManager exremgr) {
+		this.exremgr = exremgr;
+	}
+
+
+	public AdExregood getExre() {
+		return exre;
+	}
+
+
+	public void setExre(AdExregood exre) {
+		this.exre = exre;
+	}
+
+
+	public List<AdExregood> getExres() {
+		return exres;
+	}
+
+
+	public void setExres(List<AdExregood> exres) {
+		this.exres = exres;
+	}
+
+
+	public Integer getOId() {
+		return OId;
+	}
+
+
+	public void setOId(Integer oId) {
+		OId = oId;
+	}
+
+
+	public String getErReason() {
+		return erReason;
+	}
+
+
+	public void setErReason(String erReason) {
+		this.erReason = erReason;
+	}
+
+
+	public Integer getErId() {
+		return erId;
+	}
+
+
+	public void setErId(Integer erId) {
+		this.erId = erId;
+	}
+
+
+	public String getErFeedback() {
+		return erFeedback;
+	}
+
+
+	public void setErFeedback(String erFeedback) {
+		this.erFeedback = erFeedback;
+	}
+
+
+	public Integer getErState() {
+		return erState;
+	}
+
+
+	public void setErState(Integer erState) {
+		this.erState = erState;
+	}
+
+	public OrderManager getLogisticsmgr() {
+		return logisticsmgr;
+	}
+
+	public void setLogisticsmgr(OrderManager logisticsmgr) {
+		this.logisticsmgr = logisticsmgr;
+	}
+
+	public AdLogistics getLogistics() {
+		return logistics;
+	}
+
+	public void setLogistics(AdLogistics logistics) {
+		this.logistics = logistics;
+	}
+
+	public Integer getLgId() {
+		return lgId;
+	}
+
+	public void setLgId(Integer lgId) {
+		this.lgId = lgId;
+	}
+
+	public String getLgCompaby() {
+		return lgCompaby;
+	}
+
+	public void setLgCompaby(String lgCompaby) {
+		this.lgCompaby = lgCompaby;
+	}
+
+	public String getLgNumber() {
+		return lgNumber;
+	}
+
+	public void setLgNumber(String lgNumber) {
+		this.lgNumber = lgNumber;
 	}
 	
 	

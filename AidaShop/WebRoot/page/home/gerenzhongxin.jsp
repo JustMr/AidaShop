@@ -20,6 +20,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/style-clear.css">
 	<link rel="stylesheet" type="text/css" href="css/style-grzx.css">
 	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+		function setIframeHeight(iframe) {
+		if (iframe) {
+		var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+		if (iframeWin.document.body) {
+		iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+		}
+		}
+		};
+		
+		function sizeiframe() {
+		setIframeHeight(document.getElementById('reexwarp'));
+		};
+	</script>
 	
   </head>
   
@@ -59,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		</dl>
    		<dl>
    			<dt>客户服务</dt>
-   			<dd><a href="javascript:void(0);">返修退换货</a></dd>
+   			<dd><a href="exrepersonOrderAction" target="grzxFrame">返修退换货</a></dd>
    			<dd><a href="javascript:void(0);">购买咨询</a></dd>
    			<dd><a href="authCenterStoreAuthAction" target="grzxFrame">申请中心</a></dd>
    			<dd class="lastDd"><a href="javascript:void(0);">举报中心</a></dd>
@@ -71,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    		</dl>
    	</div>
    	<div class="grzxRight">
-   		<iframe id="grzxFrame" name="grzxFrame" src="" frameborder="0" scrolling="auto" marginheight="0" marginwidth="0"></iframe>
+   		<iframe id="grzxFrame" name="grzxFrame" src="" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"  onload="sizeiframe()"></iframe>
    	</div>
    	<div class="clear"></div>
    </div>

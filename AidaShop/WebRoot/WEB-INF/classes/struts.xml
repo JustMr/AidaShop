@@ -172,7 +172,19 @@
 			<result name="superlist">/page/backstage/superorderlist.jsp</result>
 			<result name="statistics">/page/backstage/orderstatistics.jsp</result>
 			<result name="viorder">/page/order/orderdetail.jsp</result>
+			<result name="exreperson">/page/order/reexpersonal.jsp</result>
+			<result name="superexre">/page/backstage/superreexmanage.jsp</result>
+			<result name="stexer">/page/backstage/stexer.jsp</result>
+			<result name="editexer">/page/order/exerdetail.jsp</result>
+			<result name="storder">/page/backstage/storderlist.jsp</result>
+			<result name="grfinish" type="redirect">listOrderAction.action</result>
+			<result name="stvi">/page/backstage/stviorder.jsp</result>
 		</action>  
 		
+	</package>
+	<package name="aidapay"  namespace="/servlet" extends="struts-default">
+		<action name="PaymentResponse" class="OrderActionBean" method="paymentresponse">
+			<result name="response">/page/payment/payresult.jsp</result>
+		</action>  
 	</package>
 </struts>    

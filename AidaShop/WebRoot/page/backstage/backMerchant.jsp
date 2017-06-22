@@ -31,6 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	.ashow {border-bottom: 2px solid red;}
     	.ordertab {display: none;}
     	.tabshow {display: block;}
+    	.exera {display: inline-block;height: 24px;line-height: 24px;padding: 3px 5px;text-align: center;}
+    	.exershow {border-bottom: 2px solid red;}
     </style>
 	<script type="text/javascript">
 		$(function() {
@@ -38,10 +40,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$(".ordera").removeClass("ashow");
 				$(this).addClass("ashow");
 				var index = $(this).index(".ordera");
-				$(".ordertab").removeClass("tabshow");
-				$(".ordertab").eq(index).addClass("tabshow");
+				if (index==0) {
+					$("#orderwarp").attr("src","stfinishOrderAction");
+				}else if (index==1) {
+					$("#orderwarp").attr("src","stunpaidOrderAction");
+				}else if (index==2) {
+					$("#orderwarp").attr("src","stsendingOrderAction");
+				}
+			});
+			$(".exera").click(function() {
+				$(".exera").removeClass("exershow");
+				$(this).addClass("exershow");
+				var index = $(this).index(".exera");
+				if (index==0) {
+					$("#reexwarp").attr("src","stexerOrderAction");
+				}else if (index==1) {
+					$("#reexwarp").attr("src","streOrderAction");
+				}else if (index==2) {
+					$("#reexwarp").attr("src","stexOrderAction");
+				}
 			});
 		});
+		
+		function setIframeHeight(iframe) {
+		if (iframe) {
+		var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+		if (iframeWin.document.body) {
+		iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+		}
+		}
+		};
+		
+		function sizeiframe() {
+		setIframeHeight(document.getElementById('reexwarp'));
+		};
+		function sizeiframeorder() {
+		setIframeHeight(document.getElementById('orderwarp'));
+		};
 	</script>
 	
   </head> 
@@ -71,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     					<li id="list_comment" class="list_item"><em></em><span>评价管理</span></li>
     					<li id="list_ad" class="list_item"><em></em><span>广告管理</span></li>
     					<li id="list_fiance" class="list_item"><em></em><span>财务管理</span></li>
-    					<li id="list_refund" class="list_item"><em></em><span>急速退款</span></li>
+    					<li id="list_refund" class="list_item"><em></em><span>退货换货</span></li>
     					<li id="list_set" class="list_item"><em></em><span>店铺设置</span></li>
     				</ul>
     			</div>
@@ -699,52 +734,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    	<a class="ordera" href="javascript:void(0);">待付款</a>
 				    	<a class="ordera" href="javascript:void(0);">待收货</a>
 				    </div>
-				    <div class="ordertab tabshow">
-			    	<table id="brandListTAb" class="bordered">  
-						<thead>  
-						 <tr>  
-						  <th>订单编号</th>  
-						  <th>创建时间</th> 
-						  <th>总价格</th>  
-						  <th>实付</th> 
-						  <th>买家</th>
-						  <th>状态</th>
-						 </tr>  
-						</thead>  
-						<tbody>  
-					 	</tbody>  
-					</table>
-			    </div>
-			    <div class="ordertab">
-			    	<table id="brandListTAb" class="bordered">  
-						<thead>  
-						 <tr>  
-						  <th>订单编号</th>  
-						  <th>创建时间</th> 
-						  <th>总价格</th>  
-						  <th>实付</th> 
-						  <th>状态</th>
-						 </tr>  
-						</thead>  
-						<tbody>  
-					 	</tbody>  
-					</table>
-			    </div>
-			    <div class="ordertab">
-			    	<table id="brandListTAb" class="bordered">  
-						<thead>  
-						 <tr>  
-						  <th>订单编号</th>  
-						  <th>创建时间</th> 
-						  <th>总价格</th>  
-						  <th>实付</th> 
-						  <th>状态</th>
-						 </tr>  
-						</thead>  
-						<tbody>  
-					 	</tbody>  
-					</table>
-			    </div>
+				    <iframe id="orderwarp" name="orderwarp" src="stfinishOrderAction" frameborder="0" scrolling="no" width="1000px" onload="sizeiframeorder()"></iframe>
 		    	</div>
 		    	<div class="manage_comment mer_left_wrap">
 		    		<div class="manger_bar_tit">
@@ -764,7 +754,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<div class="manage_refund mer_left_wrap">
 		    		<div class="manger_bar_tit">
-		    			<span class="mer_left_wrap_name">退款管理</span>
+		    			<span class="mer_left_wrap_name">退货换货</span>
+		    		</div>
+		    		<div class="reexgood">
+		    			<div>
+					    	<a class="exera exershow" href="javascript:void(0);">全部</a>
+					    	<a class="exera" href="javascript:void(0);">退货</a>
+					    	<a class="exera" href="javascript:void(0);">换货</a>
+					    </div>
+		    			<iframe id="reexwarp" name="reexwarp" src="stexerOrderAction" frameborder="0" scrolling="no" width="1000px" onload="sizeiframe()"></iframe>
 		    		</div>
 		    	</div>
 		    	<div class="manage_set mer_left_wrap">

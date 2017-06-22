@@ -13,7 +13,7 @@
 .grzxRight {float: left;width: 950px;border: 1px solid #bdbdbd;border-radius:5px;padding: 10px;}
 .lastDd {margin-bottom: 15px;}
 /*------- iframe框架 ---------*/
-#grzxFrame {width: 931px; height: 500px;}
+#grzxFrame {width: 931px;min-height: 500px;}
 /*----------- 个人信息设置 -----------*/
 #only_info {position: fixed;right: 200px;top: 50px;
 	overflow: hidden;

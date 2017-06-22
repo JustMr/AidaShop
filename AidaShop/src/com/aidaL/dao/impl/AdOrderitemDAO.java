@@ -166,4 +166,28 @@ public class AdOrderitemDAO extends HibernateDaoSupport {
 		}
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdOrderitem> findOrderitemByStIdAndState(Integer stId,
+			String string) {
+		String queryString = "from AdOrderitem as model LEFT OUTER JOIN fetch model.adProductInfo where model.OState = '"+string+"' " +
+				" and model.adProductInfo.stId = "+stId+" order by model.OId desc";
+		List<AdOrderitem> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdOrderitem> findOrderItemByCoIdAndState(Integer coId,
+			String string) {
+		String queryString = "from AdOrderitem as model LEFT OUTER JOIN fetch model.adOrder where model.adOrder.coId = "+coId+" " +
+				"and model.OState = '"+string+"'";
+		List<AdOrderitem> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list;
+		}
+		return null;
+	}
 }

@@ -76,50 +76,7 @@ $(document).ready(function(){
 	$("#cateSec").on("input propertychange", GoodTJCategoryTrd);
 	BrandTJShow();
 	
-	//订单管理
-	FinishedOrderShow();
-	
 });
-function FinishedOrderShow() {
-	$.ajax({
-		url: "",
-		type: "post",
-		dataType: "json",
-		success: function(data) {
-			FastJson.format(data);
-			
-		},
-		error: function() {
-			alert("something wrong!");
-		}
-	});
-}
-function nonpayOrderShow() {
-	$.ajax({
-		url: "",
-		type: "post",
-		dataType: "json",
-		success: function(data) {
-			FastJson.format(data);
-		},
-		error: function() {
-			alert("something wrong!");
-		}
-	});
-}
-function PaidOrderShow() {
-	$.ajax({
-		url: "",
-		type: "post",
-		dataType: "json",
-		success: function(data) {
-			FastJson.format(data);
-		},
-		error: function() {
-			alert("something wrong!");
-		}
-	});
-}
 function GoodAuthBack() {
 	$("#viGoodAuth").hide();
 	$("#goodAuthtab").show();
@@ -1257,6 +1214,7 @@ function selected7() {
 	$("#list_refund").addClass("mer_list_selected");
 	$(".mer_left_wrap").hide();
 	$(".manage_refund").show();
+	$("#reexwarp").attr("src","stexerOrderAction");
 }
 function selected8() {
 	$(".list_item").removeClass("mer_list_selected");

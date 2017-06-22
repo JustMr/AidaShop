@@ -214,4 +214,14 @@ public class AdOrderDAO extends HibernateDaoSupport {
 		}
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	public AdOrder findOrderBycoName(String coName) {
+		String queryString = "from AdOrder as model where model.coName = '"+coName+"'";
+		List<AdOrder> list = this.getHibernateTemplate().find(queryString);
+		if (list.size()>0) {
+			return list.get(0);
+		}
+		return null;
+	}
 }

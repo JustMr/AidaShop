@@ -105,6 +105,9 @@ function frameShow() {
 	}else if(name=="商品上架管理") {
 		$("#backHFrame").attr("src","superGAListGoodAction");
 		 
+	}else if(name=="退换货管理") {
+	$("#backHFrame").attr("src","superexreOrderAction");
+	
 	}
 	else if (name=="订单列表") {
 		$("#backHFrame").attr("src","superlistOrderAction");

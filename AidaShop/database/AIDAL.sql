@@ -360,3 +360,28 @@ CREATE TABLE ad_hatearticle (
 	ar_id INT,										--所属文章表ID
 	u_id INT,										--用户ID
 )
+--退换货申请表
+CREATE TABLE ad_exregood (
+	er_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--表ID
+	er_auth VARCHAR(10) NOT NULL,
+	o_id INT,
+	er_reason VARCHAR(300),
+	er_state INT DEFAULT(0),
+)
+--添加退换货数量
+ALTER TABLE ad_exregood ADD er_amount INT
+--添加拒绝原因
+ALTER TABLE ad_exregood ADD er_feedback INT
+ALTER TABLE ad_exregood ALTER COLUMN er_feedback VARCHAR(300)
+--添加用户ID
+ALTER TABLE ad_exregood ADD u_id INT
+--添加商品所属店铺ID
+ALTER TABLE ad_exregood ADD st_id INT
+
+--物流表
+CREATE TABLE ad_logistics (
+	lg_id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,	--表ID
+	lg_compaby VARCHAR(50),							--物流公司
+	lg_number VARCHAR(100),							--物流单号
+	o_id INT,										--订单条目
+)
